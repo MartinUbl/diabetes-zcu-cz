@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    
+    <link rel="icon" href="{$baseUrl}/favicon.ico">
+
+    <title>{ifset title}{include title|stripHtml} | {/ifset}Portál diabetes.zcu.cz</title>
+    
+    <script src="https://kit.fontawesome.com/8321f6fdd4.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script>
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="{$baseUrl}/css/main.css" rel="stylesheet" >
+</head>
+
+<body>
+    <div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
+    
+    <div class="title-navbar">
+        <div class="container">
+            <a class="brand-wrap" href="{$baseUrl}">
+                Portál diabetes.zcu.cz
+            </a>
+        </div>
+    </div>
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark main-navbar">
+        
+        <div class="container">
+        
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto my-2 my-lg-0">
+                    <li class="nav-item{if $presenterName == "homepage"} active{/if}">
+                        <a class="nav-link" n:href="Homepage:">Domů</a>
+                    </li>
+                    <li class="nav-item{if $presenterName == "diabetes"} active{/if}">
+                        <a class="nav-link" n:href="Diabetes:">Diabetes</a>
+                    </li>
+                    <li class="nav-item{if $presenterName == "smartcgms"} active{/if}">
+                        <a class="nav-link" n:href="Smartcgms:">SmartCGMS</a>
+                    </li>
+                    <li class="nav-item{if $presenterName == "ikaros"} active{/if}">
+                        <a class="nav-link" n:href="Ikaros:">Íkaros</a>
+                    </li>
+                    <li class="nav-item dropdown{if $presenterName == "about"} active{/if}">
+                        <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            O projektu
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                          <a class="dropdown-item" n:href="About:">Zaměření projektu</a>
+                          <a class="dropdown-item" n:href="About:">Tým</a>
+                          <a class="dropdown-item" n:href="About:">Publikace</a>
+                        </div>
+                    </li>
+                    <li class="nav-item{if $presenterName == "patient"} active{/if}">
+                        <a class="nav-link" n:href="Patient:">Pacient</a>
+                    </li>
+                    <li class="nav-item{if $presenterName == "profi"} active{/if}">
+                        <a class="nav-link" n:href="Profi:">Odborník</a>
+                    </li>
+                    <li class="nav-item{if $presenterName == "media"} active{/if}">
+                        <a class="nav-link" n:href="Media:">Média</a>
+                    </li>
+                    <li class="nav-item{if $presenterName == "contact"} active{/if}">
+                        <a class="nav-link" n:href="Contact:">Kontakt</a>
+                    </li>
+                </ul>
+                <span class="navbar-text">
+                    <ul class="navbar-nav mr-auto my-2 my-lg-0">
+                    {if $user->isLoggedIn()}
+                        <li class="nav-item">
+                            <a class="nav-link" n:href="Dashboard:">Uživatelská sekce</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" n:href="Logout!">Odhlásit se</a>
+                        </li>
+                    {else}
+                        <li class="nav-item">
+                            <a class="nav-link" n:href="Login:">Přihlásit se</a>
+                        </li>
+                    {/if}
+                    </ul>
+                </span>
+            </div>
+        
+        </div>
+    </nav>
+    
+    <div class="container container-main">
+
+    {include content}
+    
+    </div>
+    
+    <hr />
+    
+    <footer>
+        <div class="container">
+            &copy; since 2015 · <a href="http://mi.kiv.zcu.cz/">medicínská informatika</a> · <a href="http://kiv.zcu.cz/">kiv</a> · <a href="http://fav.zcu.cz/">fav</a> · <a href="http://zcu.cz/">zču</a>
+        </div>
+    </footer>
+
+    {block scripts}
+    <script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
+    <script src="{$basePath}/js/jquery.nette.js"></script>
+    <script src="{$basePath}/js/nette.ajax.js"></script>
+    <script src="{$basePath}/js/live-form-validation.js"></script>
+    <script src="{$basePath}/js/main.js"></script>
+    {/block}
+</body>
+</html>

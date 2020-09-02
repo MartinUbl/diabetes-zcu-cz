@@ -1,0 +1,45 @@
+{block content}
+
+
+<div class="row justify-content-md-center">
+    <div class="col-xs-6 col-sm-6">
+        
+        <h2>Login</h2>
+        
+        {ifset $loginFormError}
+        <div class="alert alert-danger" role="alert">
+            {$loginFormError}
+        </div>
+        {/ifset}
+        
+        {form loginForm}
+            <div class="row">
+                <div class="col-xs-12 col-sm-12">
+                    {label email /}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 form-group">
+                    {input email class=>'form-control'}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 ">
+                    {label password /}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 form-group">
+                    {input password class=>'form-control'}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 form-group">
+                    {input submit class=>'btn btn-primary btn-block'}
+                </div>
+            </div>
+        {/form}
+        
+    </div>
+</div>
+

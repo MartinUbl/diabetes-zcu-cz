@@ -1,0 +1,6 @@
+parameters:
+
+database:
+    dsn: '${{DB_DBMS}}:host=${{DB_HOST}};dbname=${{DB_DBNAME}}'
+    user: ${{DB_USERNAME}}
+    password: ${{DB_PASSWORD}}

@@ -1,0 +1,192 @@
+
+.title-navbar
+{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1rem;
+    background-color: #f8f9fa !important;
+    font-variant: small-caps;
+}
+
+.brand-wrap
+{
+    height: 1.75em;
+    padding: 0 0 0 2.5em;
+    line-height: 1.75em;
+
+    font-size: 1.75em;
+    
+    background-image: url('../img/icon.png');
+    background-repeat: no-repeat;
+    background-size: 1.75em;
+    
+    display: inline-block;
+    margin-right: 1rem;
+    white-space: nowrap;
+}
+
+.navbar>.container, .title-navbar>.container
+{
+    padding-top: 0;
+}
+
+.navbar-nav
+{
+    font-size: 0.9em;
+    font-variant: small-caps;
+    cursor: pointer;
+}
+
+.navbar-text
+{
+    padding: 0;
+}
+
+.navbar-collapse
+{
+    align-items: flex-end;
+}
+
+.nav-link
+{
+    line-height: 2.5em;
+    cursor: pointer;
+}
+
+.navbar-dark .navbar-nav .nav-link
+{
+    padding: 0 1.0em 0 1.0em;
+}
+
+a.brand-wrap
+{
+    text-decoration: none;
+    color: black !important;
+}
+
+.navbar
+{
+    padding: 0;
+}
+
+.navbar-nav .active>.nav-link, .nav-link:hover
+{
+    background-color: rgb(83,190,251) !important;
+}
+
+.container
+{
+    padding-top: 1em;
+}
+
+.embed-container
+{
+    position: relative; 
+    padding-bottom: 32%; 
+    height: 200px;
+    overflow: hidden; 
+    max-width: 100%; 
+} 
+
+.embed-container iframe, .embed-container object, .embed-container embed
+{
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+}
+
+.jumbotron.primary
+{
+    color: #121212;
+    background-color: #8cd5ff !important;
+}
+
+.logo_container
+{
+    display: block;
+    position: relative;
+    height: 100px;
+    vertical-align: middle;
+}
+
+.logo_contact
+{
+    max-width: 60%;
+    max-height: 100px;
+    display: block;
+    vertical-align: middle;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+footer>.container
+{
+    padding-top: 0;
+    font-variant: small-caps;
+}
+
+.container-main
+{
+    padding-top: 2em;
+}
+
+h1, h2
+{
+    font-variant: small-caps;
+    width: 100%;
+    padding-bottom: 0.1em;
+    border-bottom: 1px solid #343a40;
+}
+
+.contact-table td
+{
+    vertical-align: top;
+    padding: 0.35em;
+    line-height: 1.2em;
+    font-size: 1.2em;
+}
+
+.contact-table td.icontd
+{
+    padding-top: 0.485em;
+}
+
+.contactrow
+{
+    padding: 0.8em;
+}
+
+hr
+{
+    margin-bottom: 0.8em;
+}
+
+p.last
+{
+    margin-bottom: 0;
+}
+
+.form-group
+{
+    position: relative;
+}
+
+.form-error-message
+{
+    display: inline-block;
+    color: red;
+    font-weight: bold;
+    font-size: 8pt;
+    
+    padding: inherit;
+    position: absolute;
+    right: 1em;
+    top: 1em;
+}
