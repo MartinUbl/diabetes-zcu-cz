@@ -140,7 +140,12 @@ final class ApiPresenter extends BasePresenter
         if (!$rec)
             $this->setResponseAndDie(404);
         
-        $f->move(UPLOADS_DIR.$rec->id.'.log');
+        $dir = $this->context->parameters['configuration']['uploads_dir'];
+        $dir = str_replace('\\', '/', $dir);
+        if ($dir[strlen($dir) - 1] != '/')
+            $dir .= '/';
+        
+        $f->move($dir.$rec->id.'.log');
         
         $this->uploadsModel->eraseUploadId($rec->id);
         

@@ -1,4 +1,6 @@
 parameters:
+    configuration:
+        uploads_dir: ${{UPLOADS_DIR}}
 
 database:
     dsn: '${{DB_DBMS}}:host=${{DB_HOST}};dbname=${{DB_DBNAME}}'

@@ -1,0 +1,61 @@
+
+{block content}
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12">
+        
+        <h2>Experiment: {$experiment->name}</h2>
+        
+        <a n:href="Experiments:dashboard $experiment->id" class="btn btn-primary" title="Experiment dashboard">Dashboard</a>
+        
+        {snippet participantsSnippet}
+        <div class="row">
+            <div class="col-xs-6 col-sm-6">
+                <h5>Participating physicians:</h5>
+
+                <ul>
+                {foreach $participants as $ptc}
+                    {if $ptc->users->role == 'physician'}
+                        <li>{$ptc->users->email} <a n:href="removeParticipant! $ptc->users->id" class="ajax">X</a></li>
+                    {/if}
+                {/foreach}
+                </ul>
+            </div>
+                
+            <div class="col-xs-6 col-sm-6">
+                <h5>Participating patients:</h5>
+                
+                <ul>
+                {foreach $participants as $ptc}
+                    {if $ptc->users->role == 'patient'}
+                        <li>{$ptc->users->email} <a n:href="removeParticipant! $ptc->users->id" class="ajax">X</a></li>
+                    {/if}
+                {/foreach}
+                </ul>
+            </div>
+        </div>
+        {/snippet}
+                
+        <div class="row">
+            <div class="col-xs-6 col-sm-6">
+                {form searchUserForm class => 'ajax'}
+                    {label email /}
+                    {input email class=>'form-control'}
+                    {input submit class=>'btn btn-primary'}
+                {/form}
+            </div>
+            <div class="col-xs-6 col-sm-6">
+                {snippet userSearchResults}
+                    {if isset($foundUsers) && $foundUsers}
+                        <ul>
+                        {foreach $foundUsers as $usr}
+                            <li>{$usr->email} ({$usr->role}) <a n:href="addParticipant! $usr->id" class="ajax">+</a></li>
+                        {/foreach}
+                        </ul>
+                    {/if}
+                {/snippet}
+            </div>
+        </div>
+        
+    </div>
+</div>

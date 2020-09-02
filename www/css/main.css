@@ -190,3 +190,41 @@ p.last
     right: 1em;
     top: 1em;
 }
+
+.flash
+{
+    position: fixed;
+    top: 100px;
+    z-index: 1000;
+    left: 0;
+    display: block;
+    width: auto;
+    line-height: 3em;
+    padding: 0 1em;
+    opacity: 1;
+    
+    background: #cccccc;
+    border: 1px solid #888;
+    border-left: none !important;
+}
+
+.flash.success
+{
+    background: #9F9;
+    border: 1px solid #090;
+}
+
+.flash.error
+{
+    background: #F99;
+    border: 1px solid #900;
+}
+
+.flash.fadeout
+{
+    -webkit-transition: opacity 3s ease-in-out;
+    -moz-transition: opacity 3s ease-in-out;
+    -ms-transition: opacity 3s ease-in-out;
+    -o-transition: opacity 3s ease-in-out;
+     opacity: 0;
+}

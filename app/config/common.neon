@@ -14,3 +14,4 @@ services:
     - App\Models\Authenticator
     - App\Models\UserModel
     - App\Models\UploadsModel
+    - App\Models\ExperimentModel

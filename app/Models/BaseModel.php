@@ -51,5 +51,15 @@ abstract class BaseModel
     {
         return $this->table($this->implicitTable);
     }
+    
+    /**
+     * Retrieves a record by its ID
+     * @param int $id
+     * @return \Nette\Database\Table\ActiveRow
+     */
+    public function getById($id)
+    {
+        return $this->getTable()->where('id', $id)->fetch();
+    }
 }
 

@@ -43,6 +43,16 @@ class UserModel extends BaseModel
     }
     
     /**
+     * Retrieves user record based on part of email address
+     * @param string $part
+     * @return \Nette\Database\Table\ActiveRow
+     */
+    public function getUserByEmailPart($part)
+    {
+        return $this->getTable()->where('email LIKE ?', '%'.$part.'%');
+    }
+    
+    /**
      * Retrieves users fetched into associative map
      * @return array
      */
@@ -69,8 +79,8 @@ class UserModel extends BaseModel
             'email' => $email,
             'password' => Passwords::hash($password),
             'role' => 'user',
-			'api_token' => "",
-			'api_token_valid_to' => "1970-01-01 00:00:00",
+            'api_token' => "",
+            'api_token_valid_to' => "1970-01-01 00:00:00",
         ));
     }
 

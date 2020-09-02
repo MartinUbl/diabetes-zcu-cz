@@ -22,7 +22,9 @@ if (!\App\Models\Validators::validateEmail($email))
 if (!\App\Models\Validators::validatePasswordStrength($password))
     die("Weak password, use 6 characters or more\n");
 
-if ($role !== 'admin' && $role !== 'user')
+$validRoles = [ 'admin', 'patient', 'physician' ];
+
+if (!in_array($role, $validRoles))
     die("Invalid role!");
 
 if ($users->getUserByEmail($email))

@@ -1,0 +1,34 @@
+
+{block content}
+
+<div class="row justify-content-md-center">
+    <div class="col-xs-6 col-sm-6">
+        
+        <h2>New experiment</h2>
+        
+        {ifset $formError}
+        <div class="alert alert-danger" role="alert">
+            {$formError}
+        </div>
+        {/ifset}
+        
+        {form newExperimentForm}
+            <div class="row">
+                <div class="col-xs-12 col-sm-12">
+                    {label name/}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 form-group">
+                    {input name class=>'form-control'}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 form-group">
+                    {input submit class=>'btn btn-primary btn-block'}
+                </div>
+            </div>
+        {/form}
+
+    </div>
+</div>

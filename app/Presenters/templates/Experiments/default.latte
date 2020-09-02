@@ -1,0 +1,21 @@
+
+{block content}
+
+<div class="row justify-content-md-center">
+    <div class="col-xs-12 col-sm-12">
+        
+        <h2>Experiments</h2>
+
+        {if $user->isInRole('admin')}
+            <a n:href="Experiments:new" class="btn btn-primary">New experiment</a>
+        {/if}
+        
+
+        <ul>
+            {foreach $experiments as $exp}
+                <li><a n:href="Experiments:detail $exp->id" title="{$exp->name}">{$exp->name}</a></li>
+            {/foreach}
+        </ul>
+
+    </div>
+</div>
