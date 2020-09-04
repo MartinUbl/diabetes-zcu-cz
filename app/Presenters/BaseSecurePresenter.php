@@ -18,6 +18,9 @@ class BaseSecurePresenter extends BasePresenter
         parent::startup();
         
         if (!$this->getUser()->isLoggedIn())
+        {
+            $this->flashMessage("You must be logged in to view this page!", 'error');
             $this->redirect("Login:");
+        }
     }
 }

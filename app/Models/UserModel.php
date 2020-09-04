@@ -125,7 +125,7 @@ class UserModel extends BaseModel
             'api_token_valid_to' => $valid_to
         ));
 
-        return $token;
+        return [ 'token' => $token, 'valid-to' => $valid_to];
     }
 }
 

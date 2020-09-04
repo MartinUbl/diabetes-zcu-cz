@@ -47,6 +47,19 @@ final class ExperimentsPresenter extends BaseSecurePresenter
         $this->template->participants = $this->experiments->getExperimentParticipants($id);
     }
     
+    public function actionDashboard($id)
+    {
+        $this->currentExperiment = $this->experiments->getById($id);
+        if (!$this->currentExperiment)
+        {
+            $this->flashMessage('No such experiment found!', 'error');
+            $this->redirect('Experiments:');
+        }
+        
+        $this->template->experiment = $this->currentExperiment;
+        $this->template->participants = $this->experiments->getExperimentParticipants($id);
+    }
+    
     public function createComponentNewExperimentForm()
     {
         $form = new Form();

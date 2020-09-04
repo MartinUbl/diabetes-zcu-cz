@@ -90,9 +90,19 @@ final class ApiPresenter extends BasePresenter
         if (!$this->passwords->verify($this->reqBody->password, $usr->password))
             $this->setResponseAndDie(403);
 
-        $token = $this->userModel->createApiTokenForUser($usr->id);
+        $tokenInfo = $this->userModel->createApiTokenForUser($usr->id);
+        
+        $respBody = array(
+            'token-info' => $tokenInfo,
+            'user-info' => array(
+                'first-name' => $usr->first_name,
+                'last-name' => $usr->last_name,
+                'birthdate' => $usr->birthdate,
+                'diagnosis' => $usr->diagnosis
+            )
+        );
 
-        $this->setResponseAndDie(200, array('api-token' => $token));
+        $this->setResponseAndDie(200, $respBody);
     }
     
     public function actionRegister()
