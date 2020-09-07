@@ -214,9 +214,7 @@ final class ApiPresenter extends BasePresenter
         $f = $this->getHttpRequest()->getFile('log');
         if (!$f)
             $this->setResponseAndDie(400);
-        
 
-        
         $dir = $this->context->parameters['configuration']['uploads_dir'];
         $dir = str_replace('\\', '/', $dir);
         if ($dir[strlen($dir) - 1] != '/')
@@ -224,12 +222,19 @@ final class ApiPresenter extends BasePresenter
         
         $dstFile = $dir.$upload->id.'.log';
         
-        //$f->move($dstFile);
-        
-        
-        $tmpFile = $dir.$upload->id.'_filepart.log'; // TMP!!!
-        $f->move($tmpFile);
-        
-        $this->setResponseAndDie(200, array('size' => strlen(file_get_contents($tmpFile))));
+        $strApp = $f->getContents();
+        if ($strApp != null)
+        {
+            $oldf = fopen($dstFile, "a");
+            fwrite($oldf, $strApp);
+            fclose($oldf);
+            
+            $checksum = strtolower(sha1_file($dstFile));
+            $this->uploadsModel->setUploadChecksum($upload->id, $checksum);
+            
+            $this->setResponseAndDie(200);
+        }
+        else
+            $this->setResponseAndDie(413);
     }
 }
