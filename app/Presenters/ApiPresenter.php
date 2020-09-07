@@ -195,6 +195,12 @@ final class ApiPresenter extends BasePresenter
     
     public function actionSynchronizeFile($id)
     {
+        $meta = $this->getHttpRequest()->getPost('meta');
+        if (!$meta)
+            $this->setResponseAndDie(409);
+        
+        $this->reqBody = json_decode($meta);
+        
         if (!isset($this->reqBody->checksum))
             $this->setResponseAndDie(400);
         
@@ -208,6 +214,8 @@ final class ApiPresenter extends BasePresenter
         $f = $this->getHttpRequest()->getFile('log');
         if (!$f)
             $this->setResponseAndDie(400);
+        
+
         
         $dir = $this->context->parameters['configuration']['uploads_dir'];
         $dir = str_replace('\\', '/', $dir);
