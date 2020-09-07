@@ -108,7 +108,7 @@ final class ApiPresenter extends BasePresenter
     
     public function actionLogout()
     {
-        $this->userModel->clearApiTokenForUser($usr->id);
+        $this->userModel->clearApiTokenForUser($this->apiUser->id);
         $this->setResponseAndDie(200);
     }
     
