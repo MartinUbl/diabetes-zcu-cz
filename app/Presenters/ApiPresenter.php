@@ -193,7 +193,7 @@ final class ApiPresenter extends BasePresenter
         $this->setResponseAndDie(202);
     }
     
-    public function actionSychronizeFile($id)
+    public function actionSynchronizeFile($id)
     {
         if (!isset($this->reqBody->checksum))
             $this->setResponseAndDie(400);
