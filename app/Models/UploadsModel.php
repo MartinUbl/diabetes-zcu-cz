@@ -17,7 +17,7 @@ class UploadsModel extends BaseModel
         $charactersLength = strlen($characters);
         $randomString = '';
         for ($i = 0; $i < 32; $i++)
-                $randomString .= $characters[rand(0, $charactersLength - 1)];
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
         return $randomString;
     }
 
@@ -66,7 +66,11 @@ class UploadsModel extends BaseModel
 
     public function addUpload($date, $deviceInfo, $users_id)
     {
-        $uploadId = $this->generateUploadId();
+        do
+        {
+            $uploadId = $this->generateUploadId();
+        }
+        while ($this->getUploadByUploadId($uploadId) != null);
         
         $this->getTable()->insert(array(
             'date' => $date,
@@ -82,6 +86,13 @@ class UploadsModel extends BaseModel
     {
         $this->getTable()->where('id', $id)->update(array(
             'upload_id' => null
+        ));
+    }
+    
+    public function setUploadChecksum($id, $checksum)
+    {
+        $this->getTable()->where('id', $id)->update(array(
+            'checksum' => $checksum
         ));
     }
 }

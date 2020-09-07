@@ -53,6 +53,8 @@ final class ApiPresenter extends BasePresenter
             case 'logout':
             case 'uploadMeta':
             case 'uploadFile':
+            case 'synchronizeFileMeta':
+            case 'synchronizeFile':
                 $this->requireValidUser();
                 break;
             default:
@@ -162,10 +164,64 @@ final class ApiPresenter extends BasePresenter
         if ($dir[strlen($dir) - 1] != '/')
             $dir .= '/';
         
-        $f->move($dir.$rec->id.'.log');
+        $dstFile = $dir.$rec->id.'.log';
+        
+        $f->move($dstFile);
+        
+        $checksum = strtolower(sha1_file($dstFile));
         
         $this->uploadsModel->eraseUploadId($rec->id);
+        $this->uploadsModel->setUploadChecksum($rec->id, $checksum);
         
-        $this->setResponseAndDie(200);
+        $this->setResponseAndDie(200, array(
+            'id' => $rec->id
+        ));
+    }
+    
+    public function actionSynchronizeFileMeta($id)
+    {
+        if (!isset($this->reqBody->checksum))
+            $this->setResponseAndDie(400);
+        
+        $upload = $this->uploadsModel->getUploadById($id);
+        if (!$upload || $upload->users_id !== $this->apiUser->id)
+            $this->setResponseAndDie(406);
+        
+        if ($upload->checksum !== $this->reqBody->checksum)
+            $this->setResponseAndDie(410);
+        
+        $this->setResponseAndDie(202);
+    }
+    
+    public function actionSychronizeFile($id)
+    {
+        if (!isset($this->reqBody->checksum))
+            $this->setResponseAndDie(400);
+        
+        $upload = $this->uploadsModel->getUploadById($id);
+        if (!$upload || $upload->users_id !== $this->apiUser->id)
+            $this->setResponseAndDie(406);
+        
+        if ($upload->checksum !== $this->reqBody->checksum)
+            $this->setResponseAndDie(410);
+        
+        $f = $this->getHttpRequest()->getFile('log');
+        if (!$f)
+            $this->setResponseAndDie(400);
+        
+        $dir = $this->context->parameters['configuration']['uploads_dir'];
+        $dir = str_replace('\\', '/', $dir);
+        if ($dir[strlen($dir) - 1] != '/')
+            $dir .= '/';
+        
+        $dstFile = $dir.$upload->id.'.log';
+        
+        //$f->move($dstFile);
+        
+        
+        $tmpFile = $dir.$upload->id.'_filepart.log'; // TMP!!!
+        $f->move($tmpFile);
+        
+        $this->setResponseAndDie(200, array('size' => strlen(file_get_contents($tmpFile))));
     }
 }
