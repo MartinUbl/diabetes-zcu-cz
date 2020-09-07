@@ -11,17 +11,19 @@
             <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/@layout.latte</file>
             <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Experiments/detail.latte</file>
             <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/BasePresenter.php</file>
-            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/migrations/20200902210926_add_uploads_statistics_table.php</file>
             <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Models/BaseModel.php</file>
             <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/www/js/main.js</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/migrations/20200825083503_add_users_table.php</file>
             <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/config/common.neon</file>
             <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/config/local.neon</file>
             <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Experiments/default.latte</file>
             <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Experiments/dashboard.latte</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/BaseSecurePresenter.php</file>
             <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Login/default.latte</file>
             <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/bin/AddAdmin.php</file>
             <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Experiments/new.latte</file>
             <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/config/local-template.neon</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/migrations/20200904084248_add_user_fields.php</file>
             <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/DashboardPresenter.php</file>
             <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/ApiPresenter.php</file>
         </group>

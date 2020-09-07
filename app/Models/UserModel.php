@@ -127,5 +127,17 @@ class UserModel extends BaseModel
 
         return [ 'token' => $token, 'valid-to' => $valid_to];
     }
+    
+    /**
+     * Clears API token for given user
+     * @param int $id
+     */
+    public function clearApiTokenForUser($id)
+    {
+        $this->getTable()->where('id', $id)->update(array(
+            'api_token' => '',
+            'api_token_valid_to' => date('Y-m-d H:i:s', time() - self::API_TOKEN_VALID_PERIOD) // set some invalid date
+        ));
+    }
 }
 

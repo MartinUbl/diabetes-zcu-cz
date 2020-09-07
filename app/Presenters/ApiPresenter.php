@@ -50,6 +50,7 @@ final class ApiPresenter extends BasePresenter
             case 'register':
                 // no valid user info required
                 break;
+            case 'logout':
             case 'uploadMeta':
             case 'uploadFile':
                 $this->requireValidUser();
@@ -103,6 +104,12 @@ final class ApiPresenter extends BasePresenter
         );
 
         $this->setResponseAndDie(200, $respBody);
+    }
+    
+    public function actionLogout()
+    {
+        $this->userModel->clearApiTokenForUser($usr->id);
+        $this->setResponseAndDie(200);
     }
     
     public function actionRegister()
