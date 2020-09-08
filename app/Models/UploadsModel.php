@@ -95,4 +95,23 @@ class UploadsModel extends BaseModel
             'checksum' => $checksum
         ));
     }
+    
+    public function updateUploadStatistics($id, $avg, $dayAvg, $tir, $dayTir, $curDate, $curIg)
+    {
+        $vals = array(
+            'uploads_id' => $id,
+            'last_measurement_date' => date('Y-m-d H:i:s', $curDate),
+            'current_ig' => $curIg,
+            'average_ig' => $avg,
+            'average_ig_24h' => $dayAvg,
+            'time_in_range' => $tir,
+            'time_in_range_24h' => $dayTir
+        );
+        
+        $res = $this->table('uploads_statistics')->where('uploads_id', $id)->fetch();
+        if ($res)
+            $this->table('uploads_statistics')->where('uploads_id', $id)->update($vals);
+        else
+            $this->table('uploads_statistics')->insert($vals);
+    }
 }

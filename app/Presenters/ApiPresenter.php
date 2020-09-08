@@ -173,6 +173,8 @@ final class ApiPresenter extends BasePresenter
         $this->uploadsModel->eraseUploadId($rec->id);
         $this->uploadsModel->setUploadChecksum($rec->id, $checksum);
         
+        $this->updateUploadStatistics($rec);
+        
         $this->setResponseAndDie(200, array(
             'id' => $rec->id
         ));
@@ -226,15 +228,77 @@ final class ApiPresenter extends BasePresenter
         if ($strApp != null)
         {
             $oldf = fopen($dstFile, "a");
+            if (!$oldf)
+                $this->setResponseAndDie(413);
+
             fwrite($oldf, $strApp);
             fclose($oldf);
             
             $checksum = strtolower(sha1_file($dstFile));
             $this->uploadsModel->setUploadChecksum($upload->id, $checksum);
             
+            $this->updateUploadStatistics($upload);
+            
             $this->setResponseAndDie(200);
         }
         else
             $this->setResponseAndDie(413);
+    }
+    
+    protected function updateUploadStatistics($upload)
+    {
+        $dir = $this->context->parameters['configuration']['uploads_dir'];
+        $dir = str_replace('\\', '/', $dir);
+        if ($dir[strlen($dir) - 1] != '/')
+            $dir .= '/';
+        
+        $dstFile = $dir.$upload->id.'.log';
+        
+        $igvals = \Utils\LogParser::parseLog($dstFile);
+        if (!$igvals || count($igvals) == 0)
+            return;
+        
+        $totalAvg = 0;
+        $dayAvg = 0;
+        $dayAvgCnt = 0;
+        $totalTirCnt = 0;
+        $dayTirCnt = 0;
+        $dayTirTotalCnt = 0;
+        
+        $lastIg = null;
+        
+        $lastDayTime = time() - 24*60*60;
+        
+        foreach ($igvals as $ig)
+        {
+            $totalAvg += $ig->level;
+            
+            if ($ig->time > $lastDayTime)
+            {
+                $dayTirTotalCnt++;
+                $dayAvg += $ig->level;
+                $dayAvgCnt++;
+            }
+            
+            if ($ig->level >= 3.8 && $ig->level < 10)
+            {
+                $totalTirCnt++;
+                if ($ig->time > $lastDayTime)
+                    $dayTirCnt++;
+            }
+            
+            if (!$lastIg || $lastIg->time < $ig->time)
+                $lastIg = $ig;
+        }
+        
+        $totalAvg /= count($igvals);
+        if ($dayAvgCnt > 0)
+            $dayAvg /= $dayAvgCnt;
+        $totalTir = $totalTirCnt / count($igvals);
+        $dayTir = 0;
+        if ($dayTirTotalCnt > 0)
+            $dayTir = $dayTirCnt / $dayTirTotalCnt;
+        
+        $this->uploadsModel->updateUploadStatistics($upload->id, $totalAvg, $dayAvg, $totalTir, $dayTir, $lastIg->time, $lastIg->level);
     }
 }
