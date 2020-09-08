@@ -10,8 +10,8 @@ class LogParser
         
         $iglevels = [];
         
-        $file = new SplFileObject($path);
-        $file->setFlags(SplFileObject::READ_CSV);
+        $file = new \SplFileObject($path);
+        $file->setFlags(\SplFileObject::READ_CSV);
         $frst = false;
         foreach ($file as $row)
         {
