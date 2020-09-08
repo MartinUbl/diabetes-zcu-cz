@@ -267,7 +267,12 @@ final class ApiPresenter extends BasePresenter
         
         $lastIg = null;
         
-        $lastDayTime = time() - 24*60*60;
+        foreach ($igvals as $ig)
+        {
+            if (!$lastIg || $lastIg->time < $ig->time)
+                $lastIg = $ig;
+        }
+        $lastDayTime = $lastIg->time - 24*60*60;
         
         foreach ($igvals as $ig)
         {
@@ -286,9 +291,6 @@ final class ApiPresenter extends BasePresenter
                 if ($ig->time > $lastDayTime)
                     $dayTirCnt++;
             }
-            
-            if (!$lastIg || $lastIg->time < $ig->time)
-                $lastIg = $ig;
         }
         
         $totalAvg /= count($igvals);

@@ -13,8 +13,10 @@ class LogParser
         $file = new \SplFileObject($path);
         $file->setFlags(\SplFileObject::READ_CSV);
         $frst = false;
-        foreach ($file as $row)
+        while (!$file->eof())
         {
+            $row = $file->fgetcsv(';');
+            
             // skip header
             if (!$frst)
             {
@@ -23,8 +25,8 @@ class LogParser
             }
             list($lamport, $datetime, $eventname, $info, $level, $segment, $eventcode, $deviceid, $signalid) = $row;
 
-            if ($signalid == "{3034568D-F498-455B-AC6A-BCF301F69C9E}")
-                $iglevels[] = new LevelEntry(strtotime($datetime), floatval($level));
+            if (trim($signalid) == "{3034568D-F498-455B-AC6A-BCF301F69C9E}")
+                $iglevels[] = new LevelEntry(strtotime(trim($datetime)), floatval(trim($level)));
         }
         
         return $iglevels;
