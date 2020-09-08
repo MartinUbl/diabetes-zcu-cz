@@ -11,6 +11,11 @@ class LogParser
         $iglevels = [];
         
         $file = new \SplFileObject($path);
+        if (!$file)
+            return $iglevels;
+        
+        $file->flock(LOCK_SH);
+        
         $file->setFlags(\SplFileObject::READ_CSV);
         $frst = false;
         while (!$file->eof())
@@ -28,6 +33,8 @@ class LogParser
             if (trim($signalid) == "{3034568D-F498-455B-AC6A-BCF301F69C9E}")
                 $iglevels[] = new LevelEntry(strtotime(trim($datetime)), floatval(trim($level)));
         }
+        
+        $file->flock(LOCK_UN);
         
         return $iglevels;
     }

@@ -230,8 +230,16 @@ final class ApiPresenter extends BasePresenter
             $oldf = fopen($dstFile, "a");
             if (!$oldf)
                 $this->setResponseAndDie(413);
-
+            
+            if (!flock($oldf, LOCK_EX))
+            {
+                fclose(oldf);
+                $this->setResponseAndDie(416);
+            }
             fwrite($oldf, $strApp);
+            fflush($oldf);
+            flock($oldf, LOCK_UN);
+            
             fclose($oldf);
             
             $checksum = strtolower(sha1_file($dstFile));
