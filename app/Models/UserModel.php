@@ -11,7 +11,16 @@ class UserModel extends BaseModel
 {
     public $implicitTable = 'users';
     
+    /** @var \Nette\Security\Passwords */
+    public $passwords;
+    
     const API_TOKEN_VALID_PERIOD = 2592000; // 30 days [s]
+    
+    public function __construct(\Nette\Database\Context $database, \Nette\DI\Container $c, \Nette\Security\Passwords $pass) {
+        parent::__construct($database, $c);
+        
+        $this->passwords = $pass;
+    }
 
     /**
      * Retrieves user record by email
@@ -77,7 +86,7 @@ class UserModel extends BaseModel
     {
         return $this->getTable()->insert(array(
             'email' => $email,
-            'password' => Passwords::hash($password),
+            'password' => $this->passwords->hash($password),
             'role' => 'user',
             'api_token' => "",
             'api_token_valid_to' => "1970-01-01 00:00:00",
