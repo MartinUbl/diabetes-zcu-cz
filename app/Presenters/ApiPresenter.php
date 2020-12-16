@@ -100,7 +100,7 @@ final class ApiPresenter extends BasePresenter
             'user-info' => array(
                 'first-name' => $usr->first_name,
                 'last-name' => $usr->last_name,
-                'birthdate' => $usr->birthdate,
+                'birthdate' => $usr->birthdate ? $usr->birthdate : "0000-00-00 00:00:00",
                 'diagnosis' => $usr->diagnosis
             )
         );
