@@ -116,7 +116,19 @@ final class ApiPresenter extends BasePresenter
     
     public function actionRegister()
     {
-        // NYI
+        if (!isset($this->reqBody->email) || !isset($this->reqBody->password))
+            $this->setResponseAndDie(400);
+        
+        $usr = $this->userModel->getUserByEmail($this->reqBody->email);
+        if ($usr)
+            $this->setResponseAndDie(409);
+        
+        if (strlen($this->reqBody->password) < 6)
+            $this->setResponseAndDie(406);
+        
+        $usr = $this->userModel->addUser($this->reqBody->email, $this->reqBody->password);
+        
+        $this->setResponseAndDie(201);
     }
     
     public function actionUploadMeta()
@@ -262,7 +274,11 @@ final class ApiPresenter extends BasePresenter
         
         $dstFile = $dir.$upload->id.'.log';
         
-        $igvals = \Utils\LogParser::parseLog($dstFile);
+        $parsedLevels = \Utils\LogParser::parseLog($dstFile);
+        if (!$parsedLevels || count($parsedLevels) == 0)
+            return;
+        
+        $igvals = $parsedLevels['ig'];
         if (!$igvals || count($igvals) == 0)
             return;
         
