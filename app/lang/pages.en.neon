@@ -172,3 +172,13 @@ downloads:
         title: "Icarus has diabetes"
         text_1: "Here you can download the Icarus has diabetes game. It is currently available for MS Windows only."
         download_button: "Download Icarus has diabetes"
+
+contact:
+    banner:
+        title: "Contact us"
+        text: "We are located at the Faculty of Applied Sciences, University of West Bohemia. You can find us on the third floor of this building, in the informatics section. If you have any questions or wish to co-operate with us, please, do not hesitate to contact us."
+
+    address:
+        section: "Medical informatics,"
+        department: "Department of Computer Science and Engineering,"
+        faculty: "Faculty of Applied Sciences"
