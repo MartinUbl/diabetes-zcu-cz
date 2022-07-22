@@ -306,3 +306,63 @@ cite
 {
     background-color: #FFE7E7;
 }
+
+.img-rounded
+{
+    border-radius: 6px;    
+}
+
+.team-block
+{
+    text-align: justify;
+}
+
+.team-block .team-head
+{
+    text-align: center;
+}
+
+.team-block h4
+{
+    width: 100%;
+    text-align: center;
+}
+
+.img-team
+{
+    width: 100%;
+    height: auto;
+    max-width: 140px;
+    max-height: 140px;
+}
+
+.space-1em
+{
+    width: 100%;
+    height: 1em;
+    clear: both;
+}
+
+.space-2em
+{
+    width: 100%;
+    height: 2em;
+    clear: both;
+}
+
+.space-3em
+{
+    width: 100%;
+    height: 3em;
+    clear: both;
+}
+
+.team-block
+{
+    padding: 1em;
+}
+
+.team-block span
+{
+    margin-right: 1em;
+}

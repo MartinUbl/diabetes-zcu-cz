@@ -173,6 +173,32 @@ downloads:
         text_1: "Zde můžete stáhnout hru Íkaros má diabetes. Momentálně je dostupná pouze pro systém MS Windows."
         download_button: "Stáhnout hru Íkaros má diabetes"
 
+about:
+    banner:
+        title: "Modelování dynamiky glukózy"
+        text: "Primárním zaměřením týmu je výzkum v oblasti modelování dynamiky glukózy a přidružených oblastí."
+    model:
+        text_1: "Tým vědců z Katedry informatiky a výpočetní techniky FAV ZČU pracuje na fyziologickém modelu dynamiky glukózy. Model mimo jiné umožňuje predikovat koncentrace glukózy v podkoží a vypočítat koncentraci glukózy v krvi z koncentrace glukózy v podkoží. Lékařům tak výpočet parametrů modelu umožní pacientovi určit optimální léčbu založenou na individuálně naměřených hodnotách. Během našeho výzkumu jsme vytvořili i tento informační portál. Součástí portálu je online kalkulátor glykémie, který mohou využívat lékaři i pacienti pro zobrazení křivky koncentrace glukózy v krvi. Kalkulátor je možné využívat jak anonymně, tak i jako registrovaný uživatel."
+        text_2: "Náš difůzní model dynamiky glukózy je postaven na fyziologických poznatcích z oblasti interní medicíny. Funguje zhruba takto: glukóza se dostává k buňkám transportem přes stěnu kapiláry do intersticiální tekutiny. Např. diabetik si typicky měří koncentraci glukózy sporadicky v krvi a kontinuálně v intersticiální tekutině v podkoží. V intesrticiální tekutině jsou buňky spotřebovávající glukózu. Zjednodušeně lze říci, že koncentrace glukózy v intersticiální tekutině je dána rozdílem mezi difůzí glukózy z krve a její utilizací v intersticiální tekutině. A právě tato myšlenka je základem našeho difůzního modelu, který nám umožňuje vypočítat i predikovat koncentrace glukózy v krvi a intersticiální tekutině."
+
+team:
+    banner:
+        title: "Členové vědeckého týmu"
+        text: "Pracujeme v heterogenním týmu, abychom byli schopni odborně pokrýt nejrůznější činnosti, které spadají do medicínské informatiky. V našem týmu najdete lékaře, odborníky na modelování a simulace, zpracování dat, vizualizace, práci s databázemi, programátory, ale také nadějné talenty z bakalářského, inženýrského i doktorského studia."
+    koutny: "Je zakladatelem a vedoucím projektu. Je autorem difuzního modelu dynamiky glukózy a principiálním architektem systému SmartCGMS. Zabývá se komplexním modelování metabolismu a dynamiky transportu glukózy, od jejího měření až po její regulaci. Toto téma vyžaduje expertní znalosti v oblastech aplikované matematiky, heterogenních výpočetních systémů a problematiky výpočtů odolných proti chybám. To vše musí být samozřejmě podložené potřebnými medicínskými znalostmi."
+    krcma: "Působí jako vedoucí lékař Diabetologie a endokrinologie I. interní kliniky FN Plzeň. Jeho zaměřením je prevence, diagnostika a léčba diabetes mellitus, metabolických a endokrinologických onemocnění."
+    majdisova: "<text bude doplněn>"
+    varnuskova: "Od roku 2006 působí na Katedře informatiky a výpočetní techniky Fakulty aplikovaných věd ZČU. Kromě pedagogicko-vědecké pozice odborného asistenta má od roku 2013 na starosti public relation fakulty. Zabývá se komunikací vědeckých témat veřejnosti, dále modelováním, simulacemi, vizualizací a medicínskou informatikou."
+    ubl: "Specializuje se na vývoj softwarového zásobníku SmartCGMS. Jeho výzkum se zaměřuje na modelování lidského metabolismu a léčbu nemoci diabetes mellitus. Zároveň je hlavním vývojářem tohoto webového portálu."
+    dellacioppa: "Antonio je vědeckým koordinátorem projektu. Pracuje v NatureLab na Univerzitě v Salernu. Zabývá se biologicky inspirovanou umělou inteligencí, strojovým učením, evolučními algoritmy, neuronovými sítěmi, genetickým programováním a komplexními systémy. Je členem ACM SIG-EVO (genetické a evoluční výpočty) a editorem časopisu Applied Soft Computing (Elsevier)."
+    defalco: "Ivanoe je seniorním vědcem v Institutu pro výpočetně náročné úlohy a sítě (ICAR) italské Národní radě pro výzkum (CNR), kde vede laboratoř výpočetní inteligence a je členem správní rady. Zabývá se výpočetní inteligencí, zejména evolučními algoritmy a neuronovými sítěmi, jejich paralelním zpracováním a aplikací v medicínské oblasti. Je členem World Federation on Soft Computing a editorem časopisu Applied Soft Computing (Elsevier)."
+    tarantino: "Působí jako vědec v italské Národní radě pro výzkum (CNR), v oblasti evolučních algoritmů, výpočetní inteligence a paralelních výpočtů. Je členem programových výborů odborných konferencí v oblasti evolučních algoritmů."
+    scafuri: "Zabývá se výzkumem paralelních a distribuovaných architektur v oblasti evolučních algoritmů a výpočetní inteligence. Působí v Institutu pro výpočetně náročné úlohy a sítě (ICAR) italské Národní radě pro výzkum (CNR)."
+    mayo: "Pracuje na Katedře počítačových věd a v institutu umělé inteligence Te Ipu o te Mahara na univerzitě ve Waikato. Zabývá se umělou inteligencí a strojovým učením, aplikovaným na monitorování glykémie, technologie léčby diabetu a oftalmologii."
+
+    kohout: "Pracuje na Katedře informatiky a výpočetní techniky na Fakultě aplikovaných věd Západočeské univerzity v Plzni. Také pracoval jako vědecký pracovník na University of Bedfordshire, UK. Zabývá se vývojem virtuálního modelu člověka-pacienta."
+    vcelak: "Absolvoval obor Softwarové inženýrství na Fakultě aplikovaných věd ZČU v roce 2008. Od tohoto roku je studentem doktorského studia na Katedře informatiky a výpočetní techniky FAV ZČU. Ve své práci se zaměřuje na technologie sémantického webu, lékařská data a standardizaci meta-dat."
+
 contact:
     banner:
         title: "Kontakt"

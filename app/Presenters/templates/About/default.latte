@@ -1,3 +1,239 @@
+{block beforeContent}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="p-5 text-white bg-dark rounded-3">
+                <h3>{_pages.about.banner.title}</h3>
+                <p class="lead">{_pages.about.banner.text}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+
 {block content}
 
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-6">
+        <img class="img-rounded" src="{$baseUrl}/img/speaking.jpg" width="100%">
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-6">
+        <p>{_pages.about.model.text_1}</p>
+        <p>{_pages.about.model.text_2}</p>
+    </div>
+</div>
+    
+<hr />
+    
+<div class="row">
+    <div class="col-12">
+        <div class="p-5 text-white bg-dark rounded-3">
+            <h3>{_pages.team.banner.title}</h3>
+            <p class="lead">{_pages.team.banner.text}</p>
+        </div>
+        
+        <div class="space-2em"></div>
+    </div>
+</div>
 
+{* This is a class spec for columns of team members *}
+{var $colSpec = "col-lg-4 col-md-6 col-sm-12 col-xs-12 team-block"}
+        
+<div class="row">
+    <div class="{$colSpec}">
+        <p class="team-head">
+            <img class="img-rounded img-team" alt="Person image" src="{$baseUrl}/img/koutny.jpg" />
+            <h4>doc. Ing. Tomáš Koutný, Ph.D.</h4>
+        </p>
+        
+        <p>
+            <span>
+                <i class="bi bi-envelope"></i>
+                <a href="mailto:txkoutny@kiv.zcu.cz">txkoutny@kiv.zcu.cz</a>
+            </span>
+            <span>
+                <i class="bi bi-telephone-fill"></i>
+                <span>+420 37763 2437</span>
+            </span>
+        </p>
+        
+        <p>
+            {_pages.team.koutny}
+        </p>
+    </div>
+
+    <div class="{$colSpec}">
+        <p class="team-head">
+            <img class="img-rounded img-team" alt="Person image" src="{$baseUrl}/img/krcma.jpg" />
+            <h4>MUDr. Michal Krčma, Ph.D.</h4>
+        </p>
+        
+        <p>
+            <span>
+                <i class="bi bi-envelope"></i>
+                <a href="mailto:krcmam@fnplzen.cz">krcmam@fnplzen.cz</a>
+            </span>
+        </p>
+        
+        <p>
+            {_pages.team.krcma}
+        </p>
+    </div>
+
+    <div class="{$colSpec}">
+        <p class="team-head">
+            <img class="img-rounded img-team" alt="Person image" src="{$baseUrl}/img/ubl.jpg" />
+            <h4>Ing. Martin Úbl</h4>
+        </p>
+        
+        <p>
+            <span>
+                <i class="bi bi-envelope"></i>
+                <a href="mailto:ublm@kiv.zcu.cz">ublm@kiv.zcu.cz</a>
+            </span>
+            <span>
+                <i class="bi bi-telephone-fill"></i>
+                <span>+420 37763 2453</span>
+            </span>
+        </p>
+        
+        <p>
+            {_pages.team.ubl}
+        </p>
+    </div>
+        
+    <div class="{$colSpec}">
+        <p class="team-head">
+            <img class="img-rounded img-team" alt="Person image" src="{$baseUrl}/img/majdisova.jpg" />
+            <h4>Ing. Bc. Zuzana Majdišová, Ph.D.</h4>
+        </p>
+        
+        <p>
+            <span>
+                <i class="bi bi-envelope"></i>
+                <a href="mailto:majdisz@kiv.zcu.cz">majdisz@kiv.zcu.cz</a>
+            </span>
+            <span>
+                <i class="bi bi-telephone-fill"></i>
+                <span>+420 37763 2494</span>
+            </span>
+        </p>
+        
+        <p>
+            {_pages.team.majdisova}
+        </p>
+    </div>
+        
+    <div class="{$colSpec}">
+        <p class="team-head">
+            <img class="img-rounded img-team" alt="Person image" src="{$baseUrl}/img/varnuskova.jpg" />
+            <h4>Ing. Jana Varnušková, Ph.D.</h4>
+        </p>
+        
+        <p>
+            <span>
+                <i class="bi bi-envelope"></i>
+                <a href="mailto:hajkovaj@kiv.zcu.cz">hajkovaj@kiv.zcu.cz</a>
+            </span>
+            <span>
+                <i class="bi bi-telephone-fill"></i>
+                <span>+420 37763 2434</span>
+            </span>
+        </p>
+        
+        <p>
+            {_pages.team.varnuskova}
+        </p>
+    </div>
+        
+    <div class="{$colSpec}">
+        <p class="team-head">
+            <img class="img-rounded img-team" alt="Person image" src="{$baseUrl}/img/cioppa.jpg" />
+            <h4>prof. Antonio Della Cioppa, Ph.D.</h4>
+        </p>
+        
+        <p>
+            <span>
+                <i class="bi bi-envelope"></i>
+                <a href="mailto:adellacioppa@unisa.it">adellacioppa@unisa.it</a>
+            </span>
+        </p>
+        
+        <p>
+            {_pages.team.dellacioppa}
+        </p>
+    </div>
+        
+    <div class="{$colSpec}">
+        <p class="team-head">
+            <img class="img-rounded img-team" alt="Person image" src="{$baseUrl}/img/defalco.jpg" />
+            <h4>Ivanoe De Falco, Ph.D.</h4>
+        </p>
+        
+        <p>
+            <span>
+                <i class="bi bi-envelope"></i>
+                <a href="mailto:ivanoe.defalco@icar.cnr.it">ivanoe.defalco@icar.cnr.it</a>
+            </span>
+        </p>
+        
+        <p>
+            {_pages.team.defalco}
+        </p>
+    </div>
+        
+    <div class="{$colSpec}">
+        <p class="team-head">
+            <img class="img-rounded img-team" alt="Person image" src="{$baseUrl}/img/tarantino.jpg" />
+            <h4>Ernesto Tarantino, Ph.D.</h4>
+        </p>
+        
+        <p>
+            <span>
+                <i class="bi bi-envelope"></i>
+                <a href="mailto:ernesto.tarantino@icar.cnr.it">ernesto.tarantino@icar.cnr.it</a>
+            </span>
+        </p>
+        
+        <p>
+            {_pages.team.tarantino}
+        </p>
+    </div>
+        
+    <div class="{$colSpec}">
+        <p class="team-head">
+            <img class="img-rounded img-team" alt="Person image" src="{$baseUrl}/img/scafuri.jpg" />
+            <h4>Umberto Scafuri, Ph.D.</h4>
+        </p>
+        
+        <p>
+            <span>
+                <i class="bi bi-envelope"></i>
+                <a href="mailto:umberto.scafuri@na.icar.cnr.it">umberto.scafuri@na.icar.cnr.it</a>
+            </span>
+        </p>
+        
+        <p>
+            {_pages.team.scafuri}
+        </p>
+    </div>
+        
+    <div class="{$colSpec}">
+        <p class="team-head">
+            <img class="img-rounded img-team" alt="Person image" src="{$baseUrl}/img/mmayo.jpg" />
+            <h4>doc. Michael Mayo, Ph.D.</h4>
+        </p>
+        
+        <p>
+            <span>
+                <i class="bi bi-envelope"></i>
+                <a href="mailto:michael.mayo@waikato.ac.nz">michael.mayo@waikato.ac.nz</a>
+            </span>
+        </p>
+        
+        <p>
+            {_pages.team.mayo}
+        </p>
+    </div>
+</div>
+        
