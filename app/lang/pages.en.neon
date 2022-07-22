@@ -199,6 +199,80 @@ team:
     kohout: "He is with the Department of Computer Science, Faculty of Applied Sciences, University of West Bohemia. Also, he was as a Research Fellow at the University of Bedfordshire, UK. He is focused on the development of virtual patient-specific model."
     vcelak: "In 2008, he finished his study in Software engineering on the Faculty of Applied Sciences, University of West Bohemia. Since that year he is a student of doctoral study on the same department. He deals with technologies of semantic web, medical data and meta-data standardization."
 
+patient:
+    banner:
+        title: "Patient"
+        text: "This portal is available to any patient to monitor glucose levels in both blood and subcutaneous tissue. Below, you will learn all about the input data and how to use this portal to visualize them."
+
+    calc:
+        title: "Measure your glucose level"
+        text_1: "Body acquires nutrients by digesting a food. Many enzymes, hormones and other substances are involved. Fructose, glucose and galactose are final products of carbohydrate digestion, whereas glucose has circa 80% share of these. Once absorbed from the intestinal tract, liver rapidly converts fructose and galactose into glucose. Glucose is a primary fuel for the cells. However, most cells need insulin to convert glucose into an energy. Therefore, it is possible to say that insulin lowers blood glucose level. Contratry, glucagon raises blood glucose level by stimulating a breakdown of glycogen. Glycogen is a polymer store of glucose. Pancreas releases glucogon once it senses low blood glucose level."
+        text_2: "There is an insulin deficit with type 1 and 2 diabetics. For this reason, glucose accumulates in various organs. This damages the organs. Especially, type-1 diabetic has to dose insulin regularly. Insuline dose must correspond with current blood glucose level. An over-dose could kill the patient shortly by lowering blood glucose level too much - hypoglycemic shock."
+        text_3: "Among other effects, needed amount of glucose depends on diet and physical activity. Therefore, needed amount of insulin varies through the day and the insulin dose has to be adjusted. Otherwise, hyper- or hypoglycemic shock may ensue. These are acute complications (blood glucose level is either too high or too low), which may lead to death shortly."
+        text_4: "Through the day, the diabetic patient must self-monitor blood glucose level. Patient draws a drop of blood. Then. a glucometer determines blood glucose level of this drop. Common patients draws 2-3 drops a day. Such a low frequency cannot capture all important events."
+        text_5: "For a frequent monitoring of glucose level, there is a continuous glucose monitoring system (CGMS). By diabetologist's recommendation, diabetic patient wears CGMS about one week. CGMS records glucose level every five minutes. However, it measures glucose level of subcutaneous tissue, not blood glucose level. In the subcutaneous tissue, there is a CGMS sensor installed. The sensor transmitts data to a receiver that actually stores the data. It is possible to export these data from the reciever, to utilize them later. Respective software can store the data as a single file in a computer."
+        text_6: "CGMS can be paired together with an insulin pump. In such case, the pump doses insulin based on measured glucose level of subcutaneous tissue. For an optimal function, it would be necessary to dose insulin based on blood glucose level. However, determining blood glucose level from CGMS data is not a trivial problem. As our model solves this problem, you can test it with this portal in the practice."
+        text_7: "Our portal visualizes measured glucose level. Thanks to our model of glucose dynamics, it is also possible to visualize the calculated blood glucose level. If you have CGMS data, you can try it. Feel free to ask your physician or us."
+        text_8: "Registered user can upload the data, browse and review them as needed once logged-in. If you do not wish to register, it is possible to upload the data anonymously. However, it is not possible to get back to these data once the web page is closed."
+    anonymous:
+        title: "Anonymous upload"
+        text_1: "If you want just to try the portal without registering, use the anonymous portal. Just upload the CGMS file and optionally a file with self-measured blood glucose levels - if you have one. You will see the plot automatically, once the calculation finishes."
+        text_2: "The calculation has only an informative character. It does not substitute physician's treatment or diagnose. By uploading data to this web, you hereby agree with data collection and processing for research."
+        unavailable_text: "We are sorry, uploading is currently unavailable."
+    howto:
+        title: "How to get measured data"
+        text_1: "Please, refer to manual of your CGMS system on how to download and export data from the CGMS device to a computer. Alternatively, your physician could help with this. Especially, if you wear a borrowed CGMS device."
+        text_2: "Most likely, the CGMS-exported file would be a spreadsheet or text file. You should be able to open it with any spreadsheet processor. The file should contain a lot of numbers and some date/time entries."
+    interpret:
+        title: "Interpreting the plot"
+        text_1: "Once the uploaded data are processed and calculated, you will see a plot. This plot will look similar to that one in the figure at the right. What does the plot show? For example, you can see how your body respond to physicial activity and eaten food."
+
+profi:
+    physician:
+        title: "Physician / Nurse"
+        text_1: "With this portal, you can calculate a continous curve of blood glucose level from CGMS-measured data. Once calculated, you can access a plot of this curve anytime and anywhere. You just need to upload the CGMS data. Optionally, it is possible to upload additional blood glucose levels."
+        text_2: "You can upload the data either anonymously, or as a registered user. The reqistration is quick. If you register, you can get back to any previously uploaded, processed and calculated data. Without registration, anything anonymous is just a one-time procedure."
+        text_3: "Uploaded data can be downloaded in an unified data format by using the \"Download CSV\" button."
+        text_4: "We are already working on enhacing the portal. For example, we plan to include error grid analysis and much more."
+        text_5: "Do you like our portal? Would you like to improve anything? Feel free to mail us We are open to new ideas and a cooperation."
+    scientist:
+        title: "Researcher"
+        text_1: "Are you involved in a similar or related research? We are always ready to co-operate on interesting ideas. Just let us know."
+    manufacturer:
+        title: "Producer"
+        text_1: "Do your devices help to regulate blood glucose level? We offer a glucose dynamics model to reconstruct and predict glucose level of different compartments. If you are interested, contact us so that we can discuss a future cooperation."
+        text_2: "Our team works in the laboratories of the NTIS - New Technology for Information Society, a European centre of excellence and a part of Faculty of Applied Sciences, University of West Bohemia, and the 1st Department of Clinic Medicine, Teaching Hospital and Medical School in Pilsen, Charles University in Prague."
+    student:
+        title: "Student"
+        text_1: "We support young talents. There is a work for bachelor, master and doctoral students - especially for students of technical and medical faculties. Working on a part of the project will give you a unique experience. Primarily, we focus on medicine, modelling and simulation, programmers, mobile applications, databases, etc."
+        text_2: "If you want would like to join our team, contact us. If you have never worked on any project - there is no shame in not knowing; the shame lies in not finding out. We will explain everything so that practice will make perfect."
+
+media:
+    banner:
+        title: "Media"
+        text: "We co-operate with physicians, publish scientific papers, participate on conferences and scientific lectures. With our project we also participate in scientific competitions. And when we are successful, we are glad to show it."
+
+    technologiedia:
+        title: "Technology in Diabetology"
+        text: "We are regular presenters at the leading, Czech diabetology congress - Technology in Diabetology."
+        link: "Technology in Diabetology"
+    pesw2018:
+        title: "Outstanding Thesis Award"
+        text: "The master thesis \"Monitoring of glucose levels with wearable devices\" was awarded an \"Oustanding master thesis\" by STMicroelectronics on PESW 2018 conference."
+        link: "PESW2018"
+    cmpb:
+        title: "Editor's choice in Computer Methods and Programs in Biomedicine"
+        text: "Our paper \"Using meta-differential evolution to enhance a calculation of a continuous blood glucose level\" has been selected for Editor's choice in Computer Methods and Programs in Biomedicine (a top-ranked scientific journal)."
+        link: "ScienceDirect"
+    siemens:
+        title: "Nominated for the Werner von Siemens Prize"
+        text: "\"Model of blood glucose level reconstruction from CGMS-sensor in subcutaneous tissue\" was nominated for the Werner von Siemens Prize 2014, in the category of most important fundamental research."
+        link: "www.cee.siemens.com"
+    contact:
+        title: "Cooperation with media"
+        text: "Do you need expert comment or would you like to speak with an expert directly? Are you interested in diabetes and would you like to write a paper or make a reportage? Then, we would like to meet you."
+        link: "Contact us"
+
 contact:
     banner:
         title: "Contact us"

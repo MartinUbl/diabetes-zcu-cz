@@ -1,3 +1,66 @@
+{block beforeContent}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="p-5 text-white bg-dark rounded-3">
+                <h3>{_pages.media.banner.title}</h3>
+                <p class="lead">{_pages.media.banner.text}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+
 {block content}
 
+<div class="row">
+    <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+        <h4>{_pages.media.technologiedia.title}</h4>
+        <p>{_pages.media.technologiedia.text}</p>
+        <p>
+        <img class="img-rounded" src="{$baseUrl}/img/techdia.jpg" alt="Technologie v diabetologii" width="100%">
+        </p>
+        <a href="http://www.technologiedia.cz/" title="Technologie v diabetologii" class="btn btn-dark">{_pages.media.technologiedia.link} <i class="fas fa-angle-double-right"></i></a>
+        <div class="space-2em"></div>
+    </div>
 
+    <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+        <h4>{_pages.media.pesw2018.title}</h4>
+        <p>{_pages.media.pesw2018.text}</p>
+        <p>
+        <img class="img-rounded" src="{$baseUrl}/img/pesw2018.jpg" alt="PESW2018" width="100%">
+        </p>
+        <a href="http://pesw.fit.cvut.cz/2018/" title="PESW2018" class="btn btn-dark">{_pages.media.pesw2018.link} <i class="fas fa-angle-double-right"></i></a>
+        <div class="space-2em"></div>
+    </div>
+
+    <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+        <h4>{_pages.media.cmpb.title}</h4>
+        <p>{_pages.media.cmpb.text}</p>
+        <p>
+        <img class="img-rounded" src="{$baseUrl}/img/cmpb2016.jpg" alt="CMPB2016" width="100%">
+        </p>
+        <a href="http://www.sciencedirect.com/science/article/pii/S0169260716300128" title="CMPB2016" class="btn btn-dark">{_pages.media.cmpb.link} <i class="fas fa-angle-double-right"></i></a>
+        <div class="space-2em"></div>
+    </div>
+
+    <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+        <h4>{_pages.media.siemens.title}</h4>
+        <p>{_pages.media.siemens.text}</p>
+        <p>
+        <img class="img-rounded" src="{$baseUrl}/img/siemens2014.jpg" alt="Werner von Siemens" width="100%">
+        </p>
+        <a href="https://www.cee.siemens.com/web/cz/cz/corporate/portal/home/Kariera/studenti_absolventi/cena_siemens/Pages/nominace-2014.aspx#" title="Werner von Siemens" class="btn btn-dark">{_pages.media.siemens.link} <i class="fas fa-angle-double-right"></i></a>
+        <div class="space-2em"></div>
+    </div>
+
+    <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+        <h4>{_pages.media.contact.title}</h4>
+        <p>{_pages.media.contact.text}</p>
+        <p>
+        <img class="img-rounded" src="{$baseUrl}/img/contact.jpg" alt="Kontakt" width="100%">
+        </p>
+        <a href="mailto:diabetes@mail.kiv.zcu.cz" title="Kontakt" class="btn btn-dark">{_pages.media.contact.link} <i class="fas fa-angle-double-right"></i></a>
+        <div class="space-2em"></div>
+    </div>
+</div>

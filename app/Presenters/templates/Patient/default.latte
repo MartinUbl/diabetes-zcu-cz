@@ -1,3 +1,75 @@
+{block beforeContent}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="p-5 text-white bg-dark rounded-3">
+                <h3>{_pages.patient.banner.title}</h3>
+                <p class="lead">{_pages.patient.banner.text}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+
 {block content}
 
+<div class="row">
+    <div class="col-12">
+        <h3>{_pages.patient.calc.title}</h3>
+        <img class="img-rounded" src="{$baseUrl}/img/graph.png" alt="graf" width="100%" />
+        
+        <p>{_pages.patient.calc.text_1}</p>
+        <p>{_pages.patient.calc.text_2}</p>
+        <p>{_pages.patient.calc.text_3}</p>
+        <p>{_pages.patient.calc.text_4}</p>
+        <p>{_pages.patient.calc.text_5}</p>
+        <p>{_pages.patient.calc.text_6}</p>
+        <p>{_pages.patient.calc.text_7|noescape}</p>
+        <p>{_pages.patient.calc.text_8}</p>
+    </div>
+    <div class="col-12">
+        <div class="space-2em"></div>
+    </div>
+</div>
 
+<div class="row">
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <h3>{_pages.patient.anonymous.title}</h3>
+        
+        <p>{_pages.patient.anonymous.text_1}</p>
+        <p>{_pages.patient.anonymous.text_2}</p>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <p><i>{_pages.patient.anonymous.unavailable_text}</i></p>
+    </div>
+    <div class="col-12">
+        <div class="space-2em"></div>
+    </div>
+</div>
+    
+<div class="row">
+    <div class="col-md-4 col-sm-6 col-xs-12">
+        <img class="img-rounded" src="{$baseUrl}/img/measuring.jpg" alt="měřicí zařízení" width="100%">
+    </div>
+    <div class="col-md-8 col-sm-6 col-xs-12">
+        <h3>{_pages.patient.howto.title}</h3>
+        
+        <p>{_pages.patient.howto.text_1}</p>
+        <p>{_pages.patient.howto.text_2}</p>
+    </div>
+    <div class="col-12">
+        <div class="space-2em"></div>
+    </div>
+</div>
+    
+<div class="row">
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <h3>{_pages.patient.interpret.title}</h3>
+        
+        <p>{_pages.patient.interpret.text_1}</p>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <img class="img-rounded" src="{$baseUrl}/img/visu{if $localeName == 'en'}_en{/if}.png" alt="graf" width="100%">
+    </div>
+</div>
+    

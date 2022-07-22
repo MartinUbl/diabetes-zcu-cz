@@ -199,6 +199,80 @@ team:
     kohout: "Pracuje na Katedře informatiky a výpočetní techniky na Fakultě aplikovaných věd Západočeské univerzity v Plzni. Také pracoval jako vědecký pracovník na University of Bedfordshire, UK. Zabývá se vývojem virtuálního modelu člověka-pacienta."
     vcelak: "Absolvoval obor Softwarové inženýrství na Fakultě aplikovaných věd ZČU v roce 2008. Od tohoto roku je studentem doktorského studia na Katedře informatiky a výpočetní techniky FAV ZČU. Ve své práci se zaměřuje na technologie sémantického webu, lékařská data a standardizaci meta-dat."
 
+patient:
+    banner:
+        title: "Pacient"
+        text: "Tento portál je určený všem pacientům, kteří chtějí sledovat svůj zdravotní stav a mít lepší přehled o vývoji koncentrace glukózy v krvi. Dozvíte se zde vše o datech, která pro tento účel můžete používat, a zároveň můžete využívat nástroj určený pro jejich vizualizaci."
+
+    calc:
+        title: "Změřte si svoji křivku"
+        text_1: "Lidské tělo zpracovává látky získané z potravy, kterou denně přijímá. Se zpracováním mu pomáhají nejrůznější enzymy, hormony a další látky. Finálním produktem trávení cukrů jsou glukóza, galaktóza a fruktóza, přičemž glukóza má cca 80% podíl. Galaktóza a fruktóza jsou pak rychle přeměměny na glukózu, jakmile se z trávicícho traktu dostanou do jater. Glukóza je primární energetické palivo buněk. Jenomže většina buněk potřebuje inzulín k tomu, aby mohla glukózu spotřebovávat. Proto tedy lze říci, že inzulín snižuje koncentraci glukózy v krvi. Opačně působí hormon glukagon, který způsobuje uvolňování zásobní glukózy do krve, jakmile je koncentrace glukózy v krvi nízká."
+        text_2: "Diabetici 1. a 2. typu mají nedostatek inzulínu, a proto se jim hromadí glukóza v různých orgánech, čímž je poškozuje. Zejména v případě typu 1 si diabetik musí dávkovat inzulín. Dávka inzulínu však nesmí být příliš velká. Jinak by vedla k akutnímu snížení koncentrace glukózy - hypoglykemický šok."
+        text_3: "Množství glukózy, které lidské tělo potřebuje, závisí kromě konkrétního složení stravy také na vynaložené fyzické aktivitě. Potřebné množství inzulinu se tedy u pacienta v průběhu dne mění a je nutné dávku inzulinu těmto potřebám přizpůsobit. V opačném případě se může lidský organismus dostat do stavu hyper- nebo hypoglykemie, tedy do situace, kdy je v krvi příliš velké nebo naopak velmi malé množství glukózy. Oba tyto stavy jsou pro pacienta nepříjemné a nebezpečné. V případě hypo- či hyperglykemického šoku mohou skončit smrtí pacienta v krátké době."
+        text_4: "Diabetický pacient si v průběhu dne sám měří koncentraci glukózy v krvi. Odebere si kapku krve, kterou pak analyzuje pomocí glukometru. V praxi ho běžný pacient provádí 2-3 denně. Tak nízká frekvence ale nemůže zachytit všechny důležité změny glykémie."
+        text_5: "K častému měření koncentrace glukózy lze využít tzv. CGMS (Continuous Glucose Monitoring System). Pacient nosí CGMS na doporučení lékaře například týden, během kterého přístroj přibližně každých 5 minut měří hodnotu koncentrace glukózy. Neměří však koncentraci přímo v krvi, ale v podkoží, kde je umístěn jeho sensor v podobě zapíchnuté jehly. Data ze senzoru jsou přenesena do vysílače, který hodnoty uchovává. Date ze zařízení získat a uložit jako samostatný datový soubor."
+        text_6: "CGMS může být spárován s inzulinovou pumpou, které v závislosti na naměřených datech může pacientovi dávkovat inzulín. K optimální funkci pumpy by však bylo zapotřebí, aby znala koncentraci glukózy v krvi - ne v podkoží, protože tyto koncentrace nejsou vždy stejné. Určení koncentrace v krvi z hodnot podkoží není triviální problém, a řeší ho právě náš model - jak si můžete na našem portále sami vyzkoušet v praxi."
+        text_7: "Náš portál umožňuje zobrazení naměřených dat. Díky modelu dynamiky glukózy, který vznikl v rámci našeho výzkumu, je možné kromě dat naměřených v podkoží vizualizovat také dopočítaný průběh koncentrace glukózy v krvi. Máte-li tedy naměřená data k dispozici, můžete si vše sami vyzkoušet. Pokud by Vás zajímalo víc, zeptejte se svého ošetřujícího lékaře nebo nás kontaktujte přímo: <a href=\"mailto:diabetes@mail.kiv.zcu.cz\">diabetes@mail.kiv.zcu.cz</a>."
+        text_8: "Registrovaný uživatel může opakovaně nahrávat svá data, ke kterým se může odkudkoli a kdykoli vrátit, porovnat výsledky a opakovaně se na své aktuální grafy podívat. Pro ty, kteří se nechtějí hned pouštět do registrace, je zde možnost jednorázového, anonymního nahrání dat. K takto nahraným výsledkům se však nemůžete vracet, historie není uchovávána."
+    anonymous:
+        title: "Anonymní vyhodnocení"
+        text_1: "Anonymní nahrání dat slouží pro uživatele, kteří si chtějí portál nejprve vyzkoušet, nebo se z nějakého důvodu nechtějí registrovat. Stačí jednoduše zadat data z CGMS, volitelně také hodnoty naměřené z krve - jsou-li k dispozici. Výsledný graf bude vykreslený okamžitě po dokončení výpočtu na jedinečné webové adrese, která se Vám po uploadu automaticky otevře ve Vašem prohlížeči."
+        text_2: "Výpočet má pouze informativní charakter a v žádném případě nenahradí vyšetření lékařem a následnou konzultaci. Nahráním dat na tento web souhlasíte se shromažďováním a zpracováním dat pro vědecké účely."
+        unavailable_text: "Je nám líto, ale momentálně je nahrávání nedostupné."
+    howto:
+        title: "Jak získat naměřená data"
+        text_1: "Máte-li CGMS zařízení, najděte si v návodu na jeho používání způsob, jak si ze zařízení data stáhnout přímo do Vašeho počítače. Volba se typicky jmenuje export či kompilace dat. Stažený soubor bude mit pravděpodobně textovou podobu, bude možné ho otevřít pomocí tabulkového procesoru a když ho otevřete, bude obsahovat spoustu čísel."
+        text_2: "Jestliže si nejste jistí, jak na to, zeptejte se svého ošetřujícího lékaře. S ním můžete také zkonzultovat možnost kontinuálního měření, pokud vlastní zařízení nemáte k dispozici."
+    interpret:
+        title: "Jak interpretovat graf"
+        text_1: "Po nahrání dat se Vám zobrazí graf podobný tomu na obrázku. Co všechno z něj ale vlastně lze vyčíst? Například to, jak reaguje naše tělo na tělesnou aktivitu nebo na to, co a kdy jsme zrovna snědli."
+
+profi:
+    physician:
+        title: "Lékař / zdravotní sestra"
+        text_1: "Tento portál Vám nabízí nástroj, který Vám dokáže spočítat křivku glykémie z hodnot CGMS. Průběhy koncetrací glukózy si můžete kdykoli a odkudkoli prohlédnout, uložit k sobě do počítače či vytisknout. Data stačí z CGMS zařízení a nahrát je na portál."
+        text_2: "Data lze nahrát anonymně nebo po jednoduché registraci. Zatímco anonymní nahrání dat je vždy jednorázovou operací, zaregistrovaný uživatel může zároveň sledovat historii uložených dat."
+        text_3: "Nahraná data lze kdykoliv v jednotném formátu stáhnout výběrem položky \"Stáhnout CSV\"."
+        text_4: "V rámci dalšího výzkumu pracujeme na rozšiřování funkčnosti portálu. Do budoucna plánujeme přidat například zpracování Clarke Error Grid nebo Parkes Error/Consensus Error Grid analýzy."
+        text_5: "Líbí se Vám náš portál a máte další nápady, jaké funkce byste ke své práci využili? Rozhodně se nebráníme spolupráci. Stačí, když se nám ozvete a my se Vám pokusíme vyjít vstříc, bude-li to v našich silách."
+    scientist:
+        title: "Vědec"
+        text_1: "Zabýváte se ve svém výzkumu podobnou či příbuznou problematikou? Nabízíme nejrůznější možnosti vědecké spolupráce na bázi informačních technologií, medicínské infomatiky, zpracování a vizualizace dat. Máte-li zájem s námi navázat užší kontakt, ozvěte se nám."
+    manufacturer:
+        title: "Výrobce"
+        text_1: "Jste farmaceutická společnost nebo firma, která vyrábí zařízení pro diabetiky? Rádi byste pacientům, kteří využívají Vaše zařízení, zpřístupnili naše technologie?"
+        text_2: "Naše pracoviště působí v laboratořích vědeckého centra excelence NTIS - Nové technologie pro informační společnost, které je součástí Fakulty aplikovaných věd ZČU. Máte-li zájem, kontaktujte nás a domluvíme se na případných možnostech spolupráce s naším vědeckým týmem."
+    student:
+        title: "Student"
+        text_1: "Rozvíjíme mladé talenty. Vítáme spolupráci se studenty bakalářských, magisterských i doktorských studijních programů, zejména lékařských a technických fakult. Studenti mohou prací na částech projektu získat užitečné zkušenosti. Oceníme zejména znalosti z interního lékařství, modelováni a simulace, programování, tvorby mobilních aplikací, apod."
+        text_2: "Chcete-li se zapojit do našeho týmu, kontaktujte nás. Žádný učený z nebe nespadl, nebojte se zapojit. Pokud jste ještě na žádném projektu nepracovali, vše Vám rádi vysvětlíme."
+
+media:
+    banner:
+        title: "Média"
+        text: "Spolupracujeme s lékaři, publikujeme vědecké články, účastníme se konferencí i odborných přednášek. Se svým projektem se účastníme vědeckých soutěží."
+
+    technologiedia:
+        title: "Technologie v diabetologii"
+        text: "Pravidelně se účastníme předního, českého diabetologického kongresu Technologie v diabetologii."
+        link: "Technologie v diabetologii"
+    pesw2018:
+        title: "Nejlepší diplomová práce"
+        text: "Diplomová práce s názvem \"Monitorace koncentrace glukózy pomocí nositelných zařízení\" získala na konferenci PESW 2018 ocenění \"Nejlepší diplomová práce\" od STMicroelectronics."
+        link: "PESW2018"
+    cmpb:
+        title: "Cena editora časopisu Computer Methods and Programs in Biomedicine"
+        text: "Článek \"Using meta-differential evolution to enhance a calculation of a continuous blood glucose level\" získal cenu editora jednoho z předních vědeckých časopisů - Computer Methods and Programs in Biomedicine."
+        link: "ScienceDirect"
+    siemens:
+        title: "Nominace Ceny Wernera von Siemense"
+        text: "Projekt \"Model rekonstrukce glykémie z hodnot CGMS senzoru v podkoží\" byl zařazen do nominací o cenu Wernera von Siemense v kategorii základní výzkum pro rok 2014."
+        link: "www.cee.siemens.com"
+    contact:
+        title: "Spolupráce s médii"
+        text: "Potřebujete odborný komentář nebo byste si o tématu rádi popovídali s odborníkem? Zaujalo Vás téma léčby diabetes a chtěli byste o něm napsat článek nebo natočit reportáž? Rádi se s Vámi setkáme."
+        link: "Kontaktujte nás"
+
 contact:
     banner:
         title: "Kontakt"
