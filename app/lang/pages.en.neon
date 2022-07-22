@@ -109,6 +109,7 @@ docs:
         title: "Documentation"
         text: "This page hosts the documentation of the SmartCGMS software architecture and all of its components."
         sorrytext: ""
+        disclaimer: "The documentation is still incomplete. We are working on it."
 
 icarus:
     banner:

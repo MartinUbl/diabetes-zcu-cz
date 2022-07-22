@@ -109,6 +109,7 @@ docs:
         title: "Dokumentace"
         text: "Na této stránce naleznete dokumentaci softwarové architektury SmartCGMS a všech jejích součástí."
         sorrytext: "Omlouváme se, ale dokumentace je k dispozici pouze v anglickém jazyce."
+        disclaimer: "Dokumentace je neúplná. Pracujeme na tom."
 
 icarus:
     banner:
