@@ -8,7 +8,11 @@ application:
 session:
     expiration: 14 days
 
+extensions:
+    translation: Kdyby\Translation\DI\TranslationExtension
+
 services:
+    latte.templateFactory: Nette\Bridges\ApplicationLatte\TemplateFactory
     router: App\Router\RouterFactory::createRouter
 
     - App\Models\Authenticator

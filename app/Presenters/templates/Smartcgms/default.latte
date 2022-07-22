@@ -1,3 +1,101 @@
+{block beforeContent}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="p-5 text-white bg-dark rounded-3">
+                <h3>{_pages.smartcgms.banner.title}</h3>
+                <p class="lead">{_pages.smartcgms.banner.text}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+
 {block content}
 
+<div class="row">
+    <div class="col-12">
+        <h3>{_pages.smartcgms.about.title}</h3>
+        
+        <p>{_pages.smartcgms.about.text_1}</p>
+        <p>{_pages.smartcgms.about.text_2}</p>
+        <p>{_pages.smartcgms.about.text_3}</p>
+        
+        <ul>
+            <li>{_pages.smartcgms.about.feature_1}</li>
+            <li>{_pages.smartcgms.about.feature_2}</li>
+            <li>{_pages.smartcgms.about.feature_3}</li>
+            <li>{_pages.smartcgms.about.feature_4}</li>
+            <li>{_pages.smartcgms.about.feature_5}</li>
+        </ul>
+    </div>
+</div>
 
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-7">
+        <img class="img-responsible" src="{$baseUrl}/img/smartcgms/smartcgms_calc.png" width="100%">
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-5">
+        <h3>{_pages.smartcgms.app.title}</h3>
+        
+        <p>{_pages.smartcgms.app.text_1}</p>
+        <p>{_pages.smartcgms.app.text_2}</p>
+        <p>{_pages.smartcgms.app.text_3}</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-5">
+        <h3>{_pages.smartcgms.configuration.title}</h3>
+        
+        <p>{_pages.smartcgms.configuration.text_1}</p>
+        <p>{_pages.smartcgms.configuration.text_2}</p>
+        <p>{_pages.smartcgms.configuration.text_3}</p>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-7">
+        <img class="img-responsible" src="{$baseUrl}/img/smartcgms/smartcgms_conf.png" width="100%">
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-4">
+        <img class="img-responsible" src="{$baseUrl}/img/smartcgms/smartcgms_mobile_watch.jpg" width="100%">
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-8">
+        <h3>{_pages.smartcgms.mobile.title}</h3>
+        
+        <p>{_pages.smartcgms.mobile.text_1}</p>
+        <p>{_pages.smartcgms.mobile.text_2}</p>
+        <p>{_pages.smartcgms.mobile.text_3}</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <h3>{_pages.smartcgms.matlab.title}</h3>
+        
+        <p>{_pages.smartcgms.matlab.text_1}</p>
+        <p>{_pages.smartcgms.matlab.text_2}</p>
+        <p>{_pages.smartcgms.matlab.text_3|noescape}</p>
+        <p>{_pages.smartcgms.matlab.text_4}</p>
+    </div>
+</div>
+    
+<div class="row">
+    <div class="col-12">
+        <h3>{_pages.smartcgms.installation.title}</h3>
+        
+        <p>{_pages.smartcgms.installation.text_1|noescape}</p>
+        <p>{_pages.smartcgms.installation.text_2|noescape}</p>
+        <p>{_pages.smartcgms.installation.text_3|noescape}</p>
+        <p>{_pages.smartcgms.installation.text_4|noescape}</p>
+    </div>
+</div>
+    
+<div class="row">
+    <div class="col-12">
+        <h3>{_pages.smartcgms.download.title}</h3>
+        
+        <p>{_pages.smartcgms.download.text_1, [link => $presenter->link('Downloads:')]|noescape}</p>
+    </div>
+</div>

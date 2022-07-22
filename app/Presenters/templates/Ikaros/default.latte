@@ -1,3 +1,102 @@
+{block beforeContent}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="p-5 text-white bg-dark rounded-3">
+                <h3>{_pages.icarus.banner.title}</h3>
+                <p class="lead">{_pages.icarus.banner.text}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+
 {block content}
 
+<div class="row">
+    <div class="col-12">
+        <h3>{_pages.icarus.about.title}</h3>
+        
+        <p>{_pages.icarus.about.text_1}</p>
+        <p>{_pages.icarus.about.text_2}</p>
+        <p>{_pages.icarus.about.text_3}</p>
+    </div>
+</div>
 
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-7">
+        <img class="img-responsible" src="{$baseUrl}/img/ikaros/TitleScreen.png" width="100%">
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-5">
+        <h3>{_pages.icarus.menu.title}</h3>
+        
+        <p>{_pages.icarus.menu.text_1}</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-5">
+        <h3>{_pages.icarus.settings.title}</h3>
+        
+        <p>{_pages.icarus.settings.text_1}</p>
+        <p>{_pages.icarus.settings.text_2}</p>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-7">
+        <img class="img-responsible" src="{$baseUrl}/img/ikaros/Profile.png" width="100%">
+    </div>
+</div>
+    
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-7">
+        <img class="img-responsible" src="{$baseUrl}/img/ikaros/Game3.png" width="100%">
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-5">
+        <h3>{_pages.icarus.game.title}</h3>
+        
+        <p>{_pages.icarus.game.text_1}</p>
+        <p>{_pages.icarus.game.text_2}</p>
+        <p>{_pages.icarus.game.text_3}</p>
+        <p>{_pages.icarus.game.text_4}</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-5">
+        <h3>{_pages.icarus.gameover.title}</h3>
+        
+        <p>{_pages.icarus.gameover.text_1}</p>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-7">
+        <img class="img-responsible" src="{$baseUrl}/img/ikaros/GameOverScene.png" width="100%">
+    </div>
+</div>
+    
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-7">
+        <img class="img-responsible" src="{$baseUrl}/img/ikaros/Highscores.png" width="100%">
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-5">
+        <h3>{_pages.icarus.scoreboard.title}</h3>
+        
+        <p>{_pages.icarus.scoreboard.text_1}</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-5">
+        <h3>{_pages.icarus.controls.title}</h3>
+        
+        <p>{_pages.icarus.controls.text_1}</p>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-7">
+        <img class="img-responsible" src="{$baseUrl}/img/ikaros/Controls.png" width="100%">
+    </div>
+</div>
+    
+<div class="row">
+    <div class="col-12">
+        <h3>{_pages.icarus.download.title}</h3>
+        
+        <p>{_pages.icarus.download.text_1, [link => $presenter->link('Downloads:')]|noescape}</p>
+    </div>
+</div>

@@ -67,6 +67,12 @@ a.brand-wrap
     color: black !important;
 }
 
+a
+{
+    color: #337ab7;
+    text-decoration: none;
+}
+
 .navbar
 {
     padding: 0;
@@ -227,4 +233,76 @@ p.last
     -ms-transition: opacity 3s ease-in-out;
     -o-transition: opacity 3s ease-in-out;
      opacity: 0;
+}
+
+.carousel-container
+{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.carousel-container .container
+{
+    padding-top: 0;
+}
+
+.carusel-image
+{
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+}
+
+.roles
+{
+    text-align: center;
+}
+.roles h4
+{
+    width: 100%;
+    text-align: center;
+    margin-top: 0.5em;
+}
+
+.img-circle
+{
+    border-radius: 50%;
+    width: 80%;
+    height: auto;
+}
+
+.blockquote-reverse
+{
+    font-size: 1.2em;
+    padding-right: 15px;
+    padding-left: 0;
+    text-align: right;
+    border-right: 5px solid #eee;
+    border-left: 0;
+}
+
+.blockquote-reverse footer
+{
+    font-size: 0.8em;
+}
+
+cite
+{
+    font-style: italic;
+}
+
+.blockquote-reverse footer:after, blockquote.pull-right footer:after, .blockquote-reverse small:after, blockquote.pull-right small:after, .blockquote-reverse .small:after, blockquote.pull-right .small:after {
+    content: '\00A0 \2014';
+}
+
+.img-responsible
+{
+    margin: 1em 0 1em 0;
+}
+
+.dropdown-item.missing
+{
+    background-color: #FFE7E7;
 }

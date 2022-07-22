@@ -1,0 +1,147 @@
+diabetes:
+    banner:
+        title: "Diabetes mellitus"
+        text: "Diabetes mellitus je heterogenní skupina onemocnění, které se vyznačují zvýšenou koncentrací glukózy v krvi. Ta pomalu ničí orgány. V roce 2015 bylo v České republice cca 800 tisíc diabetiků, přičemž cca 302 tisíc o své nemoci ani nevědělo. Diabetes totiž nebolí, dokud není pozdě a nemoc se již vyvinula. Diabetik o své nemoci nemusí vědět i několik desítek let."
+    quote: "Diabetes je hrozné trápení, ač nepříliš časté, mění maso a kosti v moč. Pacienti vypouštějí neustávající proud vody, jako když se otevře akvadukt. Jejich život je krátký, nepříjemný a bolestivý, žízeň je neuhasitelná, pijí nadměrně a neúměrně k velkému množství moči. Když jenom na chvíli přestanou pít, jejich ústa vysychají na prach a těla schnou, vnitřnosti hoří jako spálené. Zažívají nevolnost, neklidnou a spalující žízeň, a v krátké době umírají."
+    quotesource: "Aretaeus z Kappadokie"
+    quotedate: "druhé století n. l."
+
+    history:
+        title: "Historie"
+        text_1: "První zmínky o diabetu pocházejí již ze starověku, z Egypta roku 1552 př. n. l. na Ebersově papyrusu nalezeném v Luxoru."
+        text_2: "Termín diabetes zavádí kolem roku 1550 př. n. l. řecký lékař Aretaeus z Kappadokie a poprvé také jasně specifikuje jeho příznaky. Římský lékař Claudius Galén později ve svém spisu popisuje léčbu založenou na dostatku tělesného pohybu, malého množství jídla a hydroterapie."
+        text_3: "V novověku dochází k velkému rozvoji všech věd včetně medicíny. V 6. století se v Indii, Číně, Perisii, Egyptě a Řecku k diagnóze nemoci používají mravenci, které přitahuje sladká chuť moči diabetiků. V Evropě si angličan T. Willis všímá sladké chuti diabetické moči až v roce 1674. Součástí diagnostiky se tak stává ochutnávání moči pacientů. Přítomnost cukru v moči je možné detekovat díky chemické metodě vyvinuté W. Dobsonem zhruba o sto let později. Řada objevů v následujících stoletích vedla k nalezení souvislosti mezi mezi slinivkou a diabetem. Až teprve po nic přišel objev inzulínu, který byl uskutečněn na lékařské fakultě University of Toronto. V roce 1921 zde Frederick Banting se svým kolegou Charlesem Herbertem Bestem, za podpory profesora John James Richard Macleoda, poprvé extrahuje psí inzulín a používá ho pro experimetální léčbu psího pacienta. Protože je léčba úspěšná, opakují vědci svůj pokus na čtrnáctiletém chlapci, který se tak stává prvním úspěšně léčeným diabetikem na světě. Autoři tohoto pokusu jsou o dva roky později oceněni Nobelovou cenou za lékařství."
+        text_4: "Velmi brzy se začíná inzulín vyrábět a léčba se rozšiřuje mezi pacienty. Nejprve se využívá inzulín zvířecí, v roce 1979 je objevena výroba lidského inzulínu. V roce 1986 je vyrobeno první inzulínové pero."
+    about:
+        title: "O nemoci"
+        text_1: "Diabetes mellitus neboli úplavice cukrová, známá také jako cukrovka, je chronickým onemocněním, které vzniká v důsledku absolutního nebo relativního nedostatku inzulínu, což vede k poruše metabolismu. Hlavním projevem tohoto onemocnění je hyperglykémie, která může vést k poškození, dysfunkci nebo i úplnému selhání řady orgánů, zejména zraku, ledvin, nervů nebo krevních cév."
+        text_2: "Rozlišují se tři hlavní typy diabetu - typ 1, typ 2 a gestační diabetes. Typ 1 a typ 2 vznikají jako absolutní nebo relativní nedostatek inzulínu. Obě onemocnění mají podobné příznaky, ale jiné příčiny vzniku. Zároveň existují ještě další, specifické formy diabetu, které se označují jako jako sekundární diabetes."
+        text_3: "Diabetes mellitus 1. typu je autoimunitní onemocnění. Bývá nejčastěji diagnostikován kolem 15. roku života a označuje se jako juvenilní diabetes mellitus. Tito pacienti jsou doživotně závislí na aplikaci inzulínu. Rozvoj tohoto typu je dán genetickou predispozicí, Spouštěcím mechanismem bývá nejpravděpodobněji virová infekce jako například zarděnky, infekční mononukleóza nebo příušnice."
+        text_4: "Diabetes mellitus 2. typu se objevuje převážně u dospělých. Nejčastěji postihuje pacienty s nadměrnou tělesnou hmotností. Slinivka pacienta sice produkuje normální množství inzulínu, ale buňky diabetika typu 2 ho potřebují nadměrné množství. Buňky potřebují inzulín k tomu, aby mohly přeměnit glukózu na energii - jako dříví, které nehoří bez kyslíku."
+        text_5: "Gestační diabetes mellitus postihuje zhruba 10% těhotných žen. Začíná většinou v druhé polovině těhotenství a končí porodem, nejpozději v šestinedělí. Další vzácné typy diabetu mohou být způsobeny geneticky, chorobami slinivky, stresem ze zranění, specifickou kombinací léků, apod."
+    inheritance:
+        title: "Dědičnost"
+        text_1: "Typ 1 i typ 2 jsou dědičné, přičemž se na vzniku diabetu podílí pravděpodobně několik genů. Genetický předpoklad musí být podpořen vnějšími vlivy. Riziko u dětí je vyšší (až 13%), jestliže se diabetes mellitus 1. typu projevil u matky před osmým rokem jejího života. Pokud je otec diabetik, pravděpodobnost onemocnění potomka je 4-6% bez ohledu na dobu vypuknutí choroby. Jsou-li však typem 1 postiženi oba rodiče, riziko onemocnění dítěte se zvyšuje na 15-30%."
+        text_2: "Dědičnost diabetu 2. typu není tak dobře prozkoumána, ale představuje pro potomky výrazné riziko. Konkrétně se uvádí pravděpodobnost propuknutí nemoci 15-30%, je-li postižen jeden rodič. Při výskytu diabetu 2. typu u obou rodičů se nebezpečí vzniku této choroby u potomků zvyšuje na 75%. Skutečné propuknutí nemoci lze v tomto případě ale výrazně ovlivnit a nemoci tak předejít nebo ji alespoň oddálit. Je však třeba dodržovat zdravou životosprávu, omezit ve své stravě jednoduché cukry a pravidelně se hýbat."
+    treatment:
+        title: "Léčba"
+        text_1: "Léčba diabetu 1. a 2. typu se liší. Pacientům s nemocí 1. typu inzulín zcela chybí, a je třeba ho v adekvátních dávkách pravidelně do těla pacienta doplňovat. Pacientům jsou většinou podávány 2 typy inzulínu - dlouhodobého a krátkodobého. Dlouhodobě působící inzulín (působí až 24 hodin) slouží k pokrytí základní potřeby organismu. Aplikuje se 1-2x denně. Krátkodobě působící inzulín je v adekvátních dávkách dodáván tělu před jídlem. Začíná působit od 30 do 90 minut, protože je aplikován do podkoží a ne do jater jako u zdravého člověka. Inzulín je pacientovi podáván buď prostřednictvím inzulínového pera nebo pumpy. Součástí léčby je také dieta omezující příjem sacharidů a upravující pravidelné stravovací návyky pacienta."
+        text_2: "Léčba diabetu 2. typu se snaží snížit rezistenci buněk pacienta na přirozeně produkovaný inzulín. Často se využívají perorální diabetika, která mohou být kombinována s doplňkovou aplikací inzulínu. Protože zvýšená hladina glukózy v těle vede k nárůstu hmotnosti, tito pacienti mají často problém s nadváhou. Proto je třeba přistoupit ke změně životního stylu i diety. Nedílnou součástí léčby je také fyzická aktivita, která by měla být provozována několikrát týdně."
+    measurement:
+        title: "Měření"
+        text_1: "Měření koncentrace glukózy v běžném životě diabetika probíhá dvěma způsoby - samoměření a kontinuální měření. Pacient sám několikrát denně provádí samoměření koncentrace glukózy v krvi - glykémie. To znamená, že se pacient musí píchnout do prstu a odebrat kapku krve. Tu následně nasaje na speciální papírek, který vloží do osobní glukometru. Ten na základě elektrochemické reakce určí koncentraci glukózy v odebraném vzorku krve. V závislosti na zjištěné koncentrace si pak diabetik může upravit dávkování inzulínu pomocí inzulínového pera. Tímto způsobem lze získat hodnoty glykémie několikrát za den. Většinou však jen 2-3 denně, protože se jedná o nepříjemný zákrok. A také si nelze \"rozpíchávat\" prsty \"do nekonečna\"."
+        text_2: "Protože samoměření prováděné pacientem je sporadické, nemusí zachytit všechny důležité změny koncentrace glukózy. Z tohoto důvodu byl vyvinut systém kontinuálního monitorování koncentrace glukózy - CGMS (z anglického Continous Glucose Monitoring System). CGMS měří v průběhu dne i noci a podrobně zaznamenává hodnoty naměřené v podkoží pacienta. Zařízení je pacientovi aplikováno jeho ošetřujícím lékařem. Pod kůži pacienta zavede malý senzor, který bude v následujících až 10 dnech průběžně měřit koncentaci glucózy. Naměřené hodnoty jsou uloženy v zařízení, které je k senzoru bezdrátově připojeno. CGMS senzor je třeba průběžně kalibrovat, nejdéle za 12 hodin, protože ho tělo považuje za cizí organismus a snaží se ho eliminovat. To se mu nakonec podaří do cca 10 dnů od jeho zavedení. Obranný mechanismus těla senzor oslepuje, a proto musí být senzor kalibrován na hodnoty naměřené v krvi."
+        text_3: "Zatímco někteří pacienti používají CGMS cca 4x ročně k vyhodnocení jejich stavu, jiní jsou už na něm životně závislí. V jejich případě je CGMS spárován s inzulínovou pumpou, která dávkuje inzulín do podkoží pacienta. Příliš velká dávka inzulínu by u pacienta vyvolala hypoglykemický šok, který by vedl k úmrtí pacienta v krátkém čase. Dávka inzulínu musí odpovídat aktuální koncentraci glukózy v krvi. Jenomže koncentrace glukózy v krvi a v podkoží nemusí být vždy stejná. Například mozek nevydrží bez glukózy déle než pár minut - jenomže změna koncentrace glukózy v krvi se v CGMS-měřeném podkoží projeví cca až za 20 minut. Přesné určení koncentrace v krvi z hodnot podkoží je proto záležitostí pokročilé technologie, jakou je např. náš model dynamiky glukózy."
+        text_4: "Data ze senzoru CGMS lékař typicky využívá pro získání podrobného přehledu reakce organismu pacienta na příjem potravy, fyzickou aktivitu a podávání inzulínu. Následně pak může individuálnš přizpůsobit léčbu. Každý lékař i pacient může naměřená data nahrát na tento server, a získat tak přístup ke grafu vypočítaného průběhu koncentrace glukózy v krvi."
+    symptoms:
+        title: "Příznaky"
+        text_1: "Mezi nejčastější projevy diabetu patří žízeň, časté a vydatné močení, hubnutí, únava, poruchy vědomí, hyperglykémie nebo diabetická ketoacidóza. Při ní se pH lidské krve z běžných cca 7,4 sníží a krev se tak stává pro tělní tkáně a orgány příliš kyselá."
+    diagnosis:
+        title: "Diagnóza a další komplikace"
+        text_1: "Nemoc je diagnostikována z krve nebo moči pacienta. S nediagnostikovanou nemocí mohou pacienti žít i několik desítek let, než se projeví některé z typických příznaků. K odhalení onemocnění 2. typu často dojde náhodně při preventivním vyšetření u lékaře."
+        complications:
+            title_1: "Diabetická noha"
+            text_1: "- diabetická noha se typicky projevuje sníženou citlivostí dolních končetin, bolestivostí nebo výskytem gangrén. Jedná se o souhrnné označení komplikací, které může vést až k amputaci končetiny. Pro pacienty je důležitá dostatečná hygiena a správný výběr obuvi."
+            title_2: "Ketoacidóza"
+            text_2: "- díky poruše metabolismu cukrů se cukry hromadí v krvi a moči pacienta, takže chybí v buňkách jako energetické palivo. Buňky jsou tak nuceny využívat k zisku energie tuky (lipidy). Při štěpení tuků (katabolismu) se uvolňují mimo jiné i odpadní látky (ketolátky, aceton). Ty zvyšují kyselost vnitřního prostředí a tím ovlivňují průběh dalších metabolických reakcí."
+            title_3: "Nefropatie"
+            text_3: "- diabetiky často trápí záněty močového měchýře a močových cest. Během nefropatie pak dokonce dochází k poškození drobných cévek v ledvinách. Pacient ztrácí velké množství bílkovin."
+            title_4: "Neuropatie"
+            text_4: "- neuropatie se projevuje mravenčením, svěděním a snížením citlivosti na vnější podněty, případně svalovou atrofií v různých částech těla."
+            title_5: "Retinopatie"
+            text_5: "- při diabetické retinopatii dochází k poškození cév oční sítnice, která v těžkých případech může skončit až slepotou."
+    readmore:
+        title: "Kde číst dál?"
+        linktitle_1: "Česká diabetologická společnost"
+        linktitle_2: "Diabetická asociace"
+        linktitle_3: "International Diabetes Federation"
+        linktitle_4: "American Diabetes Association"
+        linktitle_5: "Diabetes Health"
+
+smartcgms:
+    banner:
+        title: "SmartCGMS"
+        text: "Software SmartCGMS představuje CGM systém nové generace."
+
+    about:
+        title: "O SmartCGMS"
+        text_1: "Software SmartCGMS představuje CGM systém nové generace. Zakládá na moderních principech vývoje softwaru a systémů odolných proti poruchám. Podlehlá architektura se skládá z bloků, kterými mohou být jak reálná zařízení, tak jejich simulované verze. Pro vývoj nových metod a algoritmů je simulace velmi významným prvkem celého procesu. Náš software umožňuje takovou simulaci nadefinovat a později nahradit simulovaná zařízení za reálná bez nutnosti jakkoliv zasahovat do zdrojových souborů."
+        text_2: "Návrh podlehlé architektury vychází z myšlenek kosimulace a standardu High-Level Architecture (HLA). Pro naše účely byla tato architektura výrazně zjednodušena, aby ji bylo možné provozovat například i na zařízeních s omezeným zdrojem elektrické energie. Takovým zařízením je typicky mobilní telefon nebo inzulinová pumpa."
+        text_3: "SmartCGMS obsahuje/podporuje následující in-silico modely:"
+        feature_1: "Bergman-Hovorka-Willinska-Koutny kombinace modelů"
+        feature_2: "UVA/Padova S2013"
+        feature_3: "SimGlucose, s vynulovaným parametrem xi u UVA/Padova S2013"
+        feature_4: "T1DMS"
+        feature_5: "DMMS.R"
+    app:
+        title: "Aplikace"
+        text_1: "Hlavní aplikaci je možné spustit s grafickým prostředím, případně pouze z příkazové řádky. Grafické prostředí poskytuje rozhraní pro nastavení simulace včetně parametrizace všech částí systému. Nastavenou simulaci lze spustit výběrem simulačního pohledu a stisknutím tlačítka \"Start\" v horní části pohledu."
+        text_2: "V průběhu simulace lze prohlížet grafy s aktuálními výstupy - denní přehled, celkový pohled, Parkesův a Clarkův grid nebo ambulatorní glykemický profil. Rovněž jsou k dispozici pravidelně obnovované chybové metriky a empirická kumulativní distribuční funkce. Aplikace dále podporuje filtrování viditelnosti časových segmentů a signálů v grafu pomocí nabídky v pravé části pohledu. O průběhu simulace je veden kompletní záznam, který je k dispozici v příslušné záložce v simulačním pohledu."
+        text_3: "Pohledy je možné přibližovat a oddalovat kolečkem myši a přiblížené je lze uložit do souboru výběrem příslušné položky v kontextovém menu obrázku. Uživatel může dále ovlivňovat průběh simulace vyžádáním spuštění výpočtu parametrů modelu tlačítkem v horní části obrazovky a výběrem signálu, jehož parametry mají být přepočteny."
+    configuration:
+        title: "Nastavení"
+        text_1: "V grafickém rozhraní v konfiguračním pohledu lze nastavit celou simulaci skládáním z jednotlivých bloků. V pravé části pohledu jsou dostupné filtry, v levé části jsou pak již vybrané filtry zařazené do architektury. Pořadí filtrů je důležité - jsou spojeny do lineárního řetězu, ve kterém si postupně předávají zprávy."
+        text_2: "Typicky je na prvním místě zařazen filtr, který načítá nebo generuje data. Tato data mohou být načítána buď z databáze, standardního výstupního formátu některého ze zařízení nebo může být přehrán záznam z předchozí simulace. Následují filtry pro výpočty parametrů modelu a signálů, kterých může být libovolný počet. Pro grafické prostředí je typicky posledním filtrem v architektuře filtr s názvem \"Visualization\", který se stará o grafické výstupy do rozhraní a o záznam simulace."
+        text_3: "Podrobnější popis všech dostupných filtrů je možné nalézt v dokumentaci."
+    mobile:
+        title: "Mobilní aplikace"
+        text_1: "Jelikož je architektura implementována přenositelně, je možné ji beze změny v jejím kódu použít i na zařízení s omezeným zdrojem elektrické energie. Takovým zařízením je například i mobilní telefon doplněný o \"chytré\" hodinky, případně inzulinová pumpa."
+        text_2: "S mobilní aplikací se lze připojit k senzorům implementujících standard IEEE-11073. S využitím stejné architektury pouze s mírně odlišnou konfigurací lze dosáhnout takřka okamžité adaptace nových technologií ze simulovaného prostředí do reálného provozu."
+        text_3: "Doplněním mobilní aplikace o tzv. \"chytré\" hodinky lze zvýšit pohodlí pacienta tak, že je možné se pro zjištění aktuální koncentrace glukózy pouze podívat na zápěstí. Není navíc nutné instalovat žádnou další aplikaci - data jsou zobrazována v existující watch-face v datových proudech."
+    matlab:
+        title: "Matlab"
+        text_1: "Aplikace je vysoce modulární a podporuje integraci s dalšími nástroji. Kromě vývoje vlastního filtru, modelu, metriky nebo algoritmu pro výpočet parametrů v kompilovaných jazycích (např. C++) lze například vytvořit i vlastní model a algoritmus v jazyce Matlab."
+        text_2: "Uživatelé systému Matlab mohou implementovat vlastní model dynamiky glukózy a algoritmus pro hledání parametrů. V adresáři se zdrojovými soubory u filtru matlab je přiložen příklad jednoduché lineární regrese a regresního modelu přímky, který lze použít jako základ pro vývoj vlastních modulů."
+        text_3: "Důležitým prvkem je soubor s definicemi - <i>matlab_manifest.xml</i>. Ten obsahuje odkaz na skripty v jazyce Matlab, které budou simulátorem načteny a příslušné definice zpřístupněny v konfiguraci. Tento soubor je nutné pro fungování integrace přesunout do podsložky <i>filters</i> výsledného zkompilovaného řešení. Uvnitř souboru lze definovat jednak skripty, a jednak definice vstupních a výstupních elementů, jako jsou například signály potřebné pro výpočet."
+        text_4: "Definicí názvu sezení a exportem z běžící instance nástroje Matlab lze umožnit i interaktivní ladění."
+    installation:
+        title: "Instalace"
+        text_1: "Zdrojové kódy aplikace jsou k dispozici v souladu s licencí všech použitých knihoven v archivu s binární distribucí, který lze stáhnout níže."
+        text_2: "Pro správné přeložení musí na daném prostředí být nainstalovány tyto prerekvizity:<ul><li>kompilátor s podporou C++17 (např. gcc 7 nebo vyšší)</li><li>CMake</li><li>git - použijete-li repozitář na GitLab</li><li>Qt 5</li></ul>"
+        text_3: "K přeložení je přiložen soubor CMakeLists.txt, kterým lze systém SmartCGMS sestavit. Adresář <i>core</i> je prázdný - tam patří zdrojové kódy Vašich vlastních filtrů."
+        text_4: "S úspěšným přeložením je vytvořen podadresář <i>bin</i>, ve kterém naleznete tyto důležité soubory a adresáře:<ul><li><i>gpredict3-console</i> - konzolová verze bez grafického prostředí</li><li><i>gpredict3-desktop</i> - verze s grafickým prostředím</li><li><i>filters</i> - adresář s jednotlivými filtry</li></ul>"
+    download:
+        title: "Stažení"
+        text_1: "Software SmartCGMS je ke stažení v sekci <a href=\"%link%\">ke stažení</a> spolu s databází profilů. Více informací a postup stažení naleznete na tomto odkazu."
+
+docs:
+    banner:
+        title: "Dokumentace"
+        text: "Na této stránce naleznete dokumentaci softwarové architektury SmartCGMS a všech jejích součástí."
+        sorrytext: "Omlouváme se, ale dokumentace je k dispozici pouze v anglickém jazyce."
+
+icarus:
+    banner:
+        title: "Íkaros má diabetes"
+        text: "Aplikace, která analogicky převádí model pacienta a regulaci glykemie do podoby hry."
+
+    about:
+        title: "Íkaros"
+        text_1: "Íkaros je postava z řecké mytologie. Mimo jiných skutků se proslavil zejména způsobem úniku z Kréty, kde byl společně s jeho otcem Daidalem vězněn. Pomocí křídel vyrobených z per pospojovaných voskem měli přeletět moře z Kréty až do Athén. Nesměli však létat příliš vysoko, aby slunce neroztavilo vosk, ale ani příliš nízko, aby křídla neabsorbovala vodu a neztěžkla. V původních mýtech Íkaros rady svého otce dodržoval. Létání se mu však zalíbilo a po čase se dostal příliš vysoko. Jeho křídla roztavilo slunce, ta se rozpadla a Íkaros se utopil v moři."
+        text_2: "Představme si na okamžik, že výška letu Íkara představuje aktuální glykemii pomyslného pacienta. Pak lze snadno odvodit i analogii pro Daidalovy rady ohledně výšky letu – stejně jako Íkaros neměl létat příliš vysoko, aby mu křídla neroztavilo slunce, tak ani pomyslný pacient by neměl mít glykemii příliš vysokou, aby nedošlo k poškozování orgánů. Rovněž opačný případ – Íkaros neměl létat příliš nízko, aby křídla neabsorbovala vodu a neztěžkla, stejně jako by pomyslný pacient neměl mít glykemii příliš nízkou kvůli rizikům spojeným s hypoglykemií. Co ale ovlivňuje výšku letu Íkara? Primárně jde o příjem karbohydrátů, které zpravidla glykemii zvyšují, a také produkce, respektive příjem inzulinu, který glykemii v konečném důsledku naopak snižuje. Abychom lépe vyhověli analogii, obraťme souřadnicový systém. Bude-li nižší glykemie odpovídat vyšší letové hladině Íkara, lze efekt bazálního inzulínu dodávaný inzulinovou pumpou analogicky převést na rychlost mávání křídel. Tedy – čím rychleji Íkaros mává křídly, tím výše poletí, a analogicky tím nižší bude mít pomyslný pacient hodnotu glykemie. Bolusový inzulin si pak lze představit jako jednorázové silné máchnutí křídly, a tedy rychlé a nárazové zvednutí letové hladiny. Na druhou stranu příjem karbohydrátů glykemii zvyšuje; v převrácených souřadnicích tedy potřebujeme, aby Íkaros klesal blíže k mořské hladině. Ve vyšších atmosférických vrstvách, obzvláště přímo nad mořem, se obvykle vyskytují prudké větry. Ty v naší analogii představují příjem potravy, které vychylují herní postavu směrem dolů, do hyperglykemie."
+        text_3: "Tímto se nám v podstatě podařilo nadefinovat princip herního systému. Jediné, co je nutné pro hratelnost ještě dodat, je rozumný generátor prostředí a ohodnocení toho, jak moc se hráči ve hře dařilo – tedy nějaké herní skóre. Generátor prostředí je model, který rozhoduje, co se ve hře v jaký okamžik stane, a tedy generuje problémy, se kterými se hráč musí pomocí ovládacích prvků vyrovnat. V našem případě jde o generování časů a intenzit, ve kterých se objevují již zmíněné atmosférické jevy, a rovněž transformace prostředí tak, aby se hráč musel svým vnímáním přizpůsobit novým podmínkám. Skóre si lze opět odvodit analogicky – kvalita regulace glykemie se může například hodnotit dle poměru času, ve kterém se glykemie pohybovala v požadovaném rozmezí. Pro potřeby hry musíme ale kritérium zpřesnit, aby bylo možné lépe rozlišit kvalitu herního snažení. Předpokládejme konkrétní hladinu glykemie, kterou po hráči požadujeme, aby udržel."
+    menu:
+        title: "Titulní strana"
+        text_1: "Titulní strana dává na výběr několik možností. Prvním tlačítkem lze spustit hru. Druhé tlačítko spouští demoverzi, ve které si hru můžete vyzkoušet na kratším letu, aniž by se Vaše skóre započetlo do tabulky výsledků. Můžete si rovněž zobrazit nápovědu k ovládacím prvkům a zobrazit tabulku výsledků všech předchozích her."
+    settings:
+        title: "Nastavení hry"
+        text_1: "Před spuštěním hry jste vyzváni k zadání několika informací. Zvolte si svou přezdívku, která se pak bude zobrazovat v tabulce výsledků, Vaši kvalifikaci a pokud chcete, tak i konkrétní typ diabetu, kterým jste postižen/a nebo kterým se zabýváte."
+        text_2: "Dále zvolte obtížnost hry. Různé herní obtížnosti se liší složitostí regulace a tím, jak je generována cílová letová hladina hlavní postavy. Výsledné skóre se pak bude zapisovat do tabulky s příslušnou obtížností."
+    game:
+        title: "Hra"
+        text_1: "Nyní se nacházíte ve hře. Hlavní postava se musí držet co možná nejblíže cílové hladině, která je vyznačena černou klikatou čarou. Čím blíže se budete této hladině v celkovém průběhu hry pohybovat, tím vyšší výsledné skóre získáte. Průběžné skóre a zbývající čas můžete vidět v pravém horním rohu obrazovky."
+        text_2: "V pravém dolním rohu se nachází ovládání rychlosti mávání křídly, v analogii jde o rychlost dávkování bazálního inzulinu. Čím vyšší tato hodnota bude, tím rychleji bude Íkaros mávat křídly a tím více poletí směrem k nebesům. Stejně tak nižší hodnoty způsobí přiblížení mořské hladině. V analogii jsou převrácené souřadnice - tedy vyšší letová hladina představuje nižší hodnoty glykémie (směrem k hypoglykémii) a nižší letová hladina představuje vyšší hodnoty glykémie (směrem k hyperglykémii)."
+        text_3: "Levý dolní roh obsahuje sadu tlačítek, kterými lze jednorázově rychle zvýšit nebo snížit letovou hladinu. Horní řada představuje bolusový inzulín, tedy zvýšení letové hladiny (snížení glykémie). Dolní řada naopak představuje dodatečné karbohydráty, kterými lze letovou hladinu snížit (zvýšit glykémii)."
+        text_4: "Hra dále generuje příjem karbohydrátů v podobě běžných denních pokrmů. Ve hře je tento jev znázorněn větrem, který se vyskytuje ve vyšších hladinách a má tendenci letovou hladinu Íkara snižovat."
+    gameover:
+        title: "Ukončená hra"
+        text_1: "Po skončení hry uvidíte obrazovku podobnou té na obrázku. Vidíte Vaše výsledné skóre, umístění v tabulce výsledků a možnost si tuto tabulku prohlédnout."
+    scoreboard:
+        title: "Tabulka výsledků"
+        text_1: "V této tabulce vidíte přehled nejvyšších dosažených skóre rozdělených podle herní obtížnosti."
+    controls:
+        title: "Ovládání"
+        text_1: "Hru lze na PC ovládat jak pomocí myši, tak pomocí klávesnice. Bolusový inzulin lze dávkovat i pomocí kláves Q, W, E, R a T, karbohydráty pak pomocí kláves A, S, D, F a G. Rychlost dávkování bazálního inzulinu můžete rovněž ovlivnit směrovými šipkami."
+    download:
+        title: "Stažení"
+        text_1: "Software SmartCGMS je ke stažení v sekci <a href=\"%link%\">ke stažení</a> spolu s databází profilů. Více informací a postup stažení naleznete na tomto odkazu."

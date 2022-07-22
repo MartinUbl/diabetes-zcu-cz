@@ -1,3 +1,115 @@
+{block beforeContent}
+<div class="carousel-container">
+    <div class="container">
+        <div id="bannerCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="0" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="2" class="active" aria-current="true" aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+            </div>
+            <div class="carousel-inner" role="listbox">
+                <div class="carousel-item" id="carusel_image">
+                    <div class="first-slide carusel-image" style="background-image: url({$baseUrl}/img/diabetes_measure.jpg);"></div>
+                    <div class="container">
+                        <div class="carousel-caption">
+                            <h3>{_general.homepage.carousel.item_1.title}</h3>
+                            <p>{_general.homepage.carousel.item_1.text}</p>
+                            <p>
+                                <a class="btn btn-lg btn-warning" n:href="Diabetes:" role="button">{_general.homepage.carousel.item_1.button_text}</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="second-slide carusel-image" style="background-image: url({$baseUrl}/img/pumpa.jpg);"></div>
+                    <div class="container">
+                        <div class="carousel-caption">
+                            <h3>{_general.homepage.carousel.item_2.title}</h3>
+                            <p>{_general.homepage.carousel.item_2.text}</p>
+                            <p>
+                                <a class="btn btn-lg btn-warning" n:href="About:" role="button">{_general.homepage.carousel.item_2.button_text}</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item active" id="carusel_image">
+                    <div class="third-slide carusel-image" style="background-image: url({$baseUrl}/img/diabetes.jpg);"></div>
+                    <div class="container">
+                        <div class="carousel-caption">
+                            <h3>{_general.homepage.carousel.item_3.title}</h3>
+                            <p>{_general.homepage.carousel.item_3.text}</p>
+                            <p>
+                                <a class="btn btn-lg btn-warning" n:href="Patient:" role="button">{_general.homepage.carousel.item_3.button_text}</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="fourth-slide carusel-image" style="background-image: url({$baseUrl}/img/smartcgms/carousel_smartcgms.png);"></div>
+                    <div class="container">
+                        <div class="carousel-caption">
+                            <h3>{_general.homepage.carousel.item_4.title}</h3>
+                            <p>{_general.homepage.carousel.item_4.text}</p>
+                            <p>
+                                <a class="btn btn-lg btn-warning" n:href="Smartcgms:" role="button">{_general.homepage.carousel.item_4.button_text}</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#bannerCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</div>
+{/block}
+
 {block content}
+
+<div class="row roles">
+    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-6">
+        <img class="img-circle" src="{$baseUrl}/img/patient.jpg" alt="{_general.homepage.patient.title}" width="140" height="140" />
+        <h4>{_general.homepage.patient.title}</h4>
+        <p>{_general.homepage.patient.text}</p>
+        <a class="btn btn-outline-dark" n:href="Patient:"><i class="fas fa-angle-double-right"></i></a>
+    </div>
+    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-6">
+        <img class="img-circle" src="{$baseUrl}/img/doctor.jpg" alt="{_general.homepage.doctor.title}" width="140" height="140" />
+        <h4>{_general.homepage.doctor.title}</h4>
+        <p>{_general.homepage.doctor.text}</p>
+        <a class="btn btn-outline-dark" n:href="Profi:"><i class="fas fa-angle-double-right"></i></a>
+    </div>
+    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-6">
+        <img class="img-circle" src="{$baseUrl}/img/scientist.jpg" alt="{_general.homepage.scientist.title}" width="140" height="140" />
+        <h4>{_general.homepage.scientist.title}</h4>
+        <p>{_general.homepage.scientist.text}</p>
+        <a class="btn btn-outline-dark" n:href="Profi:"><i class="fas fa-angle-double-right"></i></a>
+    </div>
+    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-6">
+        <img class="img-circle" src="{$baseUrl}/img/bussinessman.jpg" alt="{_general.homepage.bussinessman.title}" width="140" height="140" />
+        <h4>{_general.homepage.bussinessman.title}</h4>
+        <p>{_general.homepage.bussinessman.text}</p>
+        <a class="btn btn-outline-dark" n:href="Profi:"><i class="fas fa-angle-double-right"></i></a>
+    </div>
+    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-6">
+        <img class="img-circle" src="{$baseUrl}/img/student.jpg" alt="{_general.homepage.student.title}" width="140" height="140" />
+        <h4>{_general.homepage.student.title}</h4>
+        <p>{_general.homepage.student.text}</p>
+        <a class="btn btn-outline-dark" n:href="Profi:"><i class="fas fa-angle-double-right"></i></a>
+    </div>
+    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-6">
+        <img class="img-circle" src="{$baseUrl}/img/press.jpg" alt="{_general.homepage.press.title}" width="140" height="140" />
+        <h4>{_general.homepage.press.title}</h4>
+        <p>{_general.homepage.press.text}</p>
+        <a class="btn btn-outline-dark" n:href="Media:"><i class="fas fa-angle-double-right"></i></a>
+    </div>
+</div>
 
 

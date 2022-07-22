@@ -1,0 +1,147 @@
+diabetes:
+    banner:
+        title: "Diabetes mellitus"
+        text: "Diabetes mellitus is heterogeneous group of diseases which share the phenotype of elevated blood glucose level. This chronically damages organs. In 2015, there were 400 million diabetics, and 200 million did not even knew about having the disease. Diabetes does not hurt it is too late and the disease has developed. Diabetes may remain silent for a few decades."
+    quote: "Diabetes is a dreadful affliction, not very frequent among men, being a melting down of the flesh and limbs into urine. The patients never stop making water and the flow is incessant, like the opening of the aqueducts. Life is short, unpleasant and painful, thirst unquenchable, drinking excessive and disproportionate to the large quantity of urine, for yet more urine is passed. If for a while they abstain from drinking, their mouths become parched and their bodies dry; the viscera seem scorched up, the patients are affected by nausea, restlessness and a burning thirst, and within a short time they expire."
+    quotesource: "Aretaeus of Cappadocia"
+    quotedate: "second century AD"
+
+    history:
+        title: "History"
+        text_1: "Eber Papyrus is considered as a first mention of diabetes. It dates to ancient Egypt, 1552 B.C. It was found in Luxor."
+        text_2: "Around 1550 B.C., a Greek physician Aretaeus of Cappadocia coins the term Diabetes and specifies its symptoms. Later on, a Roman physician Claudius Galen describes a treatment based on sufficiency of physical exercise, small portions of meal and hydrotherapy."
+        text_3: "The modern period witness a great development of all medical sciences. In the 6th century, ants are used to diagnose the disease in India, China, Persia, Egypt and Greece. Sweet taste of diabetic's urine attracted the ants. In Europe, Englishman T. Willis notices this sweet taste in 1674 and makes urine testing part of the diagnostics. Approximately hundred years later, W. Dobson developed a chemical method to detect sugar in urine. More discoveries followed in the upcoming centuries, until a relationship between pancreas and diabetes was found. Then, insulin was discovered at University of Toronto in 1921. Frederick Banting with his colleague Charles Herbert Best, aided by professor John James Richard Macleod, extracted dog insulin and used it for a dog patient treatment. The treatment was successful. Then, the scientists administered the insulin to a 14-year boy, who was comatose - dying of diabetes in a bed of the Toronto General Hospital. As he opened his eyes again, he became the very first successfully medicated diabetic in the world. The authors of the experiment received the Nobel Prize in Physiology or Medicine two years later."
+        text_4: "Insulin quickly entered a production so that it could have been distributed to pharmacies for a use by diabetes patients. First, the animal insulin was used. In 1979, a way to produce human insulin was developed. In 1986, the first insulin pen is produced."
+    about:
+        title: "About diabetes"
+        text_1: "Diabetes mellitus, commonly referred to as diabetes, is a group of metabolic diseases, for which there is an absolute or relative deficit of insulin. This leads to metabolism disturbance. Hyperglycemia is the main symptom. It continuously damages organs such as eyes, kidneys, nerves and blood vessels."
+        text_2: "There are three types of diabetes - type 1, type 2 and gestational diabetes. With types 1 and 2, there is either absolute or relative deficit of insulin. While both shares common symptoms, they have different causes. In addition, there are other, specific forms of diabetes. These are called secondary diabetes."
+        text_3: "Diabetes mellitus type 1 is an autoimmune disease. Usually, it is diagnosed at 15. It is called juvenile diabetes mellitus. Type-1 patient depends on insulin for the rest of life. There is a genetic predisposition for the type 1. A virus infection (rubella, infectious mononucleosis, mumps, etc.) is a trigger that starts type 1."
+        text_4: "Diabetes mellitus type 2 is frequent with over-weight adults. While pancreas produces a normal amount of insulin, cells need much more insulin with type 2. Cells need insulin to utilize glucose for a production of energy. It is like a firewood that needs oxygen to burn."
+        text_5: "Prevalence of gestational diabetes mellitus is approximately 10%. It starts in second half of pregnancy and finishes with birth. Other rare forms of diabetes are pre-conditioned by genetic background, pancreas illness, wrong combinations of drugs, etc."
+    inheritance:
+        title: "Genetic Predisposition"
+        text_1: "There is a genetic predisposition for both type 1 and 2 diabetes. Environment may active responsible genes. Children are at greater risk than adults, approximately 13%, if mother was diagnosed with type 1 before 8. With a diabetic father, the risk increases from 4% to 6%. With both diabetic parents, the risk ranges from 10% to 30%."
+        text_2: "The genetic background of type 2 is not understood so good as it is with type 1. However, type 2 is a risk factor for offspring. With one diabetic parent, there is a 15% - 30% risk for a children. With both diabetic parents, the risk increases up to 75%. However, it is possible to considerably improve patient's condition by adjusting life style, reduce monosaccharides in the diet and have a regular exercise."
+    treatment:
+        title: "Treatment"
+        text_1: "Treatment of diabetes mellitus type 1 and 2 is different. Type-1 patient has inadequate, even zero production of insulin. Therefore, insulin must be dosed regularly to keep a type-1 patient alive. There are short- and long-action types of insulin. The long-action insulin lasts up to 24 hours and covers basal metabalism needs. It is applied 1-2 times a day. The short-action insulin is dosed before a meal. It reaches the bloodstream after 30 - 90 minutes, because it is applied into subcutaneous tissue. Insulin pen or pump doses the insulin. In addition, the treatment includes a diet plan to reduce uptake of saccharides."
+        text_2: "Treatment of diabetes mellitus type 2 attempt to reduces insulin resistance of cells. Oral drugs are used frequently, and could be combined with an additional insulin doses. As increased blood glucose level leads to increased weight, overweight is a common symptom. Therefore, type-2 patients must change their lifestyle and diet. Physical exercise should be conducted several times a week."
+    measurement:
+        title: "Measuring"
+        text_1: "In the practice, there are two ways of measuring glucose level - self and continuous monitoring. Several times a day, the patient stick a finger to draw a drop of blood. A special paper absorbs the drop. Once absorbed, patient inserts the paper into a glucometer. Electrochemical reaction produces a current that is converted into glucose level. Based on this glucose level, the patient can adjust insulin dosage. However, most patients takes 2-3 blood samples a day due to the associated discomfort of drawing the blood."
+        text_2: "As the self-monitoring of blood glucose level is sporadic, it does not capture all important changes of glucose level. Therefore, a continuous glucose monitoring system (CGMS) is being used. CGMS yields a glucose every five minutes. However, it does not measure blood glucose level, but a glucose level of subcutaneous tissue. A physician install CGMS sensor into abdominal subcutaneous tissue. The sensor will be useable up to 10 days. Body treats the sensor as a foreigner a tries to eliminate it. Eventually, the body wins. Meanwhile, sensor's precision degrades and it has to be repeatedly calibrated. It is calibrated to the sporadically self-measured blood glucose level. Interval between calibrations cannot be longer than 12 hours."
+        text_3: "While some patients wear CGMS approximately four times a year, other patients are life-dependent on it. In such a case, CGMS is paired with insulin pump that doses insulin into the subcutaneous tissue. As over dosage of insulin would kill the patient, the dosage must respect the current blood glucose level. However, subcutaneous tissue glucose level (measured by CGMS) is not necessarily the same as blood glucose level. For example, brain does not have glucose supply for more than few minutes. This could be a problem as blood glucose level changes propagates to the CGMS-monitored subcutaneous tissue with approximately 20-minutes delay. Therefore, an advanced technology, such as our model of glucose dynamics, is required to precisely calculate blood glucose level from subcutaneous tissue level."
+        text_4: "Usually, a physician uses CGMS-recorded glucose level to obtain an overview patient's response to patient's diet, exercise and insulin dosage. Then, the physician can personalize the treatment towards a particular patient. Any physician and any diabetic can upload CGMS data to this portal to obtain a plot of calculated blood glucose level, i.e. to obtain a yet improved overview patient's condition."
+    symptoms:
+        title: "Symptoms"
+        text_1: "Common symptoms include excessive thirst, frequent urination, weight loss, fatigue, unconsciousness, hyperglycemia or diabetic ketoacidosis. During ketoacidosis, 7.4 pH of human blood decreases and the blood gets too acid for organs and tissues."
+    diagnosis:
+        title: "Diagnosis and Complications"
+        text_1: "Urine or blood is examined to diagnose a diabetes. Non-diagnosed patient can live with diabetes many years, until first symptoms occur. Diabetes mellitus type 2 is often found accidentally during a preventive medical examination."
+        complications:
+            title_1: "Diabetic foot"
+            text_1: "- diabetic foot is characterized with considerably reduced pain sensation, event with a gangrene. It is a common name for a group of complications, which may lead to foot amputation. Hygiene, proper foot care and choosing the right shoes are important."
+            title_2: "Ketoacidosis"
+            text_2: "- due to a metabolism malfunction, glucose accumulates in blood and urine. Then, it is missing in cells to produce energy. Therefore, cells have to break-down lipids to produce energy. However, ketone bodies (acetone) are produce during the break down. Ketone bodies increases acidity and thus affect other metabolic processes to malfunction."
+            title_3: "Diabetic nephropathy"
+            text_3: "- is a progressive disease characterized with a damaged capillaries of kidneys' glomeruli. For 5 to 10 years, kidneys' filtration degrades until the diabetic starts to loose an important number of nutrients. It is a prime reason for dialysis."
+            title_4: "Diabetic neuropathy"
+            text_4: "- often manifests with a sensation of pins and needles, itching, reduced of sensitivity to external impulses, and muscle atrophy in different parts of the body."
+            title_5: "Diabetic retinopathy"
+            text_5: "- damage occurs to the retina and blood vessels due to diabetes. Eventually, it may lead to blindness."
+    readmore:
+        title: "Read More"
+        linktitle_1: "Czech Diabetes Society"
+        linktitle_2: "Czech Diabetic Association"
+        linktitle_3: "International Diabetes Federation"
+        linktitle_4: "American Diabetes Association"
+        linktitle_5: "Diabetes Health"
+
+smartcgms:
+    banner:
+        title: "SmartCGMS"
+        text: "SmartCGMS is a next-generation continuous glucose monitoring system."
+
+    about:
+        title: "About SmartCGMS"
+        text_1: "SmartCGMS is a software-stack for the next generation of continuous glucose monitoring, controlling and research systems. Its architecture comprises a number of building blocks, which could be either real or simulated devices such as glucose-sensor, model of glucose dynamics and insulin pump. Simulation is an irreplaceable tool in the development of new methods and algorithm. Our software allows the user to define such simulation and later, when the new method is ready, just switch the simulated device for the real one with the same program code."
+        text_2: "SmartCGMS architecture builds on the top of ideas of co-simulation and the High-Level Architecture standard. As insulin pump and mobile devices in general have limited computational resources and power supply, the architecture was simplified to allow adaptation to low-power devices."
+        text_3: "SmartCGMS contains/supports the following in-silico models:"
+        feature_1: "Bergman-Hovorka-Willinska-Koutny model combination"
+        feature_2: "UVA/Padova S2013"
+        feature_3: "SimGlucose, by setting UVA/Padova S2013 xi parameter to zero"
+        feature_4: "T1DMS"
+        feature_5: "DMMS.R"
+    app:
+        title: "Research"
+        text_1: "The research application comes in the graphical-user-interface and console variants. Graphical user interfaces lets a researcher to set up a simulation, including individual component parametrization. Once the simulation is set, the researcher can start it in the simulation view. Researcher can control the simulation during its runtime."
+        text_2: "The research application visualize the results with graphs, plots and grids during the simulation - daily statistics, overall view, Parke's and Clarke's grids or ambulatory glucose profile, metrics and empirical cumulative distribution function of errors. Graphical user interface updates all of this in the real time, while offering additional filtering options. Entire experiment can be recorded and replayed as needed."
+        text_3: "Generated graphs can be zoomed and visible are saved to a vector-graphics file format."
+    configuration:
+        title: "Setting up"
+        text_1: "The graphical environment offers the configuration window, where the user can build custom configurations using predefined blocks, called filters. The right side contains available filters; the left side contains already selected filters. The order of filters is important - they are connected in a linear manner to a chain, with a simplex message passing."
+        text_2: "Typically, the first filter in chain is a filter, which loads or generates input data. Such data may be loaded from a database, standard output file of CGM device or a log of previously simulated scenario. Then, calculation filters are defined. Such a filter schedules the solver algorithm to obtain model parameters. Then, the filter calculates the model signal using the determined parameters. In the graphical environment, visualization filter must be present to observe the calculated signal. This filter maintains graphical output, error metrics and simulation logging."
+        text_3: "Detailed description of all available filters is present in documentation."
+    mobile:
+        title: "Mobile application"
+        text_1: "Thanks to the architecture design, our implementation could be ported to a low-power device without any change in the source code. Mobile phone is an example of such a device, which could be complemented with smart watch and insulin pump."
+        text_2: "The mobile application is able to connect to a sensor implementing IEEE-11073 standard for glucose sensors, using low-energy Bluetooth. Hence, with a minimal configuration change we can instantly put the selected research configuration into the practice."
+        text_3: "By complementing the mobile phone with smart watch, the patient's comfort increases. To determine glucose levels, user simply looks at the wrist. There is no need to install any additional application - data are displayed in the existing watch-face."
+    matlab:
+        title: "Matlab"
+        text_1: "The application is highly modular and supports integration with other tools. Along implementing custom filter, model, metric and solver algorithm with a compiled language (e.g. C++), a researcher can create custom model or solver algorithm with Matlab."
+        text_2: "Matlab user can implement custom model of glucose dynamics or a solver algorithm. You can find an example of such scripts in the matlab subdirectory - simple linear regression and linear model. Let this example be your starting point in developing a custom model or solver algorithm."
+        text_3: "The most important file in Matlab connection is a manifest - <i>matlab_manifest.xml</i>. This file contains XML-formatted structures, which defines Matlab scripts to be run for a given purpose. This file should be present in <i>filters</i> subdirectory of the compiled software. The developer can further specify input and output parameters, such as signals needed for the calculation."
+        text_4: "By defining the session name and exporting the same name in already running instance of Matlab, the debugging routines becomes available."
+    installation:
+        title: "Installation"
+        text_1: "SmartCGMS source codes are available under appropriate licencing conditions in the binary distribution archive mentioned below."
+        text_2: "The building environment should have the following prerequisities installed:<ul><li>compiler with C++17 (e.g.; gcc 7 or newer)</li><li>CMake</li><li>git - shall you use the GitLab repository</li><li>Qt 5</li></ul>"
+        text_3: "To build SmartCGMS, a CMakeLists.txt file is included. The <i>core</i> directory is empty - source code of your custom filters belong here."
+        text_4: "After a successful build, a <i>bin</i> subdirectory is created. It contains the following, important files and directories:<ul><li><i>gpredict3-desktop</i> - research application with graphical user interface</li><li><i>gpredict3-console</i> - console version of the research application</li><li><i>filters</i> - directory containing filter libraries</li></ul>"
+    download:
+        title: "Download SmartCGMS"
+        text_1: "The SmartCGMS software could be downloaded in the <a href=\"%link%\">downloads</a> section, as well, as CGM profile database. More information and steps needed to obtain SmartCGMS and database could be found there."
+
+docs:
+    banner:
+        title: "Documentation"
+        text: "This page hosts the documentation of the SmartCGMS software architecture and all of its components."
+        sorrytext: ""
+
+icarus:
+    banner:
+        title: "Icarus has diabetes"
+        text: "Application, which transforms virtual patient model and glycemic control into a game."
+
+    about:
+        title: "Icarus"
+        text_1: "Icarus is a character from the Greek mythology. Apart from other deeds, he is famous for his escape from Crete, where he was imprisonem together with is father Daidalos. Using wings made from bird feathers and wax, they were supposed to travel over the sea from Crete to Athenes. However, they couldn't fly too high, because the Sun's heat would melt the wax. They couldn't fly too low either, for the feathers would absorb sea water and become heavy. In original stories, Íkaros followed his father's advices. Nevertheless, he enjoyed the flying too much, so he's eventually forgotten about the boundaries and he flew too high. The Sun melted his wings, they fell apart and Íkaros drowned in the sea."
+        text_2: "Let us imagine for a moment, that the Icarus' flight level represents current glycemia level of a virtual patient. Then, we can deduce the analogy of Daidalos' advices about flight level. Icarus shouldn't fly too high, otherwise Sun would melt his wings, and the same applies to the patient - the glycemia shouldn't be too high due to potential organ damage. Also, Icarus shouldn't fly too close to the sea level, so his wings would absorb the water and become heavy - the glycemia of the virtual patient shouldn't be too low due to risks associated with hypoglyceamia. But what affects the flight level of Icarus? Primarily, it's the carbohydrates intake, which usually increases glycemia, but also the production or intake of insulin, which effectively lowers glycaemia. To comply with the analogy, let us invert the coordinate system. If the lower glycaemia corresponds with higher flight level, the effect of basal insulin could be transformed into this analogy as the frequency of wing flapping. So, the higher the frequency is, the higher the flight level is, and the lower the glycaemia of our virtual patient is. Bolus insulin could be then transformed into single, strong wing flap, and therefore fast and one-shot increase in flight level. On the other hand, carbohydrate intake increases the glycaemia. Therefore, we need to lower Icarus flight level closer to the sea level,in our inverted cooordinated system. In higher levels above the sea, there are often very string winds. We use this in our analogy as transformed carbohydrates intake, which effectively lowers the flight level (increases glyceamia of the patient)."
+        text_3: "We successfully defined a part of a game system. The only thing that remains to be defined is a reasonable environment generator and means of evaluation of player's game performance (score). Environment generator is a model, which decides, what happens at what point of a game. It generates problems, which the player is supposed to resolve using appropriate game controls. In our case, the generator controls the time and intensity of atmospheric winds and also the transformation of game environment, so the player needs to pay close attention and adapt the gaming style. The analogy of player score also comes from real-world scenarios - the efficiency of glycemic control is often evaluated as a ratio of measured levels inside certain range, and levels outside that range (also called the \"time in range\" ratio). The game, however, needs more precise evaluation. Therefore, we count the player score as an inverse difference from target glycaemia."
+    menu:
+        title: "Main menu"
+        text_1: "The main menu offers a number of choices. The first button starts the game. The second button starts a demo-version of game with shorted time period. Results of demo-version will not be included in highscore table. You can also choose to display a brief information about game controls and also to display the highscore table."
+    settings:
+        title: "Game settings"
+        text_1: "Before actual game, you are asked to fill a few fields. Choose your nickname, which would then be displayed in highscore table, your qualification and optionally also the type of diabetes."
+        text_2: "Then choose the game difficulty. Different difficulty levels causes the target flight level curve to be more or less curved. Your resulting score would then be stored into a highscore table of chosen difficulty."
+    game:
+        title: "The game"
+        text_1: "You are now playing the game. Icarus needs to stick as close to the target flight level, as possible. The target flight level is depicted by a black curve. The closer the Icarus is, the higher score you get. Your current score and remaining time is depicted in the right upper corner of the screen."
+        text_2: "The wing flap frequency control resides in right lower corner of the screen. The higher this value is, the faster the flapping will be, and the higher he would fly. The same applies for lower flapping frequencies. The player should be aware of the coordinate system inversion - higher flight levels represent lower glycemia levels (towards hypoglycemia) and vice versa."
+        text_3: "In the left lower corner of the screen, two rows of buttons are present. The first row represents bolus insulin dosage controls, which could lower the glycaemia and therefore increase the flight level of Icarus. The second row represents additional carbohydrate intake, which increases the glycaemia and therefore lowers the flight level of Icarus."
+        text_4: "The game also generates the carbohydrate intake as an analogy of regular meals. In this game, these meals are depicted as a strong wind, which is blowing from above, so the flight level could rapidly decrease when encountered."
+    gameover:
+        title: "Finished game"
+        text_1: "After the game is over, you will be redirected to a screen very similar to the one you see in this picture. You can see your resulting score and your rank in the highscore table. You can also choose to display this table."
+    scoreboard:
+        title: "Highscore table"
+        text_1: "The game stores every game outcome into a highscore table. You can see the top 10 game outcomes of each difficulty here."
+    controls:
+        title: "Controls"
+        text_1: "You can control the game using your PC mouse, but also your keyboard. Bolus insulin could be dosed using the Q, W, E, R and T keys, carbohydrates could be dosed using the A, S, D, F and G keys. The basal insulin rate could be also controlled using your cursor keys."
+    download:
+        title: "Download"
+        text_1: "The Icarus has diabetes game is available for download in <a href=\"%link%\">downloads</a> section."

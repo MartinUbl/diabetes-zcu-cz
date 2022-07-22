@@ -1,3 +1,118 @@
+{block beforeContent}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="p-5 text-white bg-dark rounded-3">
+                <h3>{_pages.diabetes.banner.title}</h3>
+                <p class="lead">{_pages.diabetes.banner.text}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+
 {block content}
 
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        <blockquote class="blockquote-reverse">
+            <p>{_pages.diabetes.quote}</p>
+            <footer>
+                <cite title="Source Title">{_pages.diabetes.quotesource}</cite>, {_pages.diabetes.quotedate}
+            </footer>
+        </blockquote>
+        
+        <h3>{_pages.diabetes.history.title}</h3>
+        
+        <p>{_pages.diabetes.history.text_1}</p>
+        
+        <img class="img-responsible" src="{$baseUrl}/img/eberspapyrus.jpg" alt="Eber Papyrus (http://www.crystalinks.com/egyptmedicine.html)" width="100%">
+        
+        <p>{_pages.diabetes.history.text_2}</p>
+        <p>{_pages.diabetes.history.text_3}</p>
+        
+        <img class="img-responsible" src="{$baseUrl}/img/banting_best.png" alt="Banting a Best (https://en.wikipedia.org/wiki/Frederick_Banting#/media/File:C._H._Best_and_F._G._Banting_ca._1924.png)" width="100%">
+        
+        <p>{_pages.diabetes.history.text_4}</p>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        
+        <h3>{_pages.diabetes.about.title}</h3>
+        
+        <p>{_pages.diabetes.about.text_1}</p>
+        <p>{_pages.diabetes.about.text_2}</p>
+        <p>{_pages.diabetes.about.text_3}</p>
+        <p>{_pages.diabetes.about.text_4}</p>
+        <p>{_pages.diabetes.about.text_5}</p>
+        
+        <h3>{_pages.diabetes.inheritance.title}</h3>
+        
+        <p>{_pages.diabetes.inheritance.text_1}</p>
+        <p>{_pages.diabetes.inheritance.text_2}</p>
+        
+        <h3>{_pages.diabetes.treatment.title}</h3>
+        
+        <p>{_pages.diabetes.treatment.text_1}</p>
+        
+        <img class="img-responsible" src="{$baseUrl}/img/insulinStructure.jpg" alt="struktura inzulínu (https://en.wikipedia.org/wiki/Insulin#/media/File:InsulinMonomer.jpg)" width="100%">
+        
+        <p>{_pages.diabetes.treatment.text_2}</p>
+        
+    </div>
+</div>
 
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        
+        <h3>{_pages.diabetes.measurement.title}</h3>
+        
+        <p>{_pages.diabetes.measurement.text_1}</p>
+        
+        <img class="img-responsible" src="{$baseUrl}/img/glukometr.jpg" alt="glukometr" width="100%" vspace="20">
+        
+        <p>{_pages.diabetes.measurement.text_2}</p>
+        
+        <img class="img-responsible" src="{$baseUrl}/img/cgm.jpg" alt="inzulínová pumpa" width="100%">
+        
+        <p>{_pages.diabetes.measurement.text_3}</p>
+        <p>{_pages.diabetes.measurement.text_4}</p>
+        
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        
+        <h3>{_pages.diabetes.symptoms.title}</h3>
+        
+        <p>{_pages.diabetes.symptoms.text_1}</p>
+        
+        <h3>{_pages.diabetes.diagnosis.title}</h3>
+        
+        <p>{_pages.diabetes.diagnosis.text_1}</p>
+        
+        <h5>{_pages.diabetes.diagnosis.complications.title_1}</h5>
+        <p>{_pages.diabetes.diagnosis.complications.text_1}</p>
+        
+        <h5>{_pages.diabetes.diagnosis.complications.title_2}</h5>
+        <p>{_pages.diabetes.diagnosis.complications.text_2}</p>
+        
+        <h5>{_pages.diabetes.diagnosis.complications.title_3}</h5>
+        <p>{_pages.diabetes.diagnosis.complications.text_3}</p>
+        
+        <h5>{_pages.diabetes.diagnosis.complications.title_4}</h5>
+        <p>{_pages.diabetes.diagnosis.complications.text_4}</p>
+        
+        <h5>{_pages.diabetes.diagnosis.complications.title_5}</h5>
+        <p>{_pages.diabetes.diagnosis.complications.text_5}</p>
+        
+        
+        <h3>{_pages.diabetes.readmore.title}</h3>
+        
+        <ul>
+            <li><a href="https://www.diab.cz/">www.diab.cz [CZ]</a> - {_pages.diabetes.readmore.linktitle_1}</li>
+            <li><a href="http://www.diabetickaasociace.cz/">www.diabetickaasociace.cz [CZ]</a> - {_pages.diabetes.readmore.linktitle_2}</li>
+            <li><a href="http://www.idf.org/">www.idf.org [EN]</a> - {_pages.diabetes.readmore.linktitle_3}</li>
+            <li><a href="https://www.diabetes.org/">www.diabetes.org [EN]</a> - {_pages.diabetes.readmore.linktitle_4}</li>
+            <li><a href="https://www.diabeteshealth.com/">www.diabeteshealth.com [EN]</a> - {_pages.diabetes.readmore.linktitle_5}</li>
+        </ul>
+        
+    </div>
+</div>

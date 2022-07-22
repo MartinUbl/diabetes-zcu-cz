@@ -1,0 +1,71 @@
+header:
+    title: "Portál diabetes.zcu.cz"
+
+menu:
+    home: "Domů"
+    diabetes: "Diabetes"
+    smartcgms: "SmartCGMS"
+    smartcgms_main: "O SmartCGMS"
+    smartcgms_docs: "Dokumentace"
+    ikaros: "Íkaros"
+    downloads: "Ke stažení"
+    about: "O projektu"
+    patient: "Pacient"
+    profi: "Odborník"
+    media: "Média"
+    contact: "Kontakt"
+    login: "Přihlásit se"
+    logout: "Odhlásit se"
+    usersection: "Uživatelská sekce"
+    about_goal: "Zaměření projektu"
+    about_team: "Tým"
+    about_papers: "Publikace"
+
+footer:
+    medicalinf: "medicínská informatika"
+    kiv: "kiv"
+    fav: "fav"
+    zcu: "zču"
+
+cookie:
+    message: "Tato stránka používá soubory cookie"
+    confirm: "Souhlasím"
+    moreinfo: "Více informací"
+
+homepage:
+    carousel:
+        item_1:
+            title: "Diabetes mellitus"
+            text: "je osmou nejčastější příčinou úmrtí. V současné době trpí tímto onemocněním přibližně každý jedenáctý člověk."
+            button_text: "Chci vědět víc..."
+        item_2:
+            title: "Spolupráce"
+            text: "je vítána. Chcete-li s námi spolupracovat, neváhejte a kontaktujte nás."
+            button_text: "Chci se zapojit do projektu..."
+        item_3:
+            title: "Koncentrace hladiny glukózy v krvi"
+            text: "je důležitý ukazatel, který se ale v praxi měří jen sporadicky. My ho ale dokážeme spočítat z jiného, kontinuálně měřeného ukazatele - koncentrace glukózy v podkoží."
+            button_text: "Chci vědět víc..."
+        item_4:
+            title: "SmartCGMS"
+            text: "je CGMS nové generace"
+            button_text: "Chci vědět víc..."
+
+    patient:
+        title: "Pacient"
+        text: "Využijte možnosti vizualizace glykémie a hodnot naměřených senzorem v podkoží."
+    doctor:
+        title: "Lékař/zdravotní sestra"
+        text: "Liší se u Vašich pacientů hodnoty krve a podkoží o několik mmol/l? Využijte náš portál a nechte si spočítat souvislou křivku glykémie z hodnot CGMS."
+    scientist:
+        title: "Vědec"
+        text: "Zabýváte se ve svém výzkumu podobnou problematikou? Ozvěte se nám a můžeme spolupracovat."
+    bussinessman:
+        title: "Výrobce"
+        text: "Pomáhají Vaše přístroje regulovat hladinu glukózy? My nabízíme model dynamiky glukózy umožňující jak predikci, tak i zpětnou rekonstrukci koncentrace glukózy v různých kompartmentech."
+    student:
+        title: "Student"
+        text: "Mladé talenty je třeba rozvíjet - máme práci pro studenty baklářského, magisterského i doktorského studia."
+    press:
+        title: "Média"
+        text: "Zaujalo Vás téma léčby diabetu a chtěli byste o něm napsat článek nebo natočit reportáž? Rádi Vám poskytneme podklady."

@@ -7,16 +7,14 @@
     <link rel="icon" href="{$baseUrl}/favicon.ico">
 
     <title>{ifset title}{include title|stripHtml} | {/ifset}Portál diabetes.zcu.cz</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link href="{$baseUrl}/css/main.css" rel="stylesheet" >
+    <link href="{$baseUrl}/css/carousel.css" rel="stylesheet" >
     
     <script src="https://kit.fontawesome.com/8321f6fdd4.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script>
-
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link href="{$baseUrl}/css/main.css" rel="stylesheet" >
 </head>
 
 <body>
@@ -24,9 +22,17 @@
     
     <div class="title-navbar">
         <div class="container">
-            <a class="brand-wrap" href="{$baseUrl}">
-                Portál diabetes.zcu.cz
-            </a>
+            <div class="row">
+                <div class="col col-11">
+                    <a class="brand-wrap" href="{$baseUrl}">
+                        {_general.header.title}
+                    </a>
+                </div>
+                <div class="col col-1">
+                    <a n:href="changeLang! lang => 'cs'"><img src="{$baseUrl}/img/lang/cs.png" alt="CS" title="Czech / Čeština" /></a>
+                    <a n:href="changeLang! lang => 'en'"><img src="{$baseUrl}/img/lang/en.png" alt="EN" title="English" /></a>
+                </div>
+            </div>
         </div>
     </div>
     
@@ -41,81 +47,105 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto my-2 my-lg-0">
                     <li class="nav-item{if $presenterName == "homepage"} active{/if}">
-                        <a class="nav-link" n:href="Homepage:">Domů</a>
+                        <a class="nav-link" n:href="Homepage:">{_general.menu.home}</a>
                     </li>
                     <li class="nav-item{if $presenterName == "diabetes"} active{/if}">
-                        <a class="nav-link" n:href="Diabetes:">Diabetes</a>
+                        <a class="nav-link" n:href="Diabetes:">{_general.menu.diabetes}</a>
                     </li>
-                    <li class="nav-item{if $presenterName == "smartcgms"} active{/if}">
-                        <a class="nav-link" n:href="Smartcgms:">SmartCGMS</a>
+                    <li class="nav-item dropdown{if $presenterName == "smartcgms" || $presenterName == "docs"} active{/if}">
+                        <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdownScgms" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {_general.menu.smartcgms}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownScgms">
+                          <a class="dropdown-item" n:href="Smartcgms:">{_general.menu.smartcgms_main}</a>
+                          <a class="dropdown-item" n:href="Docs:">{_general.menu.smartcgms_docs}</a>
+                        </div>
                     </li>
                     <li class="nav-item{if $presenterName == "ikaros"} active{/if}">
-                        <a class="nav-link" n:href="Ikaros:">Íkaros</a>
+                        <a class="nav-link" n:href="Ikaros:">{_general.menu.ikaros}</a>
+                    </li>
+                    <li class="nav-item{if $presenterName == "downloads"} active{/if}">
+                        <a class="nav-link" n:href="Downloads:">{_general.menu.downloads}</a>
                     </li>
                     <li class="nav-item dropdown{if $presenterName == "about"} active{/if}">
-                        <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            O projektu
+                        <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {_general.menu.about}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                          <a class="dropdown-item" n:href="About:">Zaměření projektu</a>
-                          <a class="dropdown-item" n:href="About:">Tým</a>
-                          <a class="dropdown-item" n:href="About:">Publikace</a>
+                          <a class="dropdown-item" n:href="About:">{_general.menu.about_goal}</a>
+                          <a class="dropdown-item" n:href="About:">{_general.menu.about_team}</a>
+                          <a class="dropdown-item" n:href="About:">{_general.menu.about_papers}</a>
                         </div>
                     </li>
                     <li class="nav-item{if $presenterName == "patient"} active{/if}">
-                        <a class="nav-link" n:href="Patient:">Pacient</a>
+                        <a class="nav-link" n:href="Patient:">{_general.menu.patient}</a>
                     </li>
                     <li class="nav-item{if $presenterName == "profi"} active{/if}">
-                        <a class="nav-link" n:href="Profi:">Odborník</a>
+                        <a class="nav-link" n:href="Profi:">{_general.menu.profi}</a>
                     </li>
                     <li class="nav-item{if $presenterName == "media"} active{/if}">
-                        <a class="nav-link" n:href="Media:">Média</a>
+                        <a class="nav-link" n:href="Media:">{_general.menu.media}</a>
                     </li>
                     <li class="nav-item{if $presenterName == "contact"} active{/if}">
-                        <a class="nav-link" n:href="Contact:">Kontakt</a>
+                        <a class="nav-link" n:href="Contact:">{_general.menu.contact}</a>
                     </li>
                 </ul>
                 <span class="navbar-text">
                     <ul class="navbar-nav mr-auto my-2 my-lg-0">
                     {if $user->isLoggedIn()}
                         <li class="nav-item">
-                            <a class="nav-link" n:href="Dashboard:">Uživatelská sekce</a>
+                            <a class="nav-link" n:href="Dashboard:">{_general.menu.usersection}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" n:href="Logout!">Odhlásit se</a>
+                            <a class="nav-link" n:href="Logout!">{_general.menu.logout}</a>
                         </li>
                     {else}
                         <li class="nav-item">
-                            <a class="nav-link" n:href="Login:">Přihlásit se</a>
+                            <a class="nav-link" n:href="Login:">{_general.menu.login}</a>
                         </li>
                     {/if}
                     </ul>
                 </span>
             </div>
-        
         </div>
     </nav>
+                                
+    {block beforeContent}{/block}
     
     <div class="container container-main">
-
-    {include content}
-    
+        {include content}
     </div>
     
     <hr />
     
     <footer>
         <div class="container">
-            &copy; since 2015 · <a href="http://mi.kiv.zcu.cz/">medicínská informatika</a> · <a href="http://kiv.zcu.cz/">kiv</a> · <a href="http://fav.zcu.cz/">fav</a> · <a href="http://zcu.cz/">zču</a>
+            &copy; since 2015 · <a href="http://mi.kiv.zcu.cz/">{_general.footer.medicalinf}</a> · <a href="http://kiv.zcu.cz/">{_general.footer.kiv}</a> · <a href="http://fav.zcu.cz/">{_general.footer.fav}</a> · <a href="http://zcu.cz/">{_general.footer.zcu}</a>
         </div>
     </footer>
 
     {block scripts}
+    
+    <script>
+window.cookieconsent_options = {
+    "message": {_general.cookie.message},
+    "dismiss": {_general.cookie.confirm},
+    "learnMore": {_general.cookie.learnmore},
+    "link": null,
+    "theme": "dark-bottom"
+};
+    </script>
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    
     <script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
     <script src="{$basePath}/js/jquery.nette.js"></script>
     <script src="{$basePath}/js/nette.ajax.js"></script>
     <script src="{$basePath}/js/live-form-validation.js"></script>
     <script src="{$basePath}/js/main.js"></script>
+    <script src="{$basePath}/js/cookieconsent.min.js"></script>
     {/block}
 </body>
 </html>

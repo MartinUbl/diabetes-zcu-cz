@@ -1,0 +1,66 @@
+{block beforeContent}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="p-5 text-white bg-dark rounded-3">
+                <h3>{_pages.docs.banner.title}</h3>
+                <p class="lead">{_pages.docs.banner.text}</p>
+                {if $localeName != 'en'}<p class="lead"><i>{_pages.docs.banner.sorrytext}</i></p>{/if}
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark main-navbar">
+    <div class="container">
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto my-2 my-lg-0">
+                
+                {foreach $docsLayout as $tlkey => $toplevel}
+                    <li class="nav-item dropdown{if $pageName == $tlkey} active{/if}">
+                        <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdownOverview" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{$toplevel['name']}</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownOverview">
+                            {foreach $toplevel['subpages'] as $key => $name}
+                            <a class="dropdown-item{if !sectionExists($tlkey, $key)} missing{/if}" n:href="Docs: page=>$tlkey, subpage=>$key">{$name|noescape}</a>
+                            {/foreach}
+                        </div>
+                    </li>
+                {/foreach}
+                
+                {*
+                <li class="nav-item dropdown{if $subpageName == "overview"} active{/if}">
+                    <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdownOverview" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Overview</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownOverview">
+                      <a class="dropdown-item" n:href="Docs:">Home</a>
+                      <a class="dropdown-item" n:href="Docs:">Release notes</a>
+                      <a class="dropdown-item" n:href="Docs:">License</a>
+                      <a class="dropdown-item" n:href="Docs:">FAQ</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown{if $subpageName == "api"} active{/if}">
+                    <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdownAPI" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">API</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownAPI">
+                      <a class="dropdown-item" n:href="Docs:">Overview</a>
+                      <a class="dropdown-item" n:href="Docs:">Library interface</a>
+                      <a class="dropdown-item" n:href="Docs:">Object model and interface</a>
+                      <a class="dropdown-item" n:href="Docs:">Device event</a>
+                      <a class="dropdown-item" n:href="Docs:">Time and time segments</a>
+                    </div>
+                </li>
+                *}
+            </ul>
+        </div>
+    </div>
+</nav>
+{/block}
+
+{block content}
+
+{$docContents|noescape}
