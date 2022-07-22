@@ -1,0 +1,3 @@
+smartcgms-dist.zip - current distribution of SmartCGMS (all OS's)
+acs2018.zip - CGMS database
+icarus.zip - distribution of Icarus has diabetes (MS Windows)
