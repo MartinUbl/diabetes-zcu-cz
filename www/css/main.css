@@ -366,3 +366,32 @@ cite
 {
     margin-right: 1em;
 }
+
+dt
+{
+    float: left;
+    width: 160px;
+    overflow: hidden;
+    clear: left;
+    text-align: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+dd
+{
+    margin-left: 180px;
+}
+
+dd::before, dd:before
+{
+    display: table;
+    content: " ";
+}
+
+dd:after, dd::after
+{
+    display: table;
+    content: " ";
+    clear: both;
+}

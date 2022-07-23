@@ -200,6 +200,10 @@ team:
     kohout: "Pracuje na Katedře informatiky a výpočetní techniky na Fakultě aplikovaných věd Západočeské univerzity v Plzni. Také pracoval jako vědecký pracovník na University of Bedfordshire, UK. Zabývá se vývojem virtuálního modelu člověka-pacienta."
     vcelak: "Absolvoval obor Softwarové inženýrství na Fakultě aplikovaných věd ZČU v roce 2008. Od tohoto roku je studentem doktorského studia na Katedře informatiky a výpočetní techniky FAV ZČU. Ve své práci se zaměřuje na technologie sémantického webu, lékařská data a standardizaci meta-dat."
 
+publications:
+    banner:
+        title: "Publikace"
+
 patient:
     banner:
         title: "Pacient"

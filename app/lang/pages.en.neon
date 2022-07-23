@@ -200,6 +200,10 @@ team:
     kohout: "He is with the Department of Computer Science, Faculty of Applied Sciences, University of West Bohemia. Also, he was as a Research Fellow at the University of Bedfordshire, UK. He is focused on the development of virtual patient-specific model."
     vcelak: "In 2008, he finished his study in Software engineering on the Faculty of Applied Sciences, University of West Bohemia. Since that year he is a student of doctoral study on the same department. He deals with technologies of semantic web, medical data and meta-data standardization."
 
+publications:
+    banner:
+        title: "Publications"
+
 patient:
     banner:
         title: "Patient"
