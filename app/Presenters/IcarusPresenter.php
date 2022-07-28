@@ -6,10 +6,10 @@ namespace App\Presenters;
 
 use Nette;
 
-final class IkarosPresenter extends BasePresenter
+final class IcarusPresenter extends BasePresenter
 {
     public function __construct() {
-        parent::__construct("ikaros");
+        parent::__construct("icarus");
     }
     
     public function actionDefault()

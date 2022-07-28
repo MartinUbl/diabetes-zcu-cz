@@ -61,8 +61,8 @@
                           <a class="dropdown-item" n:href="Docs:">{_general.menu.smartcgms_docs}</a>
                         </div>
                     </li>
-                    <li class="nav-item{if $presenterName == "ikaros"} active{/if}">
-                        <a class="nav-link" n:href="Ikaros:">{_general.menu.ikaros}</a>
+                    <li class="nav-item{if $presenterName == "icarus"} active{/if}">
+                        <a class="nav-link" n:href="Icarus:">{_general.menu.icarus}</a>
                     </li>
                     <li class="nav-item{if $presenterName == "downloads"} active{/if}">
                         <a class="nav-link" n:href="Downloads:">{_general.menu.downloads}</a>
@@ -72,20 +72,26 @@
                             {_general.menu.about}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                          <a class="dropdown-item" n:href="About:">{_general.menu.about_goal}</a>
+{*                          <a class="dropdown-item" n:href="About:">{_general.menu.about_goal}</a>
+*}
                           <a class="dropdown-item" n:href="About:">{_general.menu.about_team}</a>
                           <a class="dropdown-item" n:href="About:">{_general.menu.about_papers}</a>
                         </div>
                     </li>
-                    <li class="nav-item{if $presenterName == "patient"} active{/if}">
+{*
+                     <li class="nav-item{if $presenterName == "patient"} active{/if}">
                         <a class="nav-link" n:href="Patient:">{_general.menu.patient}</a>
                     </li>
+*}
                     <li class="nav-item{if $presenterName == "profi"} active{/if}">
                         <a class="nav-link" n:href="Profi:">{_general.menu.profi}</a>
                     </li>
+
+{*
                     <li class="nav-item{if $presenterName == "media"} active{/if}">
                         <a class="nav-link" n:href="Media:">{_general.menu.media}</a>
                     </li>
+*}
                     <li class="nav-item{if $presenterName == "contact"} active{/if}">
                         <a class="nav-link" n:href="Contact:">{_general.menu.contact}</a>
                     </li>

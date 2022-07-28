@@ -19,21 +19,21 @@ final class DownloadsPresenter extends BasePresenter
     
     public function handleDownloadSmartcgms()
     {
-        $resp = new \Nette\Application\Responses\FileResponse(__DIR__."/../../downloads/smartcgms-dist.zip", "smartcgms-dist.zip", "application/zip", true);
+        $resp = new \Nette\Application\Responses\FileResponse(__DIR__."/../../downloads/smartcgms.zip", "smartcgms.zip", "application/zip", true);
         
         $this->sendResponse($resp);
     }
     
     public function handleDownloadDatabase()
     {
-        $resp = new \Nette\Application\Responses\FileResponse(__DIR__."/../../downloads/acs2018.zip", "acs2018.zip", "application/zip", true);
+        $resp = new \Nette\Application\Responses\FileResponse(__DIR__."/../../downloads/asc2018.sqlite", "asc2018.sqlite", "application/x-sqlite3", true);
         
         $this->sendResponse($resp);
     }
     
     public function handleDownloadIcarus()
     {
-        $resp = new \Nette\Application\Responses\FileResponse(__DIR__."/../../downloads/icarus.zip", "icarus.zip", "application/zip", true);
+        $resp = new \Nette\Application\Responses\FileResponse(__DIR__."/../../downloads/IcarusHasDiabetes64.exe", "IcarusHasDiabetes64.exe", "application/exe", true);
         
         $this->sendResponse($resp);
     }

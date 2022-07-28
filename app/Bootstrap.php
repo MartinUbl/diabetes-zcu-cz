@@ -13,6 +13,7 @@ class Bootstrap
         $configurator = new Configurator;
 
         //$configurator->setDebugMode('147.228.127.173'); // ublm's UN-305 PC
+        //$configurator->setDebugMode(true);
         $configurator->enableTracy(__DIR__ . '/../log');
 
         $configurator->setTimeZone('Europe/Prague');

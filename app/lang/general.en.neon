@@ -1,5 +1,5 @@
 header:
-    title: "Portal diabetes.zcu.cz"
+    title: "diabetes.zcu.cz"
 
 menu:
     home: "Home"
@@ -7,11 +7,11 @@ menu:
     smartcgms: "SmartCGMS"
     smartcgms_main: "About SmartCGMS"
     smartcgms_docs: "Documentation"
-    ikaros: "Icarus"
+    icarus: "Icarus"
     downloads: "Downloads"
-    about: "About"
+    about: "Team"
     patient: "Patient"
-    profi: "Professional"
+    profi: "Get involved"
     media: "Media"
     contact: "Contact"
     login: "Sign in"
