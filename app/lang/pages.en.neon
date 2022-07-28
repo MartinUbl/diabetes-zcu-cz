@@ -287,3 +287,96 @@ contact:
         section: "Medical informatics,"
         department: "Department of Computer Science and Engineering,"
         faculty: "Faculty of Applied Sciences"
+
+login:
+    banner:
+        title: "Sign in"
+        text: "Log in to access the full potential of this portal. If you don't already have an account, you can proceed with registration below."
+
+    form:
+        name: "E-mail"
+        name_required: "Please, enter you e-mail!"
+        password: "Password"
+        password_required: "Please, enter your password!"
+        submit: "Sign in"
+        generic_credential_error: "Invalid username and/or password!"
+        registration_link: "Sign up"
+        forgot_link: "Forgotten password"
+
+forgotten:
+    banner:
+        title: "Forgotten password"
+        text: "Below you can find a form for requesting a renewal of your forgotten login password. Enter the e-mail you used for registration, and we will send you a link to create a new password for your account."
+
+    form:
+        name: "E-mail"
+        name_required: "Please, enter you e-mail!"
+        submit: "Request"
+        registration_link: "Sign up"
+        login_link: "Sign in"
+
+    success: "If the e-mail you entered is in our database, we've just sent a password recovery link to it."
+
+registration:
+    banner:
+        title: "Sign up"
+        text: "To access the full potential of this portal, a sign up is required. Please, fill the form below and activate your account by clicking a link we will send you via e-mail."
+
+    form:
+        first_name: "First name"
+        last_name: "Last name"
+        name: "E-mail"
+        password: "Password"
+        password_again: "Password again"
+        terms: "I agree with personal data processing"
+        submit: "Sign up"
+        email_format: "Invalid e-mail format!"
+        name_required: "E-mail is required!"
+        pass_min_chars: "You password must be at least %amount% characters long!"
+        password_required: "Please, enter your password!"
+        passwords_must_match: "Passwords must match!"
+        password_again_required: "Please, repeat your password!"
+        agree_required: "You must agree"
+        recaptcha_required: "Please, prove that you're not a robot"
+        err_already_exists: "This e-mail is already in use!"
+
+    resend_ok: "If the e-mail is in our database for an inactive account, an activation link has been sent."
+
+activation:
+    needed:
+        banner:
+            title: "Account not activated"
+            text: "We need to verify your e-mail address. Please, follow the link we sent you to your mailbox."
+
+        resend_text: "If no e-mail has arrived into your mailbox, it is possible to request a new activation link. Before you do so, please, check the spam folder of your mailbox - sometimes such mail gets falsely classified as a spam mail."
+        resend_email: "Your e-mail"
+        resend_button: "Resend link"
+        resend_name_required: "E-mail is required!"
+        resend_success: "A new activation link has been sent to you. If you won't get this e-mail either, please, contact us and we will activate your account for you."
+        resend_fail_too_early: "A new activation link has not been send - you requested a new link too early after the previous attempt."
+    
+    success:
+        banner:
+            title: "Account successfully activated!"
+            text: "Your account is now ready to use."
+
+        login_text: "You can now access the full potential of this portal. You may now sign in using the link below."
+        login_button: "Sign in"
+
+    fail:
+        banner:
+            title: "We were unable to activate your account"
+            text: "The link you followed is either invalid, or its validity period has expired."
+
+        resend_text: "If you need a new activation link, please, follow the link below:"
+        resend_button: "Send a new link"
+
+passwordreset:
+    banner:
+        title: "Password recovery"
+        text: "Here you can set up a new password for your account, for which you have proven ownership by clicking a link in an e-mail we sent you."
+
+    form:
+        submit: "Set a new password"
+
+    reset_ok: "If the link was valid, we've just set a new password to an account bound to it."

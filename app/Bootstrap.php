@@ -10,6 +10,8 @@ class Bootstrap
 {
     public static function boot(): Configurator
     {
+        ob_start();
+        
         $configurator = new Configurator;
 
         //$configurator->setDebugMode('147.228.127.173'); // ublm's UN-305 PC

@@ -5,7 +5,7 @@ menu:
     home: "Home"
     diabetes: "Diabetes"
     smartcgms: "SmartCGMS"
-    smartcgms_main: "About SmartCGMS"
+    smartcgms_main: "About&nbsp;SmartCGMS"
     smartcgms_docs: "Documentation"
     ikaros: "Icarus"
     downloads: "Downloads"
@@ -14,10 +14,11 @@ menu:
     profi: "Professional"
     media: "Media"
     contact: "Contact"
-    login: "Sign in"
+    login: "Sign&nbsp;in"
     logout: "Logout"
+    user: "User"
     usersection: "User dashboard"
-    about_goal: "Project goals"
+    about_goal: "Project&nbsp;goals"
     about_team: "Team"
     about_papers: "Publications"
 
@@ -30,7 +31,7 @@ footer:
 cookie:
     message: "This site uses cookies"
     confirm: "Got it!"
-    moreinfo: "More info"
+    learnmore: "More info"
 
 homepage:
     carousel:

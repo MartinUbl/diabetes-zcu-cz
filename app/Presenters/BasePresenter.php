@@ -36,7 +36,6 @@ class BasePresenter extends Nette\Application\UI\Presenter
         }
         
         $this->template->localeName = $this->translator->getLocale();
-        
     }
     
     public function handleLogout() {
@@ -58,5 +57,4 @@ class BasePresenter extends Nette\Application\UI\Presenter
         
         $this->redirect('this');
     }
-
 }

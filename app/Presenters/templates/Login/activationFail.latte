@@ -1,0 +1,21 @@
+{block beforeContent}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="p-5 text-white bg-dark rounded-3">
+                <h3>{_pages.activation.fail.banner.title}</h3>
+                <p class="lead">{_pages.activation.fail.banner.text}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+
+{block content}
+
+<div class="row">
+    <div class="col-12">
+        <p>{_pages.activation.fail.resend_text}</p>
+        <p><a n:href="Login:activationNeeded" class="btn btn-dark" title="{_pages.activation.fail.resend_button}">{_pages.activation.fail.resend_button}</a></p>
+    </div>
+</div>

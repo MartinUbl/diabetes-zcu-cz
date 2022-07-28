@@ -1,0 +1,114 @@
+{block beforeContent}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="p-5 text-white bg-dark rounded-3">
+                <h3>{_pages.registration.banner.title}</h3>
+                <p class="lead">{_pages.registration.banner.text}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+
+{block content}
+<div class="row justify-content-md-center">
+    <div class="col-xs-6 col-sm-6">
+        
+        {form registerForm}
+            
+            {if isset($registerFormError) || !is_null($form['recaptcha']->getError())}
+                <div class="alert alert-danger" role="alert">
+                    {if isset($registerFormError)}{$registerFormError}{else}{$form['recaptcha']->getError()}{/if}
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 form-group">
+                        <div class="space-1em"></div>
+                    </div>
+                </div>
+            {/if}
+            
+            <div class="row">
+                <div class="col-xs-12 col-sm-12">
+                    {label first_name /}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 form-group">
+                    {input first_name class=>'form-control'}
+                    <div class="space-1em"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12">
+                    {label last_name /}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 form-group">
+                    {input last_name class=>'form-control'}
+                    <div class="space-1em"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12">
+                    {label email /}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 form-group">
+                    {input email class=>'form-control'}
+                    <div class="space-1em"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12">
+                    {label password /}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 form-group">
+                    {input password class=>'form-control'}
+                    <div class="space-1em"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12">
+                    {label password_again /}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 form-group">
+                    {input password_again class=>'form-control'}
+                    <div class="space-1em"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 form-group agree-checkbox">
+                    {input agree class=>'form-control'} {label agree /}
+                    <div class="space-1em"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12">
+                    {input recaptcha}
+                    <div class="space-1em"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 form-group">
+                    <div class="d-grid gap-2">
+                        {input submit class=>'btn btn-dark btn-block'}
+                        <div class="space-1em"></div>
+                    </div>
+                </div>
+            </div>
+        {/form}
+        
+    </div>
+</div>
+{/block}
+
+{block userscripts}
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+{/block}
