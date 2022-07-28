@@ -1,4 +1,6 @@
 parameters:
+    mail:
+        noreply-from: "noreply@diabetes.zcu.cz"
 
 application:
     errorPresenter: Error
@@ -10,12 +12,17 @@ session:
 
 extensions:
     translation: Kdyby\Translation\DI\TranslationExtension
+    recaptcha: ReCaptchaControl\DI\Extension
+
+recaptcha:
+    requester: ReCaptchaControl\Http\Requester\CurlRequester
 
 services:
     latte.templateFactory: Nette\Bridges\ApplicationLatte\TemplateFactory
     router: App\Router\RouterFactory::createRouter
 
-    - App\Models\Authenticator
+    - App\Services\Authenticator
+    - App\Services\Mailer(%mail.noreply-from%)
     - App\Models\UserModel
     - App\Models\UploadsModel
     - App\Models\ExperimentModel

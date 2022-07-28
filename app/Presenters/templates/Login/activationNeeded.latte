@@ -1,0 +1,70 @@
+{block beforeContent}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="p-5 text-white bg-dark rounded-3">
+                <h3>{_pages.activation.needed.banner.title}</h3>
+                <p class="lead">{_pages.activation.needed.banner.text}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+
+{block content}
+
+<div class="row">
+    <div class="col-12">
+        <p>{_pages.activation.needed.resend_text}</p>
+    </div>
+</div>
+    
+<div class="row justify-content-md-center">
+    <div class="col-xs-6 col-sm-6">
+        
+        {form resendActivationForm}
+            
+            {if !is_null($form['recaptcha']->getError())}
+                <div class="alert alert-danger" role="alert">
+                    {$form['recaptcha']->getError()}
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 form-group">
+                        <div class="space-1em"></div>
+                    </div>
+                </div>
+            {/if}
+            <div class="row">
+                <div class="col-xs-12 col-sm-12">
+                    {label email /}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 form-group">
+                    {input email class=>'form-control'}
+                    <div class="space-1em"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12">
+                    {input recaptcha}
+                    <div class="space-1em"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 form-group">
+                    <div class="d-grid gap-2">
+                        {input submit class=>'btn btn-dark btn-block'}
+                        <div class="space-1em"></div>
+                    </div>
+                </div>
+            </div>
+        {/form}
+        
+    </div>
+</div>
+{/block}
+
+{block userscripts}
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+{/block}

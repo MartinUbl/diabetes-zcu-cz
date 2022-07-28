@@ -287,3 +287,96 @@ contact:
         section: "Oddělení medicínské informatiky,"
         department: "Katedra informatiky a výpočetní techniky,"
         faculty: "Fakulta aplikovaných věd ZČU"
+
+login:
+    banner:
+        title: "Přihlaste se"
+        text: "Pro využití všech funkcí portálu naplno je nutné se přihlásit. Nemáte-li účet vytvořený, můžete se níže registrovat."
+
+    form:
+        name: "E-mail"
+        name_required: "Zadejte e-mail!"
+        password: "Heslo"
+        password_required: "Zadejte heslo!"
+        submit: "Přihlásit se"
+        generic_credential_error: "Špatné uživatelské jméno nebo heslo!"
+        registration_link: "Registrovat se"
+        forgot_link: "Zapomenuté heslo"
+
+forgotten:
+    banner:
+        title: "Zapomenuté heslo"
+        text: "Níže naleznete formulář pro obnovu zapomenutého přihlašovacího hesla. Zadejte svůj e-mail, který jste použili při registraci a obratem odešleme odkaz pro vytvoření nového hesla."
+
+    form:
+        name: "E-mail"
+        name_required: "Zadejte e-mail!"
+        submit: "Odeslat"
+        registration_link: "Registrovat se"
+        login_link: "Přihlásit se"
+
+    success: "Pokud byl e-mail v naší databázi uveden u nějakého aktivního účtu, byl na něj odeslán odkaz pro obnovu hesla."
+
+registration:
+    banner:
+        title: "Registrace"
+        text: "Pro využití plného potenciálu portálu je vhodné se registrovat. Vyplňte údaje níže a aktivujte svůj účet odkazem, který zašleme na váš e-mail."
+
+    form:
+        first_name: "Jméno"
+        last_name: "Příjmení"
+        name: "E-mail"
+        password: "Heslo"
+        password_again: "Heslo znovu"
+        terms: "Souhlasím se zpracováním osobních údajů"
+        submit: "Registrovat se"
+        email_format: "Neplatný formát e-mailové adresy"
+        name_required: "E-mail je vyžadován!"
+        pass_min_chars: "Heslo musí obsahovat alespoň %amount% znaků!"
+        password_required: "Vyplňte heslo!"
+        passwords_must_match: "Hesla musí být stejná!"
+        password_again_required: "Zopakujte zadání hesla!"
+        agree_required: "Musíte udělit svůj souhlas!"
+        recaptcha_required: "Potvrďte, že nejste robot!"
+        err_already_exists: "Tento e-mail již je používán!"
+
+    resend_ok: "Pokud byl e-mail v naší databázi u neaktivního účtu, aktivační odkaz na něj byl odeslán."
+
+activation:
+    needed:
+        banner:
+            title: "Neaktivní účet"
+            text: "Je vyžadována aktivace účtu pomocí odkazu, který jsme zaslali na zadanou e-mailovou adresu!"
+
+        resend_text: "Pokud vám do schránky nic nepřišlo, je možné odkaz zaslat znovu. Předtím, než si vyžádáte nový aktivační odkaz, zkontrolujte prosím složku s nevyžádanou poštou - občas dojde k mylnému zařazení podobných zpráv mezi spam."
+        resend_email: "Váš e-mail"
+        resend_button: "Vyžádat nový odkaz"
+        resend_name_required: "E-mail je vyžadován!"
+        resend_success: "Nový odkaz byl odeslán do vaší e-mailové schránky. Pokud ani ten nedorazí, kontaktujte, prosím, správce pro alternativní způsob aktivace."
+        resend_fail_too_early: "Nový odkaz nebyl odeslán - byl vyžádán příliž brzy po předchozím odeslání."
+    
+    success:
+        banner:
+            title: "Účet byl aktivován!"
+            text: "Nyní se můžete přihlásit a využívat portál naplno."
+
+        login_text: "Váš účet je nyní aktivní. Tlačítkem níže přejdete k přihlášení do uživatelské sekce."
+        login_button: "Přihlásit se"
+
+    fail:
+        banner:
+            title: "Účet nelze aktivovat"
+            text: "Odkaz, který jste následoval/a, je neplatný - buď vypršela jeho platnost, nebo byl z předlohy špatně přepsán."
+
+        resend_text: "Pokud potřebujete vygenerovat odkaz nový, tlačítkem níže přejdete na stránku, na které je možné si vyžádat odkaz nový."
+        resend_button: "Vyžádat nový odkaz"
+
+passwordreset:
+    banner:
+        title: "Obnovení hesla"
+        text: "Na této stránce si můžete nastavit nové heslo pro váš účet, jehož vlastnictví jste prokázal/a potvrzením odkazu v e-mailu."
+
+    form:
+        submit: "Nastavit nové heslo"
+
+    reset_ok: "Pokud byl odkaz platný, účtu, který s ním byl svázaný, jsme právě nastavili nové heslo."

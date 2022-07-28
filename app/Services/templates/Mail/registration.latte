@@ -1,0 +1,12 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{_mail.registration.subject}</title>
+</head>
+<body>
+    <p>{_mail.registration.intro}</p>
+    <p>{_mail.registration.text_1}</p>
+    <p>{_mail.registration.text_2, ['link' => $link]|noescape}</p>
+    <p>{_mail.registration.outro}</p>
+</body>    
+</html>

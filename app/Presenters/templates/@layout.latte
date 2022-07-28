@@ -40,36 +40,36 @@
         
         <div class="container">
         
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto my-2 my-lg-0">
+            <div class="collapse navbar-collapse" id="navbarMain">
+                <ul class="navbar-nav me-auto my-2 my-lg-0">
                     <li class="nav-item{if $presenterName == "homepage"} active{/if}">
-                        <a class="nav-link" n:href="Homepage:">{_general.menu.home}</a>
+                        <a class="nav-link" n:href="Homepage:">{_general.menu.home|noescape}</a>
                     </li>
                     <li class="nav-item{if $presenterName == "diabetes"} active{/if}">
-                        <a class="nav-link" n:href="Diabetes:">{_general.menu.diabetes}</a>
+                        <a class="nav-link" n:href="Diabetes:">{_general.menu.diabetes|noescape}</a>
                     </li>
                     <li class="nav-item dropdown{if $presenterName == "smartcgms" || $presenterName == "docs"} active{/if}">
                         <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdownScgms" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {_general.menu.smartcgms}
+                            {_general.menu.smartcgms|noescape}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownScgms">
-                          <a class="dropdown-item" n:href="Smartcgms:">{_general.menu.smartcgms_main}</a>
-                          <a class="dropdown-item" n:href="Docs:">{_general.menu.smartcgms_docs}</a>
+                          <a class="dropdown-item" n:href="Smartcgms:">{_general.menu.smartcgms_main|noescape}</a>
+                          <a class="dropdown-item" n:href="Docs:">{_general.menu.smartcgms_docs|noescape}</a>
                         </div>
                     </li>
                     <li class="nav-item{if $presenterName == "icarus"} active{/if}">
                         <a class="nav-link" n:href="Icarus:">{_general.menu.icarus}</a>
                     </li>
                     <li class="nav-item{if $presenterName == "downloads"} active{/if}">
-                        <a class="nav-link" n:href="Downloads:">{_general.menu.downloads}</a>
+                        <a class="nav-link" n:href="Downloads:">{_general.menu.downloads|noescape}</a>
                     </li>
                     <li class="nav-item dropdown{if $presenterName == "about"} active{/if}">
                         <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {_general.menu.about}
+                            {_general.menu.about|noescape}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 {*                          <a class="dropdown-item" n:href="About:">{_general.menu.about_goal}</a>
@@ -84,30 +84,33 @@
                     </li>
 *}
                     <li class="nav-item{if $presenterName == "profi"} active{/if}">
-                        <a class="nav-link" n:href="Profi:">{_general.menu.profi}</a>
+                        <a class="nav-link" n:href="Profi:">{_general.menu.profi|noescape}</a>
                     </li>
 
 {*
                     <li class="nav-item{if $presenterName == "media"} active{/if}">
-                        <a class="nav-link" n:href="Media:">{_general.menu.media}</a>
+                        <a class="nav-link" n:href="Media:">{_general.menu.media|noescape}</a>
                     </li>
 *}
                     <li class="nav-item{if $presenterName == "contact"} active{/if}">
-                        <a class="nav-link" n:href="Contact:">{_general.menu.contact}</a>
+                        <a class="nav-link" n:href="Contact:">{_general.menu.contact|noescape}</a>
                     </li>
                 </ul>
                 <span class="navbar-text">
                     <ul class="navbar-nav mr-auto my-2 my-lg-0">
                     {if $user->isLoggedIn()}
-                        <li class="nav-item">
-                            <a class="nav-link" n:href="Dashboard:">{_general.menu.usersection}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" n:href="Logout!">{_general.menu.logout}</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarUser" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {_general.menu.user|noescape}
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarUser">
+                              <a class="dropdown-item" n:href="Dashboard:">{_general.menu.usersection|noescape}</a>
+                              <a class="dropdown-item" n:href="Logout!">{_general.menu.logout|noescape}</a>
+                            </div>
                         </li>
                     {else}
                         <li class="nav-item">
-                            <a class="nav-link" n:href="Login:">{_general.menu.login}</a>
+                            <a class="nav-link" n:href="Login:">{_general.menu.login|noescape}</a>
                         </li>
                     {/if}
                     </ul>

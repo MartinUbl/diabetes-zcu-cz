@@ -45,6 +45,11 @@
     padding: 0;
 }
 
+.navbar-text a.dropdown-item
+{
+    color: black;
+}
+
 .navbar-collapse
 {
     align-items: flex-end;
@@ -59,6 +64,13 @@
 .navbar-dark .navbar-nav .nav-link
 {
     padding: 0 1.0em 0 1.0em;
+}
+
+.navbar-toggler
+{
+    padding: 0.2em;
+    margin: 0.2em 0 0.2em 0;
+    outline: none;
 }
 
 a.brand-wrap
@@ -394,4 +406,9 @@ dd:after, dd::after
     display: table;
     content: " ";
     clear: both;
+}
+
+.agree-checkbox input[type=checkbox]
+{
+    margin-right: 0.5em;
 }

@@ -5,7 +5,7 @@ menu:
     home: "Domů"
     diabetes: "Diabetes"
     smartcgms: "SmartCGMS"
-    smartcgms_main: "O SmartCGMS"
+    smartcgms_main: "O&nbsp;SmartCGMS"
     smartcgms_docs: "Dokumentace"
     icarus: "Íkaros"
     downloads: "Ke stažení"
@@ -14,10 +14,11 @@ menu:
     profi: "Zapojit se"
     media: "Média"
     contact: "Kontakt"
-    login: "Přihlásit se"
-    logout: "Odhlásit se"
-    usersection: "Uživatelská sekce"
-    about_goal: "Zaměření projektu"
+    login: "Přihlásit&nbsp;se"
+    logout: "Odhlásit&nbsp;se"
+    user: "Uživatel"
+    usersection: "Uživatelská&nbsp;sekce"
+    about_goal: "Zaměření&nbsp;projektu"
     about_team: "Tým"
     about_papers: "Publikace"
 
@@ -30,7 +31,7 @@ footer:
 cookie:
     message: "Tato stránka používá soubory cookie"
     confirm: "Souhlasím"
-    moreinfo: "Více informací"
+    learnmore: "Více informací"
 
 homepage:
     carousel:
