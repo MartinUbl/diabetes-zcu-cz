@@ -26,6 +26,7 @@ class BasePresenter extends Nette\Application\UI\Presenter
         
         $this->template->presenterName = $this->presenterName;
 
+/*
         $session = $this->getSession();
         $prefs = $session->getSection('preferences');
         if ($prefs) {
@@ -34,7 +35,8 @@ class BasePresenter extends Nette\Application\UI\Presenter
                 $this->translator->setLocale($lang);
             }
         }
-        
+*/
+        $this->translator->setLocale('en');
         $this->template->localeName = $this->translator->getLocale();
     }
     

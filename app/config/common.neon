@@ -26,3 +26,13 @@ services:
     - App\Models\UserModel
     - App\Models\UploadsModel
     - App\Models\ExperimentModel
+
+
+http:
+    headers:
+        X-Powered-By: "Nginx"
+        Strict-Transport-Security: "max-age=31536000; includeSubDomains"
+        Content-Security-Policy: "default-src 'self' 'unsafe-inline' nette.github.io cdn.jsdelivr.net cdnjs.cloudflare.com code.jquery.com *.fontawesome.com"
+        X-Content-Type-Options: "nosniff"
+        Referrer-Policy: "no-referrer"
+
