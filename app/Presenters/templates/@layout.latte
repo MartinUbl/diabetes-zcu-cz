@@ -74,8 +74,8 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 {*                          <a class="dropdown-item" n:href="About:">{_general.menu.about_goal}</a>
 *}
-                          <a class="dropdown-item" n:href="About:">{_general.menu.about_team}</a>
-                          <a class="dropdown-item" n:href="About:">{_general.menu.about_papers}</a>
+                          <a class="dropdown-item" href="{$presenter->link('About:')}#team">{_general.menu.about_team}</a>
+                          <a class="dropdown-item" href="{$presenter->link('About:')}#publications">{_general.menu.about_papers}</a>
                         </div>
                     </li>
 {*

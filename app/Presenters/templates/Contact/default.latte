@@ -60,13 +60,13 @@
 
 <div class="row contactrow">
     <div class="col-md-4" style="text-align: center;">
-        <a href="http://www.fav.zcu.cz/" target="_blank" class="logo_container">
-            <img class="img-responsible logo_contact" src="{$baseUrl}/img/fav_logo.png" alt="FAV logo" />
+        <a href="http://www.fav.zcu.cz/{if $localeName == "en"}en/{/if}" target="_blank" class="logo_container">
+            <img class="img-responsible logo_contact" src="{$baseUrl}/img/{if $localeName == "en"}fav_logo_en.png{else}fav_logo.png{/if}" alt="FAV logo" />
         </a>
     </div>
     <div class="col-md-4" style="text-align: center;">
-        <a href="http://www.kiv.zcu.cz/" target="_blank" class="logo_container">
-            <img class="img-responsible logo_contact" src="{$baseUrl}/img/kiv_logo.png" alt="KIV logo" />
+        <a href="http://www.kiv.zcu.cz/{if $localeName == "en"}en/{/if}" target="_blank" class="logo_container">
+            <img class="img-responsible logo_contact" src="{$baseUrl}/img/{if $localeName == "en"}kiv_logo_en.png{else}kiv_logo.png{/if}" alt="KIV logo" />
         </a>
     </div>
     <div class="col-md-4" style="text-align: center;">

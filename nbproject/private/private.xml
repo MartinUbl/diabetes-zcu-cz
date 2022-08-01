@@ -3,27 +3,26 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Models/ExperimentModel.php</file>
             <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/www/css/main.css</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Login/passwordReset.latte</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Dashboard/default.latte</file>
             <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Models/UserModel.php</file>
-            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/www/index.php</file>
-            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/ExperimentsPresenter.php</file>
             <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/@layout.latte</file>
-            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Experiments/detail.latte</file>
-            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/BasePresenter.php</file>
-            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Models/BaseModel.php</file>
-            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/www/js/main.js</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Services/Mailer.php</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Homepage/default.latte</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/lang/mail.cs.neon</file>
             <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/config/common.neon</file>
             <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/config/local.neon</file>
-            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Experiments/default.latte</file>
-            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Experiments/dashboard.latte</file>
-            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/BaseSecurePresenter.php</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/lang/pages.en.neon</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/lang/pages.cs.neon</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Services/templates/Mail/registration.latte</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/lang/mail.en.neon</file>
             <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Login/default.latte</file>
-            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/bin/AddAdmin.php</file>
-            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Experiments/new.latte</file>
-            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/config/local-template.neon</file>
-            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/DashboardPresenter.php</file>
-            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/ApiPresenter.php</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Login/registration.latte</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Login/forgotten.latte</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Services/templates/Mail/forgotten.latte</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/LoginPresenter.php</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Login/activationFail.latte</file>
         </group>
     </open-files>
 </project-private>
