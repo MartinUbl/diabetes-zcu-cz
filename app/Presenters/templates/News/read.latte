@@ -1,0 +1,30 @@
+{block beforeContent}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="p-5 text-white bg-dark">
+                <h3>{$news->title}</h3>
+                <span class="lead short_text">{$news->short_content}</span>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+
+{block content}
+
+<div class="row">
+    <div class="col-12">
+        <a n:href="News:" class="btn btn-dark"><i class="bi bi-arrow-90deg-left"></i> Back to news list</a>
+        <div class="space-1em"></div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <span class="lead date">{$news->published_on->format('j M Y')}</span><br />
+        <span class="lead author">{$news->users->first_name} {$news->users->last_name}</span>
+
+        <p class="full_text">{$news->full_content|noescape}</p>
+    </div>
+</div>

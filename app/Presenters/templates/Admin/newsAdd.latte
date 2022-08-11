@@ -1,3 +1,7 @@
+{block styles}
+<link href="{$baseUrl}/css/summernote-lite.min.css" rel="stylesheet" >
+{/block}
+
 {block beforeContent}
 <div class="container">
     <div class="row">
@@ -57,7 +61,7 @@
         </div>
         <div class="row">
             <div class="col-xs-12 col-sm-12 form-group">
-                {input full_content class=>'form-control'}
+                {input full_content class=>'form-control summernote'}
                 <div class="space-1em"></div>
             </div>
         </div>
@@ -80,8 +84,14 @@
 </div>
     
 {block userscripts}
+<script src="{$basePath}/js/summernote-lite.min.js"></script>
+
 <script>
     $(document).ready(function() {
+        $(document).ready(function() {
+            $('.summernote').summernote();
+        });
+        
         $.each($('.character-counted'), function(i,e) {
             $(e).keyup(function() {
                 var nxt = $(e).parent().find('.character-counter-value');

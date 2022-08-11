@@ -148,6 +148,7 @@ footer>.container
 {
     padding-top: 0;
     font-variant: small-caps;
+    font-weight: 300;
 }
 
 .container-main
@@ -490,4 +491,22 @@ dd:after, dd::after
 [class*=" bi-"]::before
 {
     line-height: 1.2 !important;
+}
+
+.align-block-right
+{
+    display: inline-block;
+    float: right;
+}
+
+.rss-link, a.rss-link, a.rss-link:active, a.rss-link:visited, a.rss-link:focus
+{
+    color: #ee802f;
+}
+
+.footer-icon-link
+{
+    display: inline-block;
+    float: right;
+    margin-left: 0.5em;
 }

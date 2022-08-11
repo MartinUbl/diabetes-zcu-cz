@@ -31,7 +31,7 @@ class NewsModel extends BaseModel
      */
     public function getNews($start = null, $count = null)
     {
-        $sel = $this->getTable();
+        $sel = $this->getTable()->order('published_on DESC');
         
         if (is_int($start))
             $sel->limit($count, $start);

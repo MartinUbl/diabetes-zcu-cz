@@ -383,3 +383,11 @@ passwordreset:
         submit: "Set a new password"
 
     reset_ok: "If the link was valid, we've just set a new password to an account bound to it."
+
+news:
+    banner:
+        title: "News archive"
+        text: "Here you can view all previously posted news articles."
+
+    newscount: "There are currently %newscount% news in the archive."
+    linktitle: "News archive"

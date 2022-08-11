@@ -383,3 +383,11 @@ passwordreset:
         submit: "Nastavit nové heslo"
 
     reset_ok: "Pokud byl odkaz platný, účtu, který s ním byl svázaný, jsme právě nastavili nové heslo."
+
+news:
+    banner:
+        title: "Archiv novinek"
+        text: "Zde můžete prohlížet archiv všech publikovaných novinek."
+
+    newscount: "Nyní se v archivu nachází %newscount% novinek."
+    linktitle: "Archiv novinek"
