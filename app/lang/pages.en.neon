@@ -303,6 +303,9 @@ login:
         registration_link: "Sign up"
         forgot_link: "Forgotten password"
 
+    note:
+        alreadylogged: "You are already loggen in as %username%. To sign in as another user, <a href=\"%logoutlink%\">log out</a> first."
+
 forgotten:
     banner:
         title: "Forgotten password"

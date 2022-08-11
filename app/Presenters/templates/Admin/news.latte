@@ -1,0 +1,49 @@
+{block beforeContent}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="p-5 text-white bg-dark">
+                <h3>News</h3>
+                <p class="lead">Here you can manage news - add new record, edit existing and delete them.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+
+{block content}
+
+<div class="row">
+    <div class="col-12">
+        
+        <a n:href="Admin:" class="btn btn-dark"><i class="bi bi-arrow-90deg-left"></i> Back to main menu</a>
+        <div class="space-1em"></div>
+        
+        <a class="btn btn-dark btn-lg" n:href="Admin:newsAdd"><i class="bi bi-plus-circle"></i> Add news</a>
+        <div class="space-1em"></div>
+        {if $news && $news->count() > 0}
+        <div class="lead">There are currently {$news->count()} news, ordered from newest to oldest:</div>
+        <div class="space-1em"></div>
+        {/if}
+        {if $news && $news->count() > 0}
+        <ul class="list-group">
+            {foreach $news as $entry}
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">{$entry->title}</div>
+                    <div class="fw-italic">Author: {$entry->users->first_name} {$entry->users->last_name} ({$entry->users->email})</div>
+                    <div class="fw-italic">Date: {$entry->published_on->format('j.n.Y H:i')}</div>
+                    {$entry->short_content}
+                </div>
+                <a n:href="Admin:newsEdit id => $entry->id" class="btn btn-primary btn-sm"><i class="bi bi-pencil-fill"></i></a>&nbsp;
+                <a n:href="newsDelete! id => $entry->id" class="btn btn-danger btn-sm" onclick="return confirm('Do you really want to delete this news record?');"><i class="bi bi-trash-fill"></i></a>
+            </li>
+            {/foreach}
+        </ul>
+        {else}
+        <ul class="list-group">
+            <li class="list-group-item"><i>No news have been added.</i></li>
+        </ul>
+        {/if}
+    </div>
+</div>

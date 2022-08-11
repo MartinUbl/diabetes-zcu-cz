@@ -1,115 +1,114 @@
-{block beforeContent}
-<div class="carousel-container">
-    <div class="container">
-        <div id="bannerCarousel" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="0" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="2" class="active" aria-current="true" aria-label="Slide 3"></button>
-                <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+{block content}
+
+<div class="row">
+    
+    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 marginal">
+        <div class="row homepage_block">
+            <div class="col-lg-8 col-md-6 col-sm-6 col-xs-8 col-8 homepage_block_text">
+                <h2>SmartCGMS</h2>
+                <p>
+                    Explore the possibilities of powerful SmartCGMS architecture and software framework.
+                </p>
+                <p>
+                    <a class="btn btn-sm btn-dark" n:href="Smartcgms:">Learn more</a>
+                </p>
             </div>
-            <div class="carousel-inner" role="listbox">
-                <div class="carousel-item" id="carusel_image">
-                    <div class="first-slide carusel-image" style="background-image: url({$baseUrl}/img/diabetes_measure.jpg);"></div>
-                    <div class="container">
-                        <div class="carousel-caption">
-                            <h3>{_general.homepage.carousel.item_1.title}</h3>
-                            <p>{_general.homepage.carousel.item_1.text}</p>
-                            <p>
-                                <a class="btn btn-lg btn-warning" n:href="Diabetes:" role="button">{_general.homepage.carousel.item_1.button_text}</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="second-slide carusel-image" style="background-image: url({$baseUrl}/img/pumpa.jpg);"></div>
-                    <div class="container">
-                        <div class="carousel-caption">
-                            <h3>{_general.homepage.carousel.item_2.title}</h3>
-                            <p>{_general.homepage.carousel.item_2.text}</p>
-                            <p>
-                                <a class="btn btn-lg btn-warning" n:href="About:" role="button">{_general.homepage.carousel.item_2.button_text}</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item active" id="carusel_image">
-                    <div class="third-slide carusel-image" style="background-image: url({$baseUrl}/img/diabetes.jpg);"></div>
-                    <div class="container">
-                        <div class="carousel-caption">
-                            <h3>{_general.homepage.carousel.item_3.title}</h3>
-                            <p>{_general.homepage.carousel.item_3.text}</p>
-                            <p>
-                                <a class="btn btn-lg btn-warning" n:href="Patient:" role="button">{_general.homepage.carousel.item_3.button_text}</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="fourth-slide carusel-image" style="background-image: url({$baseUrl}/img/smartcgms/carousel_smartcgms.png);"></div>
-                    <div class="container">
-                        <div class="carousel-caption">
-                            <h3>{_general.homepage.carousel.item_4.title}</h3>
-                            <p>{_general.homepage.carousel.item_4.text}</p>
-                            <p>
-                                <a class="btn btn-lg btn-warning" n:href="Smartcgms:" role="button">{_general.homepage.carousel.item_4.button_text}</a>
-                            </p>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-4 col-4">
+                <img src="{$baseUrl}/img/hp_scgms.png" class="homepage_img" />
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#bannerCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
+        </div>
+    </div>
+    
+    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 marginal">
+        <div class="row homepage_block">
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-4 col-4">
+                <img src="{$baseUrl}/img/hp_icarus.png" class="homepage_img" />
+            </div>
+            <div class="col-lg-8 col-md-6 col-sm-6 col-xs-8 col-8 homepage_block_text">
+                <h2 class="align_right">Icarus has diabetes</h2>
+                <p class="align_right">
+                    Learn the concepts of glycemic control through a gameplay experience. 
+                </p>
+                <p class="align_right">
+                    <a class="btn btn-sm btn-dark" n:href="Icarus:">Learn more</a>
+                </p>
+            </div>
+        </div>
+    </div>
+            
+</div>
+<div class="row">
+            
+    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 marginal">
+        <div class="row homepage_block">
+            <div class="col-lg-8 col-md-6 col-sm-6 col-xs-8 col-8 homepage_block_text">
+                <h2>Get involved</h2>
+                <p>
+                    Get in touch and co-operate with us on a next-generation glucose monitoring and treatment technologies.
+                </p>
+                <p>
+                    <a class="btn btn-sm btn-dark" n:href="Profi:">Learn more</a>
+                </p>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-4 col-4">
+                <img src="{$baseUrl}/img/hp_getinvolved.png" class="homepage_img" />
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 marginal">
+        <div class="row homepage_block">
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-4 col-4">
+                <img src="{$baseUrl}/img/hp_development.png" class="homepage_img" />
+            </div>
+            <div class="col-lg-8 col-md-6 col-sm-6 col-xs-8 col-8 homepage_block_text">
+                <h2 class="align_right">Publications</h2>
+                <p class="align_right">
+                    Read about our work in various recognized scientific journals.
+                </p>
+                <p class="align_right">
+                    <a class="btn btn-sm btn-dark" href="{$presenter->link('About:')}#publications">Learn more</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<hr />
+            
+<div class="row">
+    <div class="col-12">
+        <div class="p-4 text-white bg-dark">
+            <h3 style="padding: 0; margin: 0;">News and announcements</h3>
         </div>
     </div>
 </div>
-{/block}
 
-{block content}
-
-<div class="row roles">
-    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-6">
-        <img class="img-circle" src="{$baseUrl}/img/patient.jpg" alt="{_general.homepage.patient.title}" width="140" height="140" />
-        <h4>{_general.homepage.patient.title}</h4>
-        <p>{_general.homepage.patient.text}</p>
-        <a class="btn btn-outline-dark" n:href="Patient:"><i class="fas fa-angle-double-right"></i></a>
-    </div>
-    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-6">
-        <img class="img-circle" src="{$baseUrl}/img/doctor.jpg" alt="{_general.homepage.doctor.title}" width="140" height="140" />
-        <h4>{_general.homepage.doctor.title}</h4>
-        <p>{_general.homepage.doctor.text}</p>
-        <a class="btn btn-outline-dark" n:href="Profi:"><i class="fas fa-angle-double-right"></i></a>
-    </div>
-    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-6">
-        <img class="img-circle" src="{$baseUrl}/img/scientist.jpg" alt="{_general.homepage.scientist.title}" width="140" height="140" />
-        <h4>{_general.homepage.scientist.title}</h4>
-        <p>{_general.homepage.scientist.text}</p>
-        <a class="btn btn-outline-dark" n:href="Profi:"><i class="fas fa-angle-double-right"></i></a>
-    </div>
-    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-6">
-        <img class="img-circle" src="{$baseUrl}/img/bussinessman.jpg" alt="{_general.homepage.bussinessman.title}" width="140" height="140" />
-        <h4>{_general.homepage.bussinessman.title}</h4>
-        <p>{_general.homepage.bussinessman.text}</p>
-        <a class="btn btn-outline-dark" n:href="Profi:"><i class="fas fa-angle-double-right"></i></a>
-    </div>
-    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-6">
-        <img class="img-circle" src="{$baseUrl}/img/student.jpg" alt="{_general.homepage.student.title}" width="140" height="140" />
-        <h4>{_general.homepage.student.title}</h4>
-        <p>{_general.homepage.student.text}</p>
-        <a class="btn btn-outline-dark" n:href="Profi:"><i class="fas fa-angle-double-right"></i></a>
-    </div>
-    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-6">
-        <img class="img-circle" src="{$baseUrl}/img/press.jpg" alt="{_general.homepage.press.title}" width="140" height="140" />
-        <h4>{_general.homepage.press.title}</h4>
-        <p>{_general.homepage.press.text}</p>
-        <a class="btn btn-outline-dark" n:href="Media:"><i class="fas fa-angle-double-right"></i></a>
-    </div>
+<div class="row">
+    {if $news && $news->count() > 0}
+        {foreach $news as $nr}
+        <div class="col-4 news_block">
+            <div>
+                <h4>{$nr->title}</h4>
+                <p class="date">{$nr->published_on->format('j M Y')}</p>
+                <p class="author">Author: {$nr->users->first_name} {$nr->users->last_name}</p>
+                <p class="short_text">{$nr->short_content}</p>
+                <a class="readmore">Read more...</a>
+            </div>
+        </div>
+        {/foreach}
+    {else}
+        <div class="col-12">
+            <div class="space-1em"></div>
+            <i>No news have been added yet.</i>
+            <div class="space-1em"></div>
+        </div>
+    {/if}
 </div>
 
-
+<div class="row">
+    <div class="col-12">
+        <div class="space-1em"></div>
+    </div>
+</div>

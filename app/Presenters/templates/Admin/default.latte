@@ -1,0 +1,37 @@
+
+{block beforeContent}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="p-5 text-white bg-dark">
+                <h3>Page administration</h3>
+                <p class="lead">You, as an administrator, have the power to maintain page content, view selected database contents and observe selected statistics.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+
+{block content}
+
+<div class="row">
+    <div class="col-12">
+        <h4>Page content</h4>
+        <a n:href="Admin:news" class="btn btn-dark btn-lg"><i class="bi bi-newspaper"></i> Manage news</a>
+        
+        <div class="space-2em"></div>
+    </div>
+    <div class="col-12">
+        <h4>Statistics</h4>
+        <a href="#" class="btn btn-dark btn-lg"><i class="bi bi-file-earmark-arrow-down"></i> Download counters</a>
+        
+        <div class="space-2em"></div>
+    </div>
+    <div class="col-12">
+        <h4>Data dumps</h4>
+        <a href="#" class="btn btn-dark btn-lg"><i class="bi bi-bar-chart-line"></i> Uploaded user data</a>
+        <a href="#" class="btn btn-dark btn-lg"><i class="bi bi-controller"></i> Icarus data</a>
+        
+        <div class="space-2em"></div>
+    </div>
+</div>

@@ -106,6 +106,9 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarUser">
                               <a class="dropdown-item" n:href="Dashboard:">{_general.menu.usersection|noescape}</a>
+                              {if in_array('admin',$user->getRoles())}
+                                  <a class="dropdown-item" n:href="Admin:">{_general.menu.adminsection|noescape}</a>
+                              {/if}
                               <a class="dropdown-item" n:href="Logout!">{_general.menu.logout|noescape}</a>
                             </div>
                         </li>

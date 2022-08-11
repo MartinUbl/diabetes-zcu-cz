@@ -1,0 +1,99 @@
+{block beforeContent}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="p-5 text-white bg-dark">
+                <h3>Adding a news record</h3>
+                <p class="lead">Type in the required information - title and short content. In case the message is longer than 200 characters, use full content field. The short content is posted to social media, if the option to do so is selected.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+
+{block content}
+
+<div class="row">
+    <div class="col-12">
+
+        <a n:href="Admin:news" class="btn btn-dark"><i class="bi bi-arrow-90deg-left"></i> Back to news list</a>
+        <div class="space-1em"></div>
+        
+        <h3>Add news</h3>
+        
+        {form newsForm}
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                {label title /}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 form-group">
+                {input title class=>'form-control character-counted'}
+                <div style="float: right; clear: both;">
+                    <span class="character-counter-value">0</span><span>/50</span>
+                </div>
+                <div class="space-1em"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                {label short_content /}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 form-group">
+                {input short_content class=>'form-control character-counted'}
+                <div style="float: right; clear: both;">
+                    <span class="character-counter-value">0</span><span>/200</span>
+                </div>
+                <div class="space-1em"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                {label full_content /}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 form-group">
+                {input full_content class=>'form-control'}
+                <div class="space-1em"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 form-group">
+                {input post_on_socials class=>'form-control'}
+                <div class="space-1em"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 form-group">
+                <div class="d-grid gap-2">
+                    {input submit class=>'btn btn-dark btn-lg'}
+                </div>
+                <div class="space-1em"></div>
+            </div>
+        </div>
+        {/form}
+    </div>
+</div>
+    
+{block userscripts}
+<script>
+    $(document).ready(function() {
+        $.each($('.character-counted'), function(i,e) {
+            $(e).keyup(function() {
+                var nxt = $(e).parent().find('.character-counter-value');
+                nxt.html(""+$(e).val().length);
+                
+                if ($(e).val().length > 200)
+                    nxt.addClass('error');
+                else
+                    nxt.removeClass('error');
+            });
+        });
+    });
+</script>
+{/block}
+    

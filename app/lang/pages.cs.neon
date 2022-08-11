@@ -303,6 +303,9 @@ login:
         registration_link: "Registrovat se"
         forgot_link: "Zapomenuté heslo"
 
+    note:
+        alreadylogged: "Již jste přihlášen/a jako %username%. Abyste se mohl/a přihlásit jako jiný uživatel, nejprve se <a href=\"%logoutlink%\">odhlašte</a>."
+
 forgotten:
     banner:
         title: "Zapomenuté heslo"

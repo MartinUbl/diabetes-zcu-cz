@@ -1,6 +1,20 @@
 parameters:
     configuration:
         uploads_dir: ${{UPLOADS_DIR}}
+    mail:
+        noreply-from: '${{MAIL_NOREPLY_FROM}}'
+    twitter:
+        api: # also called a 'consumer key'
+            key: '${{TWITTER_API_KEY}}'
+            secret: '${{TWITTER_API_SECRET}}'
+        access-token:
+            token: '${{TWITTER_ACCESS_TOKEN}}'
+            token-secret: '${{TWITTER_ACCESS_TOKEN_SECRET}}'
+    facebook:
+        api:
+            app-id: '${{FACEBOOK_APP_ID}}'
+            app-secret: '${{FACEBOOK_APP_SECRET}}'
+            page-id: '${{FACEBOOK_PAGE_ID}}'
 
 recaptcha:
     siteKey: '${{RECAPTCHA_SITE_KEY}}'

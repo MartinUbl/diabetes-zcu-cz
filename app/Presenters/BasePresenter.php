@@ -44,7 +44,10 @@ class BasePresenter extends Nette\Application\UI\Presenter
         if ($this->getUser()->isLoggedIn())
             $this->getUser()->logout();
         
-        $this->redirect("Homepage:");
+        if ($this->presenterName == 'login')
+            $this->redirect("this");
+        else
+            $this->redirect("Homepage:");
     }
     
     public function handleChangeLang($lang) {

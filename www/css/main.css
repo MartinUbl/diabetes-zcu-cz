@@ -412,3 +412,82 @@ dd:after, dd::after
 {
     margin-right: 0.5em;
 }
+
+.homepage_img
+{
+    width: 100%;
+    height: auto;
+}
+
+.homepage_block
+{
+    border: 6px solid rgb(33,37,41);/*#50BDFB*/;
+    padding: 0.5em;
+    margin: 0.5em;
+    min-height: calc(100% - 1em);
+}
+
+.homepage_block_text
+{
+    padding: 0.8em;
+}
+
+.homepage_block h2
+{
+    border-bottom: 1px solid #50BDFB;
+}
+
+.homepage_block p
+{
+    font-size: 0.9em;
+}
+
+.align_right
+{
+    text-align: right;
+}
+.align_center
+{
+    text-align: center;
+}
+
+.news_block
+{
+    min-height: 100%;
+}
+
+.news_block div
+{
+    border: 2px solid rgb(33,37,41);
+    padding: 1em 1em 0em 1em;
+    margin-top: 1em;
+    min-height: 100%;
+}
+.news_block h4
+{
+    font-size: 1.2em;
+}
+.news_block .date
+{
+    font-size: 0.9em;
+    font-style: italic;
+    padding: 0;
+    margin: 0;
+}
+.news_block .author
+{
+    font-size: 0.9em;
+    font-style: italic;
+    padding: 0;
+    margin: 0;
+}
+.news_block .short_text
+{
+    padding-top: 0.5em;
+}
+
+[class^="bi-"]::before,
+[class*=" bi-"]::before
+{
+    line-height: 1.2 !important;
+}
