@@ -55,7 +55,7 @@
                             </div>
                             <div class="col-4" style="padding-top: 0.275em;">
                                 <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: {intval(100.0*$tokenedStats['last_3_months'][$cat][$i]/$cnt)}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{$tokenedStats['last_3_months'][$cat][$i]}</div>
+                                    <div class="progress-bar" role="progressbar" style="width: {if $cnt > 0}{intval(100.0*$tokenedStats['last_3_months'][$cat][$i]/$cnt)}{else}0{/if}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{$tokenedStats['last_3_months'][$cat][$i]}</div>
                                 </div>
                             </div>
                             <div class="col-7">
@@ -112,7 +112,7 @@
                             </div>
                             <div class="col-4" style="padding-top: 0.275em;">
                                 <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: {intval(100.0*$untokenedStats['last_3_months'][$name][$i]/$cnt)}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{$untokenedStats['last_3_months'][$name][$i]}</div>
+                                    <div class="progress-bar" role="progressbar" style="width: {if $cnt > 0}{intval(100.0*$untokenedStats['last_3_months'][$name][$i]/$cnt)}{else}0{/if}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{$untokenedStats['last_3_months'][$name][$i]}</div>
                                 </div>
                             </div>
                             <div class="col-7">
