@@ -515,3 +515,10 @@ dd:after, dd::after
 {
     max-width: 100%;
 }
+
+.preftable tr td:first-child, .preftable tr th:first-child
+{
+    text-align: right;
+    
+    border-right: 1px solid #dee2e6;
+}

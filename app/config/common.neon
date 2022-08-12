@@ -30,6 +30,7 @@ services:
     - App\Models\ExperimentModel
     - App\Models\NewsModel
     - App\Models\DownloadTokensModel
+    - App\Models\GlobalStatesModel
 
 http:
     headers:

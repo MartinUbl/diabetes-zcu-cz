@@ -21,16 +21,23 @@ final class AdminPresenter extends BaseAdminPresenter
     /** @var \App\Models\NewsModel */
     private $news;
     
+    /** @var string */
+    private $stateEdited = null;
+    
+    /** @var \App\Models\GlobalStatesModel */
+    private $globalStates;
+    
     /** @var \Nette\Database\Table\ActiveRow */
     private $existingNews = null;
 
-    public function __construct(\App\Services\TwitterService $twitterService, \App\Services\FacebookService $facebookService, \App\Models\DownloadTokensModel $downloadTokens, \App\Models\NewsModel $news) {
+    public function __construct(\App\Services\TwitterService $twitterService, \App\Services\FacebookService $facebookService, \App\Models\DownloadTokensModel $downloadTokens, \App\Models\NewsModel $news, \App\Models\GlobalStatesModel $globalStates) {
         parent::__construct("admin");
         
         $this->twitterService = $twitterService;
         $this->facebookService = $facebookService;
         $this->downloadTokens = $downloadTokens;
         $this->news = $news;
+        $this->globalStates = $globalStates;
     }
     
     public function actionDefault()
@@ -52,6 +59,12 @@ final class AdminPresenter extends BaseAdminPresenter
         }
     }
     
+    public function actionGlobalStatesEdit($id)
+    {
+        $this->stateEdited = $id;
+        $this->template->stateKey = $id;
+    }
+    
     public function actionCounters()
     {
         $this->template->categoryTranslationMap = DownloadsPresenter::$CategoryTranslationTable;
@@ -70,6 +83,11 @@ final class AdminPresenter extends BaseAdminPresenter
         $this->template->category = $category;
         $this->template->categoryTranslationMap = DownloadsPresenter::$CategoryTranslationTable;
         $this->template->tokens = $this->downloadTokens->listDownloadsForCategory($category)->limit(100);
+    }
+    
+    public function actionGlobalStates()
+    {
+        $this->template->states = $this->globalStates->getAllStates();
     }
     
     public function createComponentNewsForm()
@@ -148,5 +166,36 @@ final class AdminPresenter extends BaseAdminPresenter
     {
         $this->news->deleteNews($id);
         $this->redirect('Admin:news');
+    }
+    
+    public function createComponentGlobalStatesForm()
+    {
+        $form = new Form();
+        
+        $form->addText('key', 'Key')
+             ->setDefaultValue($this->stateEdited ? $this->stateEdited : null)
+             ->setDisabled($this->stateEdited !== null)
+             ->setHtmlAttribute('value', $this->stateEdited ? $this->stateEdited : "")
+             ->setRequired('This is a required parameter');
+        
+        $form->addText('value', 'Value')
+             ->setDefaultValue($this->stateEdited ? $this->globalStates->getState($this->stateEdited) : null);
+        
+        $form->addSubmit('submit', $this->stateEdited ? 'Edit state' : 'Add state');
+        
+        $form->onSuccess[] = [$this, 'onGlobalStatesFormSuccess'];
+        
+        return $form;
+    }
+    
+    public function onGlobalStatesFormSuccess(Form $form)
+    {
+        if ($this->stateEdited)
+            $this->globalStates->updateState($this->stateEdited, $form->values->value);
+        else
+            $this->globalStates->updateState($form->values->key, $form->values->value);
+        
+        $this->flashMessage('Global state has been stored', 'success');
+        $this->redirect("Admin:globalStates");
     }
 }

@@ -20,6 +20,9 @@ final class ApiPresenter extends BasePresenter
 
     /** @var \Nette\Security\Passwords */
     private $passwords;
+    
+    /** @var \App\Models\GlobalStatesModel */
+    private $globalStates;
 
     /** @var \stdClass */
     protected $reqBody;
@@ -27,10 +30,11 @@ final class ApiPresenter extends BasePresenter
     /** @var string */
     protected $reqBodyRaw;
 
-    public function __construct(\Nette\Security\Passwords $passwords) {
+    public function __construct(\Nette\Security\Passwords $passwords, \App\Models\GlobalStatesModel $globalStates) {
         parent::__construct("api");
 
         $this->passwords = $passwords;
+        $this->globalStates = $globalStates;
     }
 
     public function startup()
@@ -49,6 +53,13 @@ final class ApiPresenter extends BasePresenter
             case 'login':
             case 'register':
                 // no valid user info required
+                break;
+            case 'icarusUploadMeta':
+            case 'icarusUploadFile':
+            case 'icarusScoreboard':
+            case 'icarusVersion':
+                // Icarus game-related endpoints;
+                // also no valid user required
                 break;
             case 'logout':
             case 'uploadMeta':
@@ -129,6 +140,29 @@ final class ApiPresenter extends BasePresenter
         $usr = $this->userModel->addUser($this->reqBody->email, $this->reqBody->password);
         
         $this->setResponseAndDie(201);
+    }
+    
+    public function actionIcarusUploadMeta()
+    {
+        //
+    }
+    
+    public function actionIcarusUploadFile()
+    {
+        //
+    }
+    
+    public function actionIcarusScoreboard()
+    {
+        //
+    }
+    
+    public function actionIcarusVersion()
+    {
+        $this->setResponseAndDie(200, [
+            'current' => $this->globalStates->getState('icarus_current_version'),
+            'minimal' => $this->globalStates->getState('icarus_minimal_version'),
+        ]);
     }
     
     public function actionUploadMeta()

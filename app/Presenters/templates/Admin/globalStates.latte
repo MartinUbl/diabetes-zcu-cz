@@ -1,0 +1,48 @@
+{block beforeContent}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="p-5 text-white bg-dark">
+                <h3>Global states</h3>
+                <p class="lead">Global states is a global key-value storage, much like a preference storage of some kind. You may view and edit those values here.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+
+{block content}
+
+<div class="row">
+    <div class="col-12">
+
+        <a n:href="Admin:" class="btn btn-dark"><i class="bi bi-arrow-90deg-left"></i> Back to main menu</a>
+        <div class="space-1em"></div>
+        
+        <a class="btn btn-dark btn-lg" n:href="Admin:globalStatesAdd"><i class="bi bi-plus-circle"></i> Add state</a>
+        
+    </div>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-12 col-lg-6 col-md-8 col-sm-12">
+        
+        <table class="table preftable">
+            <thead>
+                <tr>
+                    <th>Key</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                {foreach $states as $key => $value}
+                <tr>
+                    <td>{$key}</td>
+                    <td>{$value} <a n:href="Admin:globalStatesEdit id => $key" class="btn btn-sm btn-dark align-block-right"><i class="bi bi-pencil-fill"></i></a></td>
+                </tr>
+                {/foreach}
+            </tbody>
+        </table>
+        
+    </div>
+</div>
