@@ -1,0 +1,78 @@
+{block beforeContent}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="p-5 text-white bg-dark">
+                <h3>Download SmartCGMS</h3>
+                <p class="lead">Please, fill the form below, so we can send the download link to your e-mail.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+
+{block content}
+
+<h3>{_pages.downloads.scgms.title}</h3>
+
+<p>{_pages.downloads.scgms.text_1|noescape}</p>
+<p>{_pages.downloads.scgms.text_2|noescape}</p>
+
+<div class="row">
+    <div class="col-12">
+        {form requestDownloadForm}
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                {label name /}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 form-group">
+                {input name class=>'form-control'}
+                <div class="space-1em"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                {label phone /}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 form-group">
+                {input phone class=>'form-control'}
+                <div class="space-1em"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                {label address /}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 form-group">
+                {input address class=>'form-control'}
+                <div class="space-1em"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                {label email /}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 form-group">
+                {input email class=>'form-control'}
+                <div class="space-1em"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 form-group">
+                <div class="d-grid gap-2">
+                    {input submit class=>'btn btn-dark btn-lg'}
+                </div>
+                <div class="space-1em"></div>
+            </div>
+        </div>
+        {/form}
+    </div>
+</div>

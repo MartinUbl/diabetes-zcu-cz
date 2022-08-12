@@ -154,7 +154,7 @@ downloads:
 
     scgms:
         title: "SmartCGMS"
-        text_1: "Níže můžete najít odkaz pro stažení distribuce SmartCGMS pro systémy MS Windows 64-bit, macOS 64-bit a Debian GNU/Linux 64-bit. V případě jiných systémů nás, prosím, <a href=\"diabetes@mail.kiv.zcu.cz\">kontaktujte</a>. Tato distribuce SmartCGMS je zdarma pro nekomerční použití a akademický výzkum. Není určena k použití pro léčbu nebo jiný účel, který vyžaduje jinou licenci a příslušnou certifikaci."
+        text_1: "Níže můžete najít formulář pro stažení distribuce SmartCGMS pro systémy MS Windows 64-bit, macOS 64-bit a Debian GNU/Linux 64-bit. V případě jiných systémů nás, prosím, <a href=\"diabetes@mail.kiv.zcu.cz\">kontaktujte</a>. Tato distribuce SmartCGMS je zdarma pro nekomerční použití a akademický výzkum. Není určena k použití pro léčbu nebo jiný účel, který vyžaduje jinou licenci a příslušnou certifikaci."
         text_2: "Použitím tohoto software ve Vašem výzkumu se zavazujete v publikacích uvést tuto citaci:<ol><li><i>T. Koutny and M. Ubl, \"SmartCGMS as a Testbed for a Blood-Glucose Level Prediction and/or Control Challenge with (an FDA-Accepted) Diabetic Patient Simulation\", Procedia Computer Science, Volume 177, pp. 354-362, 2020</i></li></ol>"
         download_conds_agree: "Souhlasím s výše uvedenými podmínkami"
         download_button: "Stáhnout SmartCGMS"

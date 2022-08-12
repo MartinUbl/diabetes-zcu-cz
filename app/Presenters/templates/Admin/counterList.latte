@@ -1,0 +1,75 @@
+{block beforeContent}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="p-5 text-white bg-dark">
+                <h3>Download tokens</h3>
+                <span class="lead">This page contains a list of all download tokens requested for given category.</span>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+
+{block content}
+
+<div class="row">
+    <div class="col-12">
+        
+        <a n:href="Admin:counters" class="btn btn-dark"><i class="bi bi-arrow-90deg-left"></i> Back to counters</a>
+        <div class="space-1em"></div>
+        
+        <span class="lead">
+        {if isset($categoryTranslationMap[$category])}
+            {$categoryTranslationMap[$category]}
+        {else}
+            {$category}
+        {/if}
+        </span>
+        
+        <p>All {$tokens->count()} download tokens ordered by date from newest to oldest.</p>
+        {if $tokens->count() >= 100}
+        <p>List is truncated to 100 records to avoid gigantic payload.</p>
+        {/if}
+    </div>
+</div>
+        
+<div class="list-group">
+    {foreach $tokens as $tk}
+    <div class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+            <p class="lead">{$tk->requester_name}</p>
+            <small>{$tk->valid_to->format('j. n. Y, H:i')}</small>
+        </div>
+        <div class="row">
+            <div class="col-12 col-lg-6 col-md-8 col-sm-12">
+                <table class="table mb-4" style="font-size: 11px;">
+                    <tbody>
+                        <tr>
+                            <th>Name</th>
+                            <td>{$tk->requester_name}</td>
+                        </tr>
+                        <tr>
+                            <th>Phone</th>
+                            <td>{$tk->requester_phone}</td>
+                        </tr>
+                        <tr>
+                            <th>Address</th>
+                            <td>{$tk->requester_address}</td>
+                        </tr>
+                        <tr>
+                            <th>E-mail</th>
+                            <td>{$tk->requester_email}</td>
+                        </tr>
+                        <tr>
+                            <th>IP</th>
+                            <td>{$tk->requester_ip}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+    </div>
+    {/foreach}
+</div>

@@ -510,3 +510,8 @@ dd:after, dd::after
     float: right;
     margin-left: 0.5em;
 }
+
+.documentation-page-content img
+{
+    max-width: 100%;
+}

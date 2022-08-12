@@ -15,17 +15,21 @@ final class AdminPresenter extends BaseAdminPresenter
     /** @var \App\Services\FacebookService */
     private $facebookService;
     
+    /** @var \App\Models\DownloadTokensModel */
+    private $downloadTokens;
+    
     /** @var \App\Models\NewsModel */
     private $news;
     
     /** @var \Nette\Database\Table\ActiveRow */
     private $existingNews = null;
-    
-    public function __construct(\App\Services\TwitterService $twitterService, \App\Services\FacebookService $facebookService, \App\Models\NewsModel $news) {
+
+    public function __construct(\App\Services\TwitterService $twitterService, \App\Services\FacebookService $facebookService, \App\Models\DownloadTokensModel $downloadTokens, \App\Models\NewsModel $news) {
         parent::__construct("admin");
         
         $this->twitterService = $twitterService;
         $this->facebookService = $facebookService;
+        $this->downloadTokens = $downloadTokens;
         $this->news = $news;
     }
     
@@ -46,6 +50,26 @@ final class AdminPresenter extends BaseAdminPresenter
             $this->flashMessage('No such news!', 'error');
             $this->redirect('Admin:news');
         }
+    }
+    
+    public function actionCounters()
+    {
+        $this->template->categoryTranslationMap = DownloadsPresenter::$CategoryTranslationTable;
+        $this->template->untokenedNameTranslationMap = DownloadsPresenter::$UntokenedNameTranslationTable;
+        $this->template->tokenedCounters = $this->downloadTokens->listCategoryCounts();
+        $this->template->tokenedStats = $this->downloadTokens->getCategoryStats();
+        $this->template->untokenedCounters = $this->downloadTokens->listUntokenedDownloadCounts();
+        $this->template->untokenedStats = $this->downloadTokens->getUntokenedDownloadStats();
+        $this->template->monthTable = [
+            'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+    }
+    
+    public function actionCounterList($category)
+    {
+        $this->template->category = $category;
+        $this->template->categoryTranslationMap = DownloadsPresenter::$CategoryTranslationTable;
+        $this->template->tokens = $this->downloadTokens->listDownloadsForCategory($category)->limit(100);
     }
     
     public function createComponentNewsForm()
