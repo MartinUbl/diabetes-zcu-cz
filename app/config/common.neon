@@ -26,11 +26,12 @@ services:
     - App\Services\TwitterService(%twitter.api.key%, %twitter.api.secret%, %twitter.access-token.token%, %twitter.access-token.token-secret%)
     - App\Services\FacebookService(%facebook.api.app-id%, %facebook.api.app-secret%, %facebook.api.page-id%)
     - App\Models\UserModel
-    - App\Models\UploadsModel
+    - App\Models\UploadsModel(%configuration.uploads_dir%)
     - App\Models\ExperimentModel
     - App\Models\NewsModel
     - App\Models\DownloadTokensModel
     - App\Models\GlobalStatesModel
+    - App\Models\IcarusUploadsModel(%configuration.icarus_uploads_dir%)
 
 http:
     headers:

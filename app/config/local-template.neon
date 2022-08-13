@@ -1,6 +1,7 @@
 parameters:
     configuration:
         uploads_dir: ${{UPLOADS_DIR}}
+        icarus_uploads_dir: ${{ICARUS_UPLOADS_DIR}}
     mail:
         noreply-from: '${{MAIL_NOREPLY_FROM}}'
     twitter:

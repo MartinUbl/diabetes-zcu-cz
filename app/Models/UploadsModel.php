@@ -11,6 +11,14 @@ class UploadsModel extends BaseModel
 {
     public $implicitTable = 'uploads';
     
+    public $uploadsPath;
+    
+    public function __construct(string $uploadsPath, \Nette\Database\Context $database, \Nette\DI\Container $c) {
+        parent::__construct($database, $c);
+        
+        $this->uploadsPath = $uploadsPath;
+    }
+    
     private function generateUploadId()
     {
         $characters = '0123456789abcdef';
