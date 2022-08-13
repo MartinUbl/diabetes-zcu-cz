@@ -207,7 +207,7 @@ final class ApiPresenter extends BasePresenter
     
     public function actionIcarusScoreboard()
     {
-        $this->setResponseAndDie(200, $this->icarus->getScoreboard());
+        $this->setResponseAndDie(200, [ 'scoreboard' => $this->icarus->getScoreboard() ]);
     }
     
     public function actionIcarusVersion()
