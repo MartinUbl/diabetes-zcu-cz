@@ -14,7 +14,7 @@ final class AddNewsTable extends AbstractMigration
             ->addColumn('full_content', 'string', ['null' => true])
             ->addColumn('users_id', 'integer')
             ->addColumn('published_on', 'datetime')
-            ->addColumn('social_media_posted', 'boolean', ['null' => false, 'default' => 'false']);
+            ->addColumn('social_media_posted', 'boolean', ['null' => false, 'default' => false]);
         
         $tbl->addForeignKey('users_id', 'users', 'id');
      
