@@ -6,9 +6,9 @@ environments:
     default_database: 'deployment'
 
     deployment:
-        adapter: '${DB_DBMS}'
-        host: '${DB_HOST}'
-        port: ${DB_PORT}
-        name: '${DB_DBNAME}'
-        user: '${DB_USERNAME}'
-        pass: '${DB_PASSWORD}'
+        adapter: '${ENV, var="DB_DBMS"}'
+        host: '${ENV, var="DB_HOST"}'
+        port: ${ENV, var="DB_PORT"}
+        name: '${ENV, var="DB_DBNAME"}'
+        user: '${ENV, var="DB_USERNAME"}'
+        pass: '${ENV, var="DB_PASSWORD"}'
