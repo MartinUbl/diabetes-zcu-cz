@@ -1,12 +1,28 @@
 parameters:
     configuration:
-        uploads_dir: ${{UPLOADS_DIR}}
+        uploads_dir: ${ENV, var="UPLOADS_DIR"}
+        icarus_uploads_dir: ${ENV, var="ICARUS_UPLOADS_DIR"}
+    mail:
+        noreply-from: '${ENV, var="MAIL_NOREPLY_FROM"}'
+    twitter:
+        api: # also called a 'consumer key'
+            key: '${ENV, var="TWITTER_API_KEY"}'
+            secret: '${ENV, var="TWITTER_API_SECRET"}'
+        access-token:
+            token: '${ENV, var="TWITTER_ACCESS_TOKEN"}'
+            token-secret: '${ENV, var="TWITTER_ACCESS_TOKEN_SECRET"}'
+    facebook:
+        api:
+            app-id: '${ENV, var="FACEBOOK_APP_ID"}'
+            app-secret: '${ENV, var="FACEBOOK_APP_SECRET"}'
+            page-id: '${ENV, var="FACEBOOK_PAGE_ID"}'
 
 recaptcha:
-    siteKey: '${{RECAPTCHA_SITE_KEY}}'
-    secretKey: '${{RECAPTCHA_SECRET_KEY}}'
+    siteKey: '${RECAPTCHA_SITE_KEY}'
+    secretKey: '${RECAPTCHA_SECRET_KEY}'
 
 database:
-    dsn: '${{DB_DBMS}}:host=${{DB_HOST}};dbname=${{DB_DBNAME}}'
-    user: ${{DB_USERNAME}}
-    password: ${{DB_PASSWORD}}
+    dsn: '${ENV, var="DB_DBMS"}:host=${ENV, var="DB_HOST"};dbname=${ENV, var="DB_DBNAME"}'
+    user: ${ENV, var="DB_USERNAME"}
+    password: ${ENV, var="DB_PASSWORD"}
+

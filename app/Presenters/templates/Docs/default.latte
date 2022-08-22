@@ -2,7 +2,7 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <div class="p-5 text-white bg-dark rounded-3">
+            <div class="p-5 text-white bg-dark">
                 <h3>{_pages.docs.banner.title}</h3>
                 <p class="lead">{_pages.docs.banner.text}</p>
                 {if $localeName != 'en'}<p class="lead"><i>{_pages.docs.banner.sorrytext}</i></p>{/if}
@@ -17,7 +17,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark main-navbar">
     <div class="container">
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -41,4 +41,10 @@
 
 {block content}
 
-{$docContents|noescape}
+<div class="row">
+    <div class="col-12 documentation-page-content">
+    
+        {$docContents|noescape}
+
+    </div>
+</div>

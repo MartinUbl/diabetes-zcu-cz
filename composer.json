@@ -23,7 +23,10 @@
                 "symfony/yaml": "^4.0",
                 "robmorgan/phinx": "~0.5",
                 "kdyby/translation": "^3.0",
-		"uestla/recaptcha-control": "dev-master"
+		"uestla/recaptcha-control": "dev-master",
+		"dg/twitter-php": "^4.1",
+		"symfony/http-client": "6.2.x-dev",
+		"facebook/graph-sdk": "6.x-dev"
 	},
 	"autoload": {
 		"classmap": ["app/Bootstrap.php"]

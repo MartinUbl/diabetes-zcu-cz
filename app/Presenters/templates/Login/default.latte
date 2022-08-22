@@ -2,7 +2,7 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <div class="p-5 text-white bg-dark rounded-3">
+            <div class="p-5 text-white bg-dark">
                 <h3>{_pages.login.banner.title}</h3>
                 <p class="lead">{_pages.login.banner.text}</p>
             </div>
@@ -15,6 +15,12 @@
 
 <div class="row justify-content-md-center">
     <div class="col-xs-6 col-sm-6">
+        
+        {if $user->isLoggedIn()}
+            
+            <p>{_pages.login.note.alreadylogged, ['username'=>$user->getIdentity()->email,'logoutlink'=>$presenter->link('logout!')]|noescape}</p>
+            
+        {else}
         
         {ifset $loginFormError}
             <div class="alert alert-danger" role="alert">
@@ -73,6 +79,8 @@
             </div>
         </div>
         
+        {/if}
+                
     </div>
 </div>
 

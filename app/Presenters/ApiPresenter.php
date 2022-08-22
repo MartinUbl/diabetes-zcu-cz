@@ -8,7 +8,6 @@ use Nette;
 
 final class ApiPresenter extends BasePresenter
 {
-
     /** @var \App\Models\UserModel @inject */
     public $userModel;
     
@@ -20,6 +19,12 @@ final class ApiPresenter extends BasePresenter
 
     /** @var \Nette\Security\Passwords */
     private $passwords;
+    
+    /** @var \App\Models\GlobalStatesModel */
+    private $globalStates;
+    
+    /** @var \App\Models\IcarusUploadsModel */
+    private $icarus;
 
     /** @var \stdClass */
     protected $reqBody;
@@ -27,10 +32,12 @@ final class ApiPresenter extends BasePresenter
     /** @var string */
     protected $reqBodyRaw;
 
-    public function __construct(\Nette\Security\Passwords $passwords) {
+    public function __construct(\Nette\Security\Passwords $passwords, \App\Models\GlobalStatesModel $globalStates, \App\Models\IcarusUploadsModel $icarus) {
         parent::__construct("api");
 
         $this->passwords = $passwords;
+        $this->globalStates = $globalStates;
+        $this->icarus = $icarus;
     }
 
     public function startup()
@@ -49,6 +56,13 @@ final class ApiPresenter extends BasePresenter
             case 'login':
             case 'register':
                 // no valid user info required
+                break;
+            case 'icarusUploadMeta':
+            case 'icarusUploadFile':
+            case 'icarusScoreboard':
+            case 'icarusVersion':
+                // Icarus game-related endpoints;
+                // also no valid user required
                 break;
             case 'logout':
             case 'uploadMeta':
@@ -131,6 +145,79 @@ final class ApiPresenter extends BasePresenter
         $this->setResponseAndDie(201);
     }
     
+    public function actionIcarusUploadMeta()
+    {
+        $requiredFields = ["score", "player_qualification", "disease_code", "nickname", "difficulty", "date"];
+        
+        foreach ($requiredFields as $fld)
+        {
+            if (!isset($this->reqBody->{$fld}))
+                $this->setResponseAndDie(400);
+        }
+        
+        $d = \DateTime::createFromFormat("Y-m-d H:i:s", $this->reqBody->date);
+        if (!$d || $d->format("Y-m-d H:i:s") !== $this->reqBody->date)
+            $this->setResponseAndDie(400, [ "error" => "Field 'date' does not contain datetime formatted using 'Y-m-d H:i:s' formatter string" ]);
+        
+        $uploadId = $this->icarus->createUpload(
+                $this->reqBody->score,
+                $this->reqBody->player_qualification,
+                $this->reqBody->disease_code,
+                $this->reqBody->nickname,
+                $this->reqBody->difficulty,
+                $this->reqBody->date);
+        
+        if (!$uploadId || strlen($uploadId) <= 0)
+            $this->setResponseAndDie(410);
+        
+        $this->setResponseAndDie(200, array('id' => $uploadId));
+    }
+    
+    public function actionIcarusUploadFile($id)
+    {
+        if (!$id || strlen($id) <= 0)
+            $this->setResponseAndDie(400);
+        
+        $f = $this->getHttpRequest()->getFile('log');
+        if (!$f)
+            $this->setResponseAndDie(400);
+        
+        if (!\App\Models\IcarusUploadsModel::validateUploadId($id))
+            $this->setResponseAndDie(401);
+        
+        $rec = $this->icarus->getUploadByUploadId($id);
+        if (!$rec)
+            $this->setResponseAndDie(404);
+
+        $dir = $this->icarus->uploadsPath;
+        $dir = str_replace('\\', '/', $dir);
+        if ($dir[strlen($dir) - 1] != '/')
+            $dir .= '/';
+
+        $dstFile = $dir.$rec->id.'.log';
+        
+        $f->move($dstFile);
+        
+        $checksum = strtolower(sha1_file($dstFile));
+        
+        $this->icarus->invalidateUploadId($id);
+        
+        $this->setResponseAndDie(200);
+    }
+    
+    public function actionIcarusScoreboard()
+    {
+        $this->setResponseAndDie(200, [ 'scoreboard' => $this->icarus->getScoreboard() ]);
+    }
+    
+    public function actionIcarusVersion()
+    {
+        $this->setResponseAndDie(200, [
+            'current' => $this->globalStates->getState('icarus_current_version'),
+            'minimal' => $this->globalStates->getState('icarus_minimal_version'),
+        ]);
+    }
+    
     public function actionUploadMeta()
     {
         $requiredFields = ["date", "device_info"];
@@ -171,7 +258,7 @@ final class ApiPresenter extends BasePresenter
         if (!$rec)
             $this->setResponseAndDie(404);
         
-        $dir = $this->context->parameters['configuration']['uploads_dir'];
+        $dir = $this->uploadsModel->uploadsPath;
         $dir = str_replace('\\', '/', $dir);
         if ($dir[strlen($dir) - 1] != '/')
             $dir .= '/';

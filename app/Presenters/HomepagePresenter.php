@@ -8,13 +8,17 @@ use Nette;
 
 final class HomepagePresenter extends BasePresenter
 {
-    public function __construct() {
+    /** @var \App\Models\NewsModel */
+    private $news;
+    
+    public function __construct(\App\Models\NewsModel $news) {
         parent::__construct("homepage");
+        
+        $this->news = $news;
     }
     
     public function actionDefault()
     {
-        //
-        $this->redirect('Smartcgms:');
+        $this->template->news = $this->news->getNews(0, 3);
     }
 }

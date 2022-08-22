@@ -1,0 +1,56 @@
+{block beforeContent}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="p-5 text-white bg-dark">
+                <h3>{_pages.news.banner.title}</h3>
+                <span class="lead short_text">{_pages.news.banner.text}</span>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+
+{block content}
+
+<div class="row">
+    <div class="col-12">
+        <a n:href="Homepage:" class="btn btn-dark"><i class="bi bi-arrow-90deg-left"></i> Back to homepage</a>
+        <div class="space-1em"></div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <p class="lead">{_pages.news.newscount, ['newscount' => $news->count()]}</p>
+    </div>
+</div>
+
+<div class="row">
+    {var $ctr = 0}
+    {if $news && $news->count() > 0}
+        {foreach $news as $nr}
+        <div class="col-4 news_block">
+            <div>
+                <h4>{$nr->title}</h4>
+                <p class="date">{$nr->published_on->format('j M Y')}</p>
+                <p class="author">Author: {$nr->users->first_name} {$nr->users->last_name}</p>
+                <p class="short_text">{$nr->short_content}</p>
+                {if $nr->full_content && strlen($nr->full_content) > 0}
+                <a n:href="News:read id => $nr->id" class="readmore btn btn-sm btn-dark"><i class="bi bi-eyeglasses"></i>&nbsp; Read more</a>
+                {/if}
+            </div>
+        </div>
+            
+            {var $ctr = $ctr + 1}
+            {if ($ctr % 3) == 0}
+            </div>
+            <div class="space-1em"></div>
+            <div class="row">
+            {/if}
+        {/foreach}
+    {/if}
+</div>
+
+<div class="space-1em"></div>
+    

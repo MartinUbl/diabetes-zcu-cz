@@ -154,7 +154,7 @@ downloads:
 
     scgms:
         title: "SmartCGMS"
-        text_1: "Below you can find a download link for a distribution of SmartCGMS for MS Windows 64-bit, macOS 64-bit and Debian GNU/Linux 64-bit. For a different system, please, <a href=\"diabetes@mail.kiv.zcu.cz\">let us know</a>. This distribution of SmartCGMS is free for non-commercial use and academic research. It cannot be used for a treatment or any other purpose as they require a different license and an appropriate certification."
+        text_1: "Below you can find a form, which will send you a link to download a distribution of SmartCGMS for MS Windows 64-bit, macOS 64-bit and Debian GNU/Linux 64-bit. For a different system, please, <a href=\"diabetes@mail.kiv.zcu.cz\">let us know</a>. This distribution of SmartCGMS is free for non-commercial use and academic research. It cannot be used for a treatment or any other purpose as they require a different license and an appropriate certification."
         text_2: "When publishing any results obtained using SmartCGMS, you must include the following citation:<ol><li><i>T. Koutny and M. Ubl, \"SmartCGMS as a Testbed for a Blood-Glucose Level Prediction and/or Control Challenge with (an FDA-Accepted) Diabetic Patient Simulation\", Procedia Computer Science, Volume 177, pp. 354-362, 2020</i></li></ol>"
         download_conds_agree: "I agree with the above conditions"
         download_button: "Download SmartCGMS"
@@ -162,7 +162,7 @@ downloads:
 
     database:
         title: "Enriched glucose-level database"
-        text_1: "Here you can download anonymized type-1 database with artificially calculated blood glucose levels. This database is free to use for non-profit, academic research only, but cannot be redistributed freely. Only the URL, https://diabetes.zcu.cz, can be redistributed, from where the database can be downloaded."
+        text_1: "Here you can request a download of anonymized type-1 database with artificially calculated blood glucose levels. This database is free to use for non-profit, academic research only, but cannot be redistributed freely. Only the URL, https://diabetes.zcu.cz, can be redistributed, from where the database can be downloaded."
         text_2: "When publishing any results obtained with this database, you must include the following citations:"
         text_cite: "<i>We have used a database with diabetes type-1 completely anonymized CGMS profiles, which is available as a part of the SmartCGMS project [1]. This database has been enriched with artificially calculated blood glucose levels [2].<ol><li>T. Koutny and M. Ubl, \"SmartCGMS as a Testbed for a Blood-Glucose Level Prediction and/or Control Challenge with (an FDA-Accepted) Diabetic Patient Simulation\", Procedia Computer Science, Volume 177, pp. 354-362, 2020</i></li><li>I. De Falco, A. Della Cioppa, A. Giugliano, A. Marcelli, T. Koutny, M. Krcma, U. Scafuri, E. Tarantino, \"A Genetic Programming-based Regression for Extrapolating a Blood Glucose-Dynamics Model from Interstitial Glucose Measurements and their Derivatives\", Submitted to the Applied Soft Computing Journal, 2018</li></ol></i>"
         download_conds_agree: "I agree with the above conditions"
@@ -189,6 +189,7 @@ team:
     koutny: "Tomas is the project founder and its general director. He is the author of the diffusion model of glucose dynamics and principal architect of the SmartCGMS system. He is focused on modelling glucose metabolism and transport, from measuring glucose level to its regulation. In addition, he has a strong background in applied mathematics, heterogeneous computing and fail-safe systems, all complemented with the required medical knowledge."
     krcma: "He is focused on prevention, diagnostics and therapy of Diabetes mellitus, metabolic and endocrinal diseases. He is head of the 1st Department of Internal Medicine at the Faculty Hospital in Pilsen, Charles University in Prague."
     majdisova: "She completed her Ph.D. study in 2020, in the field of numerical analysis. Now, she specializes in the development of the Icarus game. Her research is focused on the player eduction."
+    otta: "After spending 15 years as a full-stack developer and software architect in international companies, Max returned back to the Department of computer science and engineering, Faculty of applied Sciences, University of West Bohemia in 2021. He has an expert knowledge about database design, backend and frontend development, distributed systems and modern cloud technologies. He joined the team in 2022 to support the design and development of a newly emerging platform for medical devices management."
     varnuskova: "Since 2006, she is with the Department of computer science and engineering, Faculty of applied Sciences, University of West Bohemia. She deals with modelling, simulation, visualization and medical informatics."
     ubl: "He specializes in the development of Smart CGMS software stack. His research is focused on mathematical models of human metabolism and diabetes mellitus treatment. He is also the lead developer of this portal."
     dellacioppa: "Antonio is scientific coordinator of the project. He is with the Natural Computation Lab, Department of Information Engineering, Electrical Engineering and Applied Mathematics, University of Salerno, where he is currently Assistant Professor of Computer Science and Artificial Intelligence. He is active in the fields of Bio-inspired Artificial Intelligence, Inductive Inference and Machine Learning, including Evolutionary Computation, Neural Networks, Genetic Programming, Swarm Intelligence and Complex Systems. He is member of the Association for Computing Machinery (ACM), of the International Society for Genetic and Evolutionary Computation (ACM’s SIG-EVO) and of the Editorial Board of Applied Soft Computing Journal (Elsevier)."
@@ -303,6 +304,9 @@ login:
         registration_link: "Sign up"
         forgot_link: "Forgotten password"
 
+    note:
+        alreadylogged: "You are already loggen in as %username%. To sign in as another user, <a href=\"%logoutlink%\">log out</a> first."
+
 forgotten:
     banner:
         title: "Forgotten password"
@@ -380,3 +384,11 @@ passwordreset:
         submit: "Set a new password"
 
     reset_ok: "If the link was valid, we've just set a new password to an account bound to it."
+
+news:
+    banner:
+        title: "News archive"
+        text: "Here you can view all previously posted news articles."
+
+    newscount: "There are currently %newscount% news in the archive."
+    linktitle: "News archive"

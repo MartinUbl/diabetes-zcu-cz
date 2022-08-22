@@ -2,7 +2,7 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <div class="p-5 text-white bg-dark rounded-3">
+            <div class="p-5 text-white bg-dark">
                 <h3>{_pages.downloads.banner.title}</h3>
                 <p class="lead">{_pages.downloads.banner.text}</p>
             </div>
@@ -16,15 +16,11 @@
 <div class="row">
     <div class="col-12">
         <h3>{_pages.downloads.scgms.title}</h3>
-        
-        <p>{_pages.downloads.scgms.text_1|noescape}</p>
+
         <p>{_pages.downloads.scgms.text_2|noescape}</p>
         
         <p>
-            <input type="checkbox" name="agree_scgms" id="agree_scgms" /> {_pages.downloads.scgms.download_conds_agree}
-        </p>
-        <p>
-            <a n:href="downloadSmartcgms!" class="btn btn-dark" id="btn_scgms">{_pages.downloads.scgms.download_button}</a>
+            <a n:href="Downloads:smartcgms" class="btn btn-dark"><i class="bi bi-input-cursor"></i> {_pages.downloads.scgms.download_button}</a>
         </p>
     </div>
 </div>
@@ -32,16 +28,12 @@
 <div class="row">
     <div class="col-12">
         <h3>{_pages.downloads.database.title}</h3>
-        
-        <p>{_pages.downloads.database.text_1|noescape}</p>
+
         <p>{_pages.downloads.database.text_2|noescape}</p>
         <p>{_pages.downloads.database.text_cite|noescape}</p>
         
         <p>
-            <input type="checkbox" name="agree_database" id="agree_database" /> {_pages.downloads.database.download_conds_agree}
-        </p>
-        <p>
-            <a n:href="downloadDatabase!" class="btn btn-dark" id="btn_database">{_pages.downloads.database.download_button}</a>
+            <a n:href="Downloads:dataset" class="btn btn-dark"><i class="bi bi-input-cursor"></i> {_pages.downloads.database.download_button}</a>
         </p>
     </div>
 </div>
@@ -53,30 +45,10 @@
         <p>{_pages.downloads.icarus.text_1|noescape}</p>
         
         <p>
-            <a n:href="downloadIcarus!" class="btn btn-dark" id="btn_database">{_pages.downloads.icarus.download_button}</a>
+            <a n:href="downloadIcarus!" class="btn btn-dark">{_pages.downloads.icarus.download_button}</a>
         </p>
     </div>
 </div>
 
 {/block}
-
-{block userscripts}
-<script>
-$(document).ready(function() {
-    $('#btn_scgms').click(function(e) {
-        if (!$('#agree_scgms').is(":checked"))
-        {
-            alert({_pages.downloads.scgms.agree_warning});
-            return false;
-        }
-    });
-    $('#btn_database').click(function(e) {
-        if (!$('#agree_database').is(":checked"))
-        {
-            alert({_pages.downloads.database.agree_warning});
-            return false;
-        }
-    });
-});
-</script>
     

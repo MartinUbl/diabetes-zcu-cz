@@ -9,9 +9,12 @@
     <title>{ifset title}{include title|stripHtml} | {/ifset}Portál diabetes.zcu.cz</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <link href="{$baseUrl}/css/main.css" rel="stylesheet" >
     <link href="{$baseUrl}/css/carousel.css" rel="stylesheet" >
+    
+    {block styles}
+    {/block}
     
     <script src="https://kit.fontawesome.com/8321f6fdd4.js" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script>
@@ -75,8 +78,8 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 {*                          <a class="dropdown-item" n:href="About:">{_general.menu.about_goal}</a>
 *}
-                          <a class="dropdown-item" n:href="About:">{_general.menu.about_team}</a>
-                          <a class="dropdown-item" n:href="About:">{_general.menu.about_papers}</a>
+                          <a class="dropdown-item" href="{$presenter->link('About:')}#team">{_general.menu.about_team}</a>
+                          <a class="dropdown-item" href="{$presenter->link('About:')}#publications">{_general.menu.about_papers}</a>
                         </div>
                     </li>
 {*
@@ -106,6 +109,9 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarUser">
                               <a class="dropdown-item" n:href="Dashboard:">{_general.menu.usersection|noescape}</a>
+                              {if in_array('admin',$user->getRoles())}
+                                  <a class="dropdown-item" n:href="Admin:">{_general.menu.adminsection|noescape}</a>
+                              {/if}
                               <a class="dropdown-item" n:href="Logout!">{_general.menu.logout|noescape}</a>
                             </div>
                         </li>
@@ -130,7 +136,10 @@
     
     <footer>
         <div class="container">
-            &copy; since 2015 · <a href="http://mi.kiv.zcu.cz/">{_general.footer.medicalinf}</a> · <a href="http://kiv.zcu.cz/">{_general.footer.kiv}</a> · <a href="http://fav.zcu.cz/">{_general.footer.fav}</a> · <a href="http://zcu.cz/">{_general.footer.zcu}</a>
+            <i class="bi bi-c-circle"></i> since 2015 · <a href="http://mi.kiv.zcu.cz/">{_general.footer.medicalinf}</a> · <a href="http://kiv.zcu.cz/">{_general.footer.kiv}</a> · <a href="http://fav.zcu.cz/">{_general.footer.fav}</a> · <a href="http://zcu.cz/">{_general.footer.zcu}</a>
+            <a class="footer-icon-link" href="https://twitter.com/SmartCGMS" title="We are on Twitter"><i class="bi bi-twitter"></i></a>
+            <a class="footer-icon-link" href="https://www.facebook.com/Smart-CGMS-102965339194309" title="We are on Facebook"><i class="bi bi-facebook"></i></a>
+            <a class="footer-icon-link" href="https://gitlab.com/SmartCGMS" title="We are on GitLab"><i class="bi bi-git"></i></a>
         </div>
     </footer>
 

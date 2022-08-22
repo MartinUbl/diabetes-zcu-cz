@@ -1,0 +1,24 @@
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>diabetes.zcu.cz</title>
+        <link>{link '//Homepage:'}</link>
+        <description> </description>
+        <language>en</language>
+        <pubDate>{$pubdate}</pubDate>
+    </channel>
+    <image>
+        <title>diabetes.zcu.cz</title>
+        <url>{link '//Homepage:'}img/icon.png</url>
+        <link>{link '//Homepage:'}</link>
+    </image>
+    <atom:link rel="self" type="application/rss+xml" href="{link '//Feed:'}"/>
+    {foreach $news as $nr}
+    <item>
+        <title>{$nr->title}</title>
+        <link>{link '//News:read', id => $nr->id}</link>
+        <description>{$nr->short_content}</description>
+        <pubDate>{$nr->published_on->format('r')}</pubDate>
+        <dc:creator>{$nr->users->first_name} {$nr->users->last_name}</dc:creator>
+    </item>
+    {/foreach}
+</rss>

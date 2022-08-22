@@ -1,0 +1,127 @@
+{block beforeContent}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="p-5 text-white bg-dark">
+                <h3>Download counters</h3>
+                <span class="lead">In this section, you can view statistics of recent downloads by category.</span>
+            </div>
+        </div>
+    </div>
+</div>
+{/block}
+
+{block content}
+
+<div class="row">
+    <div class="col-12">
+        
+        <a n:href="Admin:" class="btn btn-dark"><i class="bi bi-arrow-90deg-left"></i> Back to main menu</a>
+        <div class="space-1em"></div>
+        
+        <h4>Tokened downloads</h4>
+        
+        <div class="list-group">
+            {foreach $tokenedCounters as $cat => $cnt}
+            <li class="list-group-item">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="lead">
+                    {if isset($categoryTranslationMap[$cat])}
+                        {$categoryTranslationMap[$cat]}
+                    {else}
+                        {$cat}
+                    {/if}
+                    </span>
+                    <a n:href="Admin:counterList category => $cat" class="btn btn-dark btn-sm"><i class="bi bi-person-lines-fill"></i>&nbsp; Details</a>
+                </div>
+                
+                <div class="row">
+                    <div class="col-1">
+                        <b>Total</b>
+                    </div>
+                    <div class="col-4">
+                        <span class="badge bg-info rounded-pill">{$cnt}</span>
+                    </div>
+                </div>
+                
+                {if isset($tokenedStats['last_3_months'][$cat])}
+                    {for $i = 0; $i < 3; $i++}
+                        {if !isset($tokenedStats['last_3_months'][$cat][$i])}
+                            {var $tokenedStats['last_3_months'][$cat][$i] = 0}
+                        {/if}
+                        <div class="row">
+                            <div class="col-1">
+                                {$monthTable[((intval(date('n'))-$i-1)+12) % 12]}
+                            </div>
+                            <div class="col-4" style="padding-top: 0.275em;">
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" style="width: {if $cnt > 0}{intval(100.0*$tokenedStats['last_3_months'][$cat][$i]/$cnt)}{else}0{/if}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{$tokenedStats['last_3_months'][$cat][$i]}</div>
+                                </div>
+                            </div>
+                            <div class="col-7">
+                            </div>
+                        </div>
+                    {/for}
+                {/if}
+            </li>
+            {/foreach}
+        </div>
+    </div>
+</div>
+        
+<div class="row">
+    <div class="col-12">
+        <div class="space-2em"></div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <h4>Free downloads</h4>
+        
+        <div class="list-group">
+            {foreach $untokenedCounters as $name => $cnt}
+            <li class="list-group-item">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="lead">
+                    {if isset($untokenedNameTranslationMap[$name])}
+                        {$untokenedNameTranslationMap[$name]}
+                    {else}
+                        {$name}
+                    {/if}
+                    </span>
+                </div>
+                
+                <div class="row">
+                    <div class="col-1">
+                        <b>Total</b>
+                    </div>
+                    <div class="col-4">
+                        <span class="badge bg-info rounded-pill">{$cnt}</span>
+                    </div>
+                </div>
+                
+                {if isset($untokenedStats['last_3_months'][$name])}
+                    {for $i = 0; $i < 3; $i++}
+                        {if !isset($untokenedStats['last_3_months'][$name][$i])}
+                            {var $untokenedStats['last_3_months'][$name][$i] = 0}
+                        {/if}
+                        <div class="row">
+                            <div class="col-1">
+                                {$monthTable[((intval(date('n'))-$i-1)+12) % 12]}
+                            </div>
+                            <div class="col-4" style="padding-top: 0.275em;">
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" style="width: {if $cnt > 0}{intval(100.0*$untokenedStats['last_3_months'][$name][$i]/$cnt)}{else}0{/if}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{$untokenedStats['last_3_months'][$name][$i]}</div>
+                                </div>
+                            </div>
+                            <div class="col-7">
+                            </div>
+                        </div>
+                    {/for}
+                {/if}
+            </li>
+            {/foreach}
+        </div>
+    </div>
+</div>

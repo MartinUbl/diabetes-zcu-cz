@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <div class="p-5 text-white bg-dark rounded-3">
+            <div class="p-5 text-white bg-dark">
                 <h3>{_pages.about.banner.title}</h3>
                 <p class="lead">{_pages.about.banner.text}</p>
             </div>
@@ -29,9 +29,9 @@
 <hr />
 *}
     
-<div class="row">
+<div class="row" id="team">
     <div class="col-12">
-        <div class="p-5 text-white bg-dark rounded-3">
+        <div class="p-5 text-white bg-dark">
             <h3>{_pages.team.banner.title}</h3>
             <p class="lead">{_pages.team.banner.text}</p>
         </div>
@@ -43,10 +43,10 @@
 {* This is a class spec for columns of team members *}
 {var $colSpec = "col-lg-4 col-md-6 col-sm-12 col-xs-12 team-block"}
         
-<div class="row" id="team">
+<div class="row">
     <div class="{$colSpec}">
         <p class="team-head">
-            <img class="img-rounded img-team" alt="Person image" src="{$baseUrl}/img/koutny.jpg" />
+            <img class="img-rounded img-team" alt="Person image" src="{$baseUrl}/img/team/koutny.jpg" />
             <h4>doc. Ing. Tomáš Koutný, Ph.D.</h4>
         </p>
         
@@ -68,7 +68,7 @@
 
     <div class="{$colSpec}">
         <p class="team-head">
-            <img class="img-rounded img-team" alt="Person image" src="{$baseUrl}/img/krcma.jpg" />
+            <img class="img-rounded img-team" alt="Person image" src="{$baseUrl}/img/team/krcma.jpg" />
             <h4>MUDr. Michal Krčma, Ph.D.</h4>
         </p>
         
@@ -86,7 +86,7 @@
 
     <div class="{$colSpec}">
         <p class="team-head">
-            <img class="img-rounded img-team" alt="Person image" src="{$baseUrl}/img/ubl.jpg" />
+            <img class="img-rounded img-team" alt="Person image" src="{$baseUrl}/img/team/ubl.jpg" />
             <h4>Ing. Martin Úbl</h4>
         </p>
         
@@ -108,7 +108,7 @@
         
     <div class="{$colSpec}">
         <p class="team-head">
-            <img class="img-rounded img-team" alt="Person image" src="{$baseUrl}/img/majdisova.jpg" />
+            <img class="img-rounded img-team" alt="Person image" src="{$baseUrl}/img/team/majdisova.jpg" />
             <h4>Ing. Bc. Zuzana Majdišová, Ph.D.</h4>
         </p>
         
@@ -130,7 +130,29 @@
         
     <div class="{$colSpec}">
         <p class="team-head">
-            <img class="img-rounded img-team" alt="Person image" src="{$baseUrl}/img/varnuskova.jpg" />
+            <img class="img-rounded img-team" alt="Person image" src="{$baseUrl}/img/team/otta.jpg" />
+            <h4>Ing. Maxmilián Otta, Ph.D.</h4>
+        </p>
+        
+        <p>
+            <span>
+                <i class="bi bi-envelope"></i>
+                <a href="mailto:majdisz@kiv.zcu.cz">maxmilio@kiv.zcu.cz</a>
+            </span>
+            <span>
+                <i class="bi bi-telephone-fill"></i>
+                <span>+420 37763 2476</span>
+            </span>
+        </p>
+        
+        <p>
+            {_pages.team.otta}
+        </p>
+    </div>
+        
+    <div class="{$colSpec}">
+        <p class="team-head">
+            <img class="img-rounded img-team" alt="Person image" src="{$baseUrl}/img/team/varnuskova.jpg" />
             <h4>Ing. Jana Varnušková, Ph.D.</h4>
         </p>
         
@@ -152,7 +174,7 @@
         
     <div class="{$colSpec}">
         <p class="team-head">
-            <img class="img-rounded img-team" alt="Person image" src="{$baseUrl}/img/cioppa.jpg" />
+            <img class="img-rounded img-team" alt="Person image" src="{$baseUrl}/img/team/cioppa.jpg" />
             <h4>prof. Antonio Della Cioppa, Ph.D.</h4>
         </p>
         
@@ -170,7 +192,7 @@
         
     <div class="{$colSpec}">
         <p class="team-head">
-            <img class="img-rounded img-team" alt="Person image" src="{$baseUrl}/img/defalco.jpg" />
+            <img class="img-rounded img-team" alt="Person image" src="{$baseUrl}/img/team/defalco.jpg" />
             <h4>Ivanoe De Falco, Ph.D.</h4>
         </p>
         
@@ -188,7 +210,7 @@
         
     <div class="{$colSpec}">
         <p class="team-head">
-            <img class="img-rounded img-team" alt="Person image" src="{$baseUrl}/img/tarantino.jpg" />
+            <img class="img-rounded img-team" alt="Person image" src="{$baseUrl}/img/team/tarantino.jpg" />
             <h4>Ernesto Tarantino, Ph.D.</h4>
         </p>
         
@@ -206,7 +228,7 @@
         
     <div class="{$colSpec}">
         <p class="team-head">
-            <img class="img-rounded img-team" alt="Person image" src="{$baseUrl}/img/scafuri.jpg" />
+            <img class="img-rounded img-team" alt="Person image" src="{$baseUrl}/img/team/scafuri.jpg" />
             <h4>Umberto Scafuri, Ph.D.</h4>
         </p>
         
@@ -224,7 +246,7 @@
         
     <div class="{$colSpec}">
         <p class="team-head">
-            <img class="img-rounded img-team" alt="Person image" src="{$baseUrl}/img/mmayo.jpg" />
+            <img class="img-rounded img-team" alt="Person image" src="{$baseUrl}/img/team/mmayo.jpg" />
             <h4>doc. Michael Mayo, Ph.D.</h4>
         </p>
         
@@ -245,7 +267,7 @@
     
 <div class="row" id="publications">
     <div class="col-12">
-        <div class="p-5 text-white bg-dark rounded-3">
+        <div class="p-5 text-white bg-dark">
             <h3>{_pages.publications.banner.title}</h3>
         </div>
         
@@ -257,6 +279,74 @@
     <div class="col-12">
         <dl class="dl-horizontal">
 
+          <dt>
+            ÚBL, M.,<br>
+            KOUTNÝ, T.<br>
+            <br>
+          </dt>
+          <dd>
+            A Novel Approach to Multi-Compartmental Model Implementation to Achieve Metabolic Model Identifiability on Patient’s CGM Data,
+            <i>accepted for publication in Procedia Computer Science</i><br>
+            <br>
+          </dd>
+          
+          <dt>
+            OTTA, M.<br>
+            <br>
+          </dt>
+          <dd>
+            Towards a Health Software Supporting Platform for Wearable Devices,
+            <i>accepted for publication in Procedia Computer Science</i><br>
+            <br>
+          </dd>
+            
+          <dt>
+            KOUTNÝ, T.,<br>
+            MAYO, M.<br>
+            <br>
+          </dt>
+          <dd>
+            <a href="https://www.sciencedirect.com/science/article/pii/S0010482522001809">Predicting glucose level with an adapted branch predictor</a>,
+            Computers in Biology and Medicine, Volume 145, 2022<br>
+            <br>
+          </dd>
+
+          <dt>
+            KOUTNÝ, T.<br>
+            <br>
+          </dt>
+          <dd>
+            <a href="https://www.nature.com/articles/s41598-022-09884-5">Physiological reconstruction of blood glucose level using CGMS-signals only</a>,
+            Scientific Reports, Nature Publishing Group, Volume 12, pp. 1-11, 2022<br>
+            <br>
+          </dd>
+            
+          <dt>
+            DE FALCO, I.,<br>
+            SCAFURI, U.,<br>
+            TARANTINO, E.,<br>
+            DELLA CIOPPA, A.,<br>
+            KOUTNÝ, T.,<br>
+            KRČMA, M.<br>
+            <br>
+          </dt>
+          <dd>
+            <a href="https://ieeexplore.ieee.org/document/9367402">A Grammatical Evolution Approach for Estimating Blood Glucose Levels</a>,
+            2020 IEEE Globecom. USA: IEEE Xplore Conference Publishing, pp. 1-6, 2020<br>
+            <br>
+          </dd>
+
+          <dt>
+            MAYO, M.,<br>
+            KOUTNÝ, T.<br>        
+            <br>
+          </dt>
+          <dd>
+            <a href="https://www.sciencedirect.com/science/article/pii/S1877050920323164">Neural Multi-class Classification Approach to Blood Glucose Level Forecasting with Prediction Uncertainty Visualisation</a>,
+            The 5th International Workshop on Knowledge Discovery in Healthcare Data (KDH), Volume 2675, pp. 80-84, 2020<br>
+            <br>
+          </dd>
+            
            <dt>
             KOUTNÝ, T.,<br>
             ÚBL, M.<br>        

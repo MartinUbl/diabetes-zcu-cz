@@ -18,6 +18,7 @@ menu:
     logout: "Odhlásit&nbsp;se"
     user: "Uživatel"
     usersection: "Uživatelská&nbsp;sekce"
+    adminsection: "Administrace"
     about_goal: "Zaměření&nbsp;projektu"
     about_team: "Tým"
     about_papers: "Publikace"

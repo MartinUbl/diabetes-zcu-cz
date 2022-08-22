@@ -18,6 +18,7 @@ menu:
     logout: "Logout"
     user: "User"
     usersection: "User dashboard"
+    adminsection: "Administration"
     about_goal: "Project&nbsp;goals"
     about_team: "Team"
     about_papers: "Publications"
