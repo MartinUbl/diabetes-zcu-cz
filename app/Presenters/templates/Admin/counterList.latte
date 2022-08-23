@@ -39,7 +39,7 @@
     <div class="list-group-item list-group-item-action">
         <div class="d-flex w-100 justify-content-between">
             <p class="lead">{$tk->requester_name}</p>
-            <small>{$tk->valid_to->format('j. n. Y, H:i')}</small>
+            <small>{$tk->valid_to|date:'j. n. Y, H:i'}</small>
         </div>
         <div class="row">
             <div class="col-12 col-lg-6 col-md-8 col-sm-12">

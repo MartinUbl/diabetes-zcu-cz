@@ -32,7 +32,7 @@
                 <div class="ms-2 me-auto">
                     <div class="fw-bold">{$entry->title}</div>
                     <div class="fw-italic">Author: {$entry->users->first_name} {$entry->users->last_name} ({$entry->users->email})</div>
-                    <div class="fw-italic">Date: {$entry->published_on->format('j.n.Y H:i')}</div>
+                    <div class="fw-italic">Date: {$entry->published_on|date:'j.n.Y H:i'}</div>
                     {$entry->short_content}
                 </div>
                 <a n:href="Admin:newsEdit id => $entry->id" class="btn btn-primary btn-sm"><i class="bi bi-pencil-fill"></i></a>&nbsp;

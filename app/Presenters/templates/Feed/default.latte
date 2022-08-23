@@ -17,7 +17,7 @@
         <title>{$nr->title}</title>
         <link>{link '//News:read', id => $nr->id}</link>
         <description>{$nr->short_content}</description>
-        <pubDate>{$nr->published_on->format('r')}</pubDate>
+        <pubDate>{$nr->published_on|date:'r'}</pubDate>
         <dc:creator>{$nr->users->first_name} {$nr->users->last_name}</dc:creator>
     </item>
     {/foreach}

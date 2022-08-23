@@ -20,7 +20,7 @@ final class FeedPresenter extends BasePresenter
     public function actionDefault()
     {
         $this->template->news = $this->news->getNews();
-        $this->template->pubdate = ($this->template->news && $this->template->news->count() > 1) ? $this->template->news->fetch()->published_on->format('r') : "Thu, 11 Aug 2022 12:00:00 +0200";
+        $this->template->pubdate = ($this->template->news && $this->template->news->count() > 1) ? (new \DateTime($this->template->news->fetch()->published_on))->format('r') : "Thu, 11 Aug 2022 12:00:00 +0200";
         $this->getHttpResponse()->setContentType('application/xml');
     }
 }

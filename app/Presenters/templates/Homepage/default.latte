@@ -88,10 +88,10 @@
 <div class="row">
     {if $news && $news->count() > 0}
         {foreach $news as $nr}
-        <div class="col-4 news_block">
+        <div class="col-12 col-lg-4 col-md-6 col-sm-12 news_block">
             <div>
                 <h4>{$nr->title}</h4>
-                <p class="date">{$nr->published_on->format('j M Y')}</p>
+                <p class="date">{$nr->published_on|date:'j M Y'}</p>
                 <p class="author">Author: {$nr->users->first_name} {$nr->users->last_name}</p>
                 <p class="short_text">{$nr->short_content}</p>
                 {if $nr->full_content && strlen($nr->full_content) > 0}

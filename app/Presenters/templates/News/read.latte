@@ -22,7 +22,7 @@
 
 <div class="row">
     <div class="col-12">
-        <span class="lead date">{$news->published_on->format('j M Y')}</span><br />
+        <span class="lead date">{$news->published_on|date:'j M Y'}</span><br />
         <span class="lead author">{$news->users->first_name} {$news->users->last_name}</span>
 
         <p class="full_text">{$news->full_content|noescape}</p>
