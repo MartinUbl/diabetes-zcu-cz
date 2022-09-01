@@ -89,6 +89,8 @@ final class DownloadsPresenter extends BasePresenter
         
         $this->downloadTokens->markUsed($id, $category);
         
+        ini_set('memory_limit', '512M');
+        ini_set('zlib.output_compression', 'Off');
         $resp = new \Nette\Application\Responses\FileResponse(
                 __DIR__."/../../downloads/".$this->fileSourceForCategory[$category],
                 $this->fileDownloadNameForCategory[$category],
