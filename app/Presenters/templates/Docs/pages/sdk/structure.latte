@@ -1,0 +1,32 @@
+<h2>SDK Structure</h2>
+
+<p>Currently, SDK is a .zip with the following content:</p>
+
+<ul>
+  <li>
+    <code>bin</code> - this directory contains binaries for multiple operating systems
+    <ul>
+      <li><code>Win64</code></li>
+      <li><code>MacOS 64</code></li>
+      <li><code>Debian 64</code></li>
+      <li><code>Android arm64-v8a</code></li>
+      <li><code>Android armeabi-v7a</code></li>
+    </ul>
+  </li>
+  <li>
+    <code>sdk</code> - software development kit</li>
+  <ul>
+    <li><code>src\common</code> - header files, runtime SmartCGMS library source code, localization</li>
+    <li><code>src\console</code> - source code of the console application</li>
+    <li><code>src\desktop</code> - source code of the desktop application with GUI</li>
+    <li><code>Native Scripts\*.cpp</code> - scripts for the Native filter, which provide advanced processing of the control and measured signals</li>
+    <li><code>Native Scripts\*.h</code> - runtime library for the native scripts, which can be used along with the SDK when developing custom filters, models, etc.</li>
+    <li><code>Examples</code> - examples of custom filters, models, solvers, insulin-pump controlling program, etc.</li>
+    <li><code>Experimental Setup</code> - pre-defined scenarios for testing e.g.; a custom insulin pump</li>
+  </ul>
+</ul>
+
+
+<p>To develop a custom filter, model, etc., extract the binaries to a standalone folder. Then, create a custom project, which will produce binary to a "filters" sub-folder the that folder, in which you've copied the binaries. The most convinient way to create a new project is to create a copy of one the examples.</p>
+
+<p>Do not forget that without a special license, you are allowed to conduct an academic research only. Commerical use requires a different license and you are obliged to bear all the responsibilities, which arise from the SmartCGMS for delivering any healthcare.</p>

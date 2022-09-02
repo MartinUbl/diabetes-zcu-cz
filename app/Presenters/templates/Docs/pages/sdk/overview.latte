@@ -1,0 +1,9 @@
+<h2>SDK Overview</h2>
+
+<p>Currently, SmartCGMS Software Development Kit (SDK) is a .zip, which contains pre-built binaries, partial source and examples. See <a href="?page=structure">SDK structure</a> for more details.</p>
+
+<p>Because any practice-feasible solution will run on a low-power device, SmartCGMS uses modern C++ as its main programming language. Nevertheless, to enable interoperativity with other programmin languages, it exposes C programming interface. Also, it is possible to use Matlab via dedicated filter.</p>
+
+<p>To achieve a minimum possible difference between prototype, laboratory and practice results, we strongly recommend to develop either a custom filter or a custom, discrete model for the signal processing. 
+This way, your solution will always act the same way regardless of the input signal source - be it a post-mortem replay of a CGM profile, or in-silico model or a live sensor. Other signal-processing methodologies known from the literature are possible to, but they will not minimize the difference between lab and practice 
+without further, non-transparent efforts.</p>
