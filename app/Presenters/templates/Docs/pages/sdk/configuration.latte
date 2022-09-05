@@ -1,0 +1,16 @@
+<h2>Configuration</h2>
+
+<p>
+  As SmartCGMS processes signals through a chain of filters, configuration describes the order and configuration of individual filters. Using  {doclink('api','configuration','the configuration API')|noescape}, {doclink('tools','gui','GUI application')|noescape} let's you to create and edit the configuration. 
+  SmartCGMS stores the configuration as humnan-editable ini file. using API, it is also possible create and edit the configuration at runtime, programatically.
+</p>
+
+<p>
+  When configuring, it is possible to use operating-system variables, to enable batch processing. When doing so, encode the variable as <code>$(place_variable_name)</code>. For example, you can process log files indivividually in a batch file, as depicted in this Fig. 2 of the <a href="https://www.sciencedirect.com/science/article/pii/S1877050920323164">SmartCGMS as a Testbed for a Blood-Glucose Level Prediction and/or Control Challenge with (an FDA-Accepted) Diabetic Patient Simulation</a> paper.
+
+  <center>
+    <img src="{$baseUrl}/img/docs/batch.png" alt="Batch processing" title="Batch processing with SmartCGMS" />
+  </center>
+
+  
+</p>

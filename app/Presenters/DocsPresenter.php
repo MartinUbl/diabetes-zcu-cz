@@ -74,7 +74,7 @@ final class DocsPresenter extends BasePresenter
                     'helpers' => 'Helpers',
                     'configuration' => '<i class="bi bi-caret-right"></i>&nbsp;Configuration',
                     'execution' => '<i class="bi bi-caret-right"></i>&nbsp;Execution',
-                    'optimizer' => '<i class="bi bi-caret-right"></i>&nbsp;Optimizing parameters',
+                    'optimizer' => '<i class="bi bi-caret-right"></i>&nbsp;Optimizing the parameters',
                 ]
             ],
             'tools' => [

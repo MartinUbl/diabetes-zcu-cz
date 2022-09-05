@@ -1,0 +1,32 @@
+<h2>GUI</h2>
+
+<p>
+  <center>
+    <img src="{$baseUrl}/img/docs/plgm_done.png" alt="Simple PLGM" title="Simple PLGM" />
+  </center>
+
+  When executing the GUI application, the File menu lets you to load and save particular configurations. It is also possible to pass the filename as the first argument, when executing the GUI's executable - <code>gpredict.exe</code>. The Tools menu provides access to the filter-chain configuration, its execution and parameters optimization. 
+  The figure above depicts as there are two list-boxes - one for configured filters in the order in which it processes the signals, and one for available filters. Multiple instances of the same filter can be added.  
+</p>
+
+<p>
+  To establish the feedback link use the <code>Signal Feedback</code> filter. In this filter, configure the feedback name. Similarly, configure another feedback-receiving filter with the same feedback name. Note that only some filters (such as model filters) can act as feedback receivers.
+</p>
+
+<p>
+  Configure the signal-feedback filter to react on a specific signal. It is recommended to remove the signal event, once it arrives at the signal-feedback filter. For more information, see {doclink('api','feedback','respective API')|noescape}.
+</p>
+
+<p>
+  To execute the configuration, use Tools|Simulation. It will open a new window, where you can execute the configuration. If the configuration contains filters, which communicate with physical devices, they will communicate with them if they are properly configured. This feature allows you mix both real and prototyped devices &amp; filters together. 
+</p>
+
+<p>
+  In the same window, you will find various figures and reports. Note that the configuration must contain the visualization and/or error-metric filters to see the reports. Sometimes, it is necessary to conduct computationally-intensive experimental setups, when omitting these e.g.; the visualization filter can save a significant amount of resources. 
+  Similarly, it may be good option to use fast-error-metric filter instead of the error-metric filter. In another scenario, the console application can execute a configuration with the visualization filter to produce off-line, .svg plots.
+</p>
+
+
+<p>
+  Finally, the Tools menu provides access to the optimization dialog. There, you select which parameters of which filters to optimize, along with optimizing solver and its configuration.
+</p>

@@ -1,0 +1,36 @@
+<h2>Console</h2>
+
+<p>
+  The console application lets you to execute a configuration, or to optimize filter parameters. Note that some filters can modify the configuration at runtime. For example, <a href="https://www.sciencedirect.com/science/article/pii/S0010482522001809">Pattern-Prediction</a> can learn during execution, while saving the learned patterns to the configuration. To save what it has learned, use the <code>/save_configuration</code> switch.
+</p>
+
+<code>
+   <pre>
+     {syntax off}
+     
+     Usage: console3 filename [/optimize=filter_index,parameters_name[ /solver=generations[,population[,solver_GUID]]]] [/save_configuration]
+
+     The filename designates the configuration of an experimental setup. Usually, it is .ini file.
+
+     The filter_index starts at zero. parameters_name is a string.
+
+     Generations is the maximum number of generations to evolve/computational steps.
+     Population is the population size, when applicable, or 0 to allow entering the solver_id.
+     Solver_GUID is solver's id, formatted like {01274B08-F721-42BC-A562-0556714C5685}.
+     Make no spaces around the , delimiters.
+     Default solver is Halton-driven Meta-Differential Evolution, 1000 generations, 100 population size.
+
+     Available solvers:
+     {1B21B62F-7C6C-4027-89BC-687D8BD32B3C} - MT MetaDE
+     {01274B08-F721-42BC-A562-0556714C5685} - Halton MetaDE
+     {2332F9A7-39A2-4FD6-90D5-90B885201869} - RND MetaDE
+     {93FFF43A-50E8-4C7B-82F0-F290DFF2089C} - Halton PSO
+     {033D92B0-B49C-45D1-957F-57682D56ABD2} - Sequential Brute Force Scan
+     {FA42286B-928C-47BD-AAF3-2FE47377466D} - Sequential Convex Scan
+     {6BAD021F-6F68-4246-A4E6-7B1950CA71CB} - RumorOpt
+   </pre>  
+</code>
+
+<p>
+  More solvers can be available, depending on your configruation and library-availability. SmartCGMS can use the NLOpt and PaGMO libraries.
+</p>
