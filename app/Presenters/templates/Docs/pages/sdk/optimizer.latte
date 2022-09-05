@@ -7,3 +7,52 @@
 <p>
   With the GUI application, you will have to load, optimize and possibly save the configuration (with the optimized parameters) manually for each configuration. Hence, it is useful when you experiment with different optimizing solvers and their settings.
 </p>
+
+<p>
+  In the  {doclink('sdk','execution','execution')|noescape} chapter, you've learned how to load and execute SmartCGMS configuration. If you would like to optimize the parameters, let us refer to the following example.
+</p>
+
+<code>
+  <pre>
+refcnt::Swstr_list errors;
+solver::TSolver_Progress progress = solver::Null_Solver_Progress;
+    
+
+HRESULT rc = E_FAIL;
+std::atomic<bool> optimizing_flag{ true };
+std::thread optimitizing_thread([&] {
+  //use thread, not async because that could live-lock on a uniprocessor
+
+  rc = scgms::Optimize_Parameters(configuration,  optimize_filter_index, parameters_name.c_str(),
+    #ifndef DDO_NOT_USE_QT
+      Setup_Filter_DB_Access
+    #else
+      nullptr
+    #endif
+    , nullptr,
+    solver_id, population_size, generation_count,
+    hints_ptr.data(), hints_ptr.size(),
+    progress, errors);
+
+    optimizing_flag = false;
+});
+
+  
+while (optimizing_flag) {
+  report_progress(progress);
+  std::this_thread::sleep_for(std::chrono::milliseconds(500));
+}
+
+if (optimitizing_thread.joinable())
+	optimitizing_thread.join();
+
+errors.for_each([](auto str) { std::wcerr << str << std::endl;	});
+		
+if (rc == S_OK) {
+   //all went ok
+} else {
+  //something went wrong or did not succeed/improve (S_FALSE then)
+}
+
+  </pre>
+</code>
