@@ -21,7 +21,7 @@ applied insulin delivery rate to algorithm-filter input. Therefore, we still nee
 <p>
  To establish the feedback link use the <code>Signal Feedback</code> filter. In this filter, configure the feedback name. Similarly, configure another feedback-receiving filter 
  with the same feedback name. Note that only some filters (such as model filters) can act as feedback receivers. To act as a feedback receiver, the filter must implement 
- the <code>IFilter_Feedback_Receiver</code> interface.
+ the <code>IFilter_Feedback_Receiver</code> interface. 
 </p>
 
 <code>
@@ -34,9 +34,25 @@ public:
 constexpr GUID IID_Filter_Feedback_Receiver = { 0xee9d9028, 0xb714, 0x4412, { 0x98, 0xd8, 0xe5, 0xf7, 0xe5, 0xf1, 0xcf, 0x7a } };
   class IFilter_Feedback_Receiver : public virtual scgms::IFilter_Feedback {
 };
+
+constexpr GUID IID_Filter_Feedback_Sender = { 0x19d21259, 0x7358, 0x4533, { 0x8c, 0x18, 0x85, 0x65, 0x25, 0xc2, 0x35, 0x9 } };
+class IFilter_Feedback_Sender : public scgms::IFilter_Feedback {
+public:
+  virtual HRESULT IfaceCalling Sink(scgms::IFilter_Feedback_Receiver *receiver) = 0;
+};
 	</pre>
 </code>
 
 <p>
-	When instantiating the filter chain, SmartCGMS will automatically pick up
+	When instantiating the filter chain, SmartCGMS will automatically pair feedback sender and receiver, which shares the same name. The <code>IFilter_Feedback_Sender</code> allow
+	multiple receivers to connect to a single sender. The <code>Signal Feedback</code> filter implements such functionality. <code>IFilter_Feedback_Sender::Sink</code> should register
+	as many listeners as many times it get called with non-null pointer. There's no call for un-registering a listener on a purpose, because such a functionality would harm
+	a static analysis when proving fail-aware properties of the resulting SmartCGMS configuration.
+</p>
+
+<p>
+	It makes sense to implement <code>IFilter_Feedback_Receiver</code> interface for filters, which somehow mimics or actually control an insulin pump. Such filter should accept the 
+	<code>signal_Requested_Insulin_Basal_Rate</code> and <code>signal_Requested_Insulin_Bolus</code> signals, process and discard them, while producing a respective <code>signal_Delivered_Insulin_Bolus</code>
+	and <code>signal_Delivered_Insulin_Basal_Rate</code> signals. Note that insulin-pump motor-controller itself may set a different basal rate than the requested one and that insulin bolus may be translated 
+	to a temporarily altered insulin basal rate.
 </p>

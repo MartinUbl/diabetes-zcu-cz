@@ -1,0 +1,74 @@
+<h2>Signal</h2>
+
+
+<code>
+	<pre>
+struct TBounds {
+  double Min, Max;
+};
+
+class ISignal : public virtual refcnt::IReferenced {
+public:
+  /* on S_OK, *filled elements were copied into times and double levels of the count size
+     for measured signal, it returns the measured values
+     for calculated signal, it returns E_NOIMPL
+   */
+  virtual HRESULT IfaceCalling Get_Discrete_Levels(double* const times, double* const levels, const size_t count, size_t *filled) const = 0;
+
+  /* gets bounds and level_count, any of these parameters can be nullptr
+     for measured and calculated signals, dtto Get_Discrete_Levels
+   */
+  virtual HRESULT IfaceCalling Get_Discrete_Bounds(TBounds* const time_bounds, TBounds* const level_bounds, size_t *level_count) const = 0;
+
+  /* adds measured levels to internal containers
+     for measured and calculated signals, dtto Get_Discrete_Levels
+   */
+  virtual HRESULT IfaceCalling Update_Levels(const double *times, const double *levels, const size_t count) = 0;
+
+  /* This method will be called in parallel by solvers and therefore it has to be const
+
+     params - params from which to calculate the signal, can be nullptr to indicate use of default parameters
+     times - times at which to get the levels, i.e., y values for x values
+     levels - the levels, must be already allocated with size of count - level that cannot be calculated must be se to quiet nan
+     count - the total number of times for which to get the levels
+     derivation_order - order of derivation requested
+   */
+  virtual HRESULT IfaceCalling Get_Continuous_Levels(IModel_Parameter_Vector *params,
+                                                     const double* times, double* const levels, const size_t count, const size_t derivation_order) const = 0;
+
+   // returns default parameters on calculated signals, E_NOIMPL on measured signal
+  virtual HRESULT IfaceCalling Get_Default_Parameters(IModel_Parameter_Vector *parameters) const = 0;
+};		
+	</pre>
+</code>
+
+<p>
+	Many scientific papers and engineering work relies on data series to process signals. Each signal is a dedicated data series. <code>ISignal</code> interface provides
+	a convenient way to update the data series with new levels measured at specific times, to query their bounds and the levels - see the methods containing <code>_Discrete_</code>. Moreover, it provide approximation/interpolation
+	of the data series, which is done using the IAproximator interface - see the <code>Get_Continuous_Levels</code> method. 
+</p>
+
+<p>
+	When it comes to performance, the main advantage is that entire signal is processed at once, possibly using vectorized instructions. For example, you can have the glucose sensor
+	measured levels, which are transparently transformed to a more precise blood glucose level estimate using the <a href="https://www.sciencedirect.com/science/article/pii/S0169260716300128">diffusion model</a>.
+	We achieve such functionality with the Signal Model.	
+</p>
+
+<h3>Warning</h3>
+<p>
+	Be aware that we provide this interface as a convience only. For a practical use, we strongly discourage its use in favor to the CCircular_Buffer template available with the Native Scripts.
+	With the circular buffer, you have fixed memory use, which is important with low-power, embedded devices. <code>ISignal</code> can accomodate as many glucose levels as desired, thus 
+	possibly leading to memory exhaustion on devices with limited amounts of RAM.
+</p>
+
+<p>
+	In a realistic experimental setup, it is also much more reasonable to calculate new signal values from the recent value(s) of possibly one or several signal(s) only. Therefore, the 
+	circular buffer results to faster, memory constant, inexpensive code, which is suitable for practictal, glucose-management, low-power devices. On high-performance servers, it can yield
+	considerably greater performance. You just need to start using the per-partes computation instead of the classic signal processing.
+</p>
+
+<p>
+	When peer reviewing various conference and journal papers, we found that many of them goes the wrong direction by not considering the limited amount of RAM on low-power devices.
+	Actually, they did not address limited-computing issues to prove that their work is feasible for a practical use. Therefore, you may find the <code>ISignal</code> convenient when
+	porting an older project. For a new project, we strongly suggest to use the circular buffer instead.
+</p>
