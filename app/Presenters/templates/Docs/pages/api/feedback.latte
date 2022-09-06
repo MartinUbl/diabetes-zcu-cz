@@ -1,0 +1,42 @@
+<h2>Feedback</h2>
+
+<p>
+When you predict future glucose level, typically you have all input signals at once. They may include current sensor reading, insulin delivery, meal ingestion info, etc. 
+Each prediction exhibits an error. To correct future errors, you may desire to path the recent error back to the prediction input. In such a case, you need to establish a feedback.
+</p>
+
+<p>
+Similarly, when controlling glucose level with an artificial pancreas, the insulin (and possibly glucagon) dosage computing algorithm needs the feedback to perform an efficient glucose-level control.
+Let us consider an in-silico experimental setup. Using the log-replay filter, we would replay a fixed schedule of multiple meal ingestions. The replay would go to directly to the discrete 
+model filter, with a personalized in-silico patient model. This model provides simulated sensor readings and accepts insulin delivery. Therefore, we need to compute the actual 
+insulin delivery after from the model output. Then, we pass the computed insulin delivery back to the model using a feedback mechanism.
+</p>
+
+<p>
+When translating the developed pump-control algorithm to the practice, we would replace the patient model with a sensor-reading filter. Then, we would add pump-controlling filter 
+between the algorithm filter and the feedback filter. Note that pump itself can decide to deliver insulin at a different rate than requested. Therefore, we need to transfer the effectively
+applied insulin delivery rate to algorithm-filter input. Therefore, we still need to establish the feedback as with any other control/regulatory system.
+</p>
+
+<p>
+ To establish the feedback link use the <code>Signal Feedback</code> filter. In this filter, configure the feedback name. Similarly, configure another feedback-receiving filter 
+ with the same feedback name. Note that only some filters (such as model filters) can act as feedback receivers. To act as a feedback receiver, the filter must implement 
+ the <code>IFilter_Feedback_Receiver</code> interface.
+</p>
+
+<code>
+	<pre>
+class IFilter_Feedback : public virtual scgms::IFilter {
+public:
+  virtual HRESULT IfaceCalling Name(wchar_t** const name) = 0;
+};
+
+constexpr GUID IID_Filter_Feedback_Receiver = { 0xee9d9028, 0xb714, 0x4412, { 0x98, 0xd8, 0xe5, 0xf7, 0xe5, 0xf1, 0xcf, 0x7a } };
+  class IFilter_Feedback_Receiver : public virtual scgms::IFilter_Feedback {
+};
+	</pre>
+</code>
+
+<p>
+	When instantiating the filter chain, SmartCGMS will automatically pick up
+</p>
