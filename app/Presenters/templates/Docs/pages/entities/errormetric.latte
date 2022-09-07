@@ -1,0 +1,25 @@
+<h2>Error Metric Filter</h2>
+
+<p>
+  When producing any time series such as glucose-level prediction or performing a glucose-level control, we need to quantify how well we do - i.e.; how much we differ from a desired data series. With prediction, we need to quantify how much is the prediction different from the referenced, measured glucose levels. 
+  With glucose-level control, we need to quantify how much we differ from a desired glucose level, or how much time we spent outside a desired glucose-level range. For such a quantification, we use an error metric.
+</p>
+
+<p>
+  SmartCGMS offers two filters to compute the metric. First one, <code>Signal Error</code> filter, accumulates all differences between measured(error-biased) and referenced signals/time series. Then, it uses a post-processing to compute the resulting metric as precisely as possible. This filter is useful for processing
+  on devices with no memory nor computational constraints. For example, it is good when devising and testing metric, or when computing some statistics about the patient.
+</p>
+
+<p>
+  To accelerate computationally intensive tasks and/or to conform low-power device constraints, SmartCGMS also provides <code>Fast Signal Error</code> filter. While this filter provides less functionality and supports only the following metrics, it has minimalistic, constant memory requirements and trades execution speed
+  for less precision as it uses linear interpolation only. For interpolation, <code>Signal Error</code> filter uses the <code>IApproximator</code> to provide more elaborate interpolation, e.g.; Akima spline.
+</p>
+
+<p>
+  <code>Fast Signal Error</code> supported metrics:
+</p>
+
+<ul>
+  <li>Average</li>
+  <li>Average plus Standard Deviation</li>
+</ul>
