@@ -1,0 +1,126 @@
+<h2>Solver</h2>
+
+<p>
+  Each model and some filters are configurable with a set of parameters. For example, the pattern prediction parameters encode the learned patterns of glucose level change. As yet another example, 
+  in-silico patient model has parameters, which describes initial quantities and rates of metabolic quantities. To personalize such parameters to fit a particular patient, we need to find them using 
+  a combination of a solver and one or more error metrics. To the solver, the parameters are just a set of opaque data. Metrics provide fitness functions. Hence, it is up to the solver to generate
+  and test new set of parameters based on the fitness function calls.
+</p>
+
+<p>
+  To start the solver, you will need:
+</p>
+
+<ul>
+  <li>Solver ID - a <code>GUID</code> identification</li>
+  <li>solver setup - <code>solver::TSolver_Setup</code> structure to tell the solver what to do</li>
+  <li>solver progress - <code>solver::TSolver_Progress</code> structure to monitor the progress</li>
+</ul>
+
+<code>
+  <pre>
+namespace solver {
+  constexpr size_t Maximum_Objectives_Count = 10;
+  using TFitness = std::array<double, solver::Maximum_Objectives_Count>;
+
+  //solver sets these values to indicate its progress
+  struct TSolver_Progress {
+    size_t current_progress, max_progress;	//minimum progress is zero
+    TFitness best_metric;
+    BOOL cancelled;	//just cast it to bool, if set to true, solver cancels the current operation
+                    //in the future, this will be expanded to enum to allow a finer-grained control over the solver in progress
+  };
+
+  using TObjective_Function = BOOL(IfaceCalling*)(const void *data, const size_t count, const double *solution, double * const fitness);
+    //data is an opaque handler
+    //count is the number of solutions - they are laid one after one in 1D/fixed-size array
+    //solution points to the first candidate solution, increase the pointer by n*sizeof(double)*problem_size bytes to read n-th solution
+    //fitness is an array where to store up to Maximum_Objective_Count, also laid in 1D/fixed-size array, thus increase the pointer by n*solver::Maximum_Objectives_Count*sizeof(double) bytes to write n-th fitness
+    //returns TRUE or FALSE
+
+  struct TSolver_Setup {
+    const size_t problem_size;
+    const size_t objectives_count;			//1 for single objective, else the number of objectives
+    const double *lower_bound, *upper_bound;
+    const double **hints;
+    const size_t hint_count;
+    double * const solution;		//where to store the found solution
+
+    const void *data;
+    const TObjective_Function objective;
+
+    const size_t max_generations;	//where relevant, maximum number of generations - zero for default value
+    const size_t population_size;	//where relevant, maximum number of population - zero for default value
+    const double tolerance;			//where relevant, objective function tolerance that indicates no further improvement
+  }; 
+
+  using TGeneric_Solver = HRESULT(IfaceCalling*)(const GUID *solver_id, const TSolver_Setup *setup, TSolver_Progress *progress);
+}
+  </pre>
+</code>
+
+<p>
+  To obtain the fitness function, include either the <code>Signal Error</code> or <code>Fast Signal Error</code> filter in the chain. Alternatively, it can be any filter implementing the 
+  <code>scgms::ISignal_Error_Inspection::Promise_Metric</code> method with <code>segment_id = scgms::All_Segments_Id</code> and <code>defer_to_dtor = TRUE</code>. Then, SmartCGMS will use this
+  method to register storage places for the fitness values. SmartCGMS will execute a filter chain it optimizes with a particular solver. On destroying the chain, the error metric filter has to
+  store the fitness value to the designated pointer. Then, SmartCGMS picks it up and passes it to the chosen solver.
+</p>
+
+<code>
+  <pre>
+class ISignal_Error_Inspection : public virtual ILogical_Clock {
+public:
+  virtual HRESULT IfaceCalling Promise_Metric(const uint64_t segment_id, double* const metric_value, BOOL defer_to_dtor) = 0;
+    //return S_OK if there are new data available since object construction or last call of Peek_New_Data_Availables
+  </pre>
+</code>
+
+<p>
+  Eventually, you have to call either <code>Optimize_Parameters</code> or <code>Optimize_Multiple_Parameters</code>. <code>Optimize_Parameters</code> actually calls <code>Optimize_Multiple_Parameters</code>
+  with filter_count = 1.
+</p>
+
+<code>
+  <pre>
+HRESULT Optimize_Parameters(scgms::SFilter_Chain_Configuration configuration, const size_t filter_index, const wchar_t *parameters_configuration_name,
+  scgms::TOn_Filter_Created on_filter_created, const void* on_filter_created_data,
+  const GUID &solver_id, const size_t population_size, const size_t max_generations,
+  const double** hints, const size_t hint_count,
+  solver::TSolver_Progress &progress,
+  refcnt::Swstr_list error_description);
+
+HRESULT Optimize_Multiple_Parameters(scgms::SFilter_Chain_Configuration configuration, const size_t *filter_indices, const wchar_t **parameters_configuration_names, size_t filter_count,
+  scgms::TOn_Filter_Created on_filter_created, const void* on_filter_created_data,
+  const GUID &solver_id, const size_t population_size, const size_t max_generations,
+  const double** hints, const size_t hint_count,
+  solver::TSolver_Progress &progress,
+  refcnt::Swstr_list error_description);
+}
+  </pre>
+</code>
+
+<p>
+  To each function, you have to pass the SmartCGMS filter chain configuration to optimize. Such a configrution can be either loaded from an external storage, memory, or just constructed programatically.
+  Then, you need to pass a list of filters, which contains the parameters to optimize along with names of the parameters to be optimized. Optionally, you can pass initialization callbacks and data when
+  instantiating new filter chain. This is useful e.g.; when initializing a database engine. 
+</p>
+
+<p>
+  SmartCGMS assumes a solver comaptible with evolutionary methods. Maximum generations is the maximum number of iterations, regardless the solver philosphy. It can be number of evolved generations,
+ or iterative-method limit on number of iterations. Similarly, population size can be interpreted as interval-division coarsity. Hence, you pass these information right after the solver id.
+</p>
+
+<p>
+  To provide already known solutions to accelerate the optimization, you can supply a list of previously determined solutions to solver. Then, the solver can use it ti=o create the initial population.
+  For example, we used this approach <a href="http://www.sciencedirect.com/science/article/pii/S0169260716300128">succesfully in this paper</a>.
+</p>
+
+<p>
+  <code>error_description</code> is supposed to collect any error or diagnostic messages generated when instantiating the filter chain for the first time. Note that SmartCGMS performs certain optimizations
+  to speed-up the solving process. Hence, it does not report messages from subsequent runs.
+</p>
+
+<p>
+  Eventually, both optimizing functions call a generic function with C-interface. Hence, SmartCGMS can act as a general-purpose solver. Depending on library configuration, SmartCGMS can use the NLOpt and PaGMO
+  optimization libraries. Note the <code>scgms::TGeneric_Solver</code> function prototype to explore this functionality.
+</p>
