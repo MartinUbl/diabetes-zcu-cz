@@ -4,66 +4,92 @@
   Once you have the configuration saved in a file, you can use either the {doclink('tools','console','console')|noescape} or {doclink('tools','gui','GUI')|noescape} application to execute it. The console application is intended for batch processing, to execute the experimental setups with no user input while conserving system resources.
 </p>
 
+<p>The most important class in the SDK regarding the execution is the <code>scgms::SFilter_Executor</code> class. This implements the <code>scgms::IFilter_Executor</code> interface and offers an additional method to ease the workflow:
+
+<ul>
+    <li><code>Execute</code> (from <code>scgms::SFilter_Executor</code>) - executes a device event passes as a <code>scgms::UDevice_Event</code> instance on the configured chain, i.e.; passes the wrapped event to the <code>Execute</code> method of the first filter in chain</li>
+    <li><code>Execute</code> (from <code>scgms::IFilter_Executor</code>) - same as above, but uses the <code>scgms::IDevice_Event</code> pointer and thus can be potentially unsafe in a given context</li>
+    <li><code>Terminate</code> (from <code>scgms::IFilter_Executor</code>) - terminates the executor operation, effectively releasing filters from memory; optionally, you can wait for the <code>Shut_Down</code> event to be passed through the chain (and captured by the terminal filter)</li>
+</ul>
+</p>
+
+<p>Besides the above methods, one important part of the executor is the constructor. It retains the following parameters:
+    
+<ol>
+    <li>configuration instance (<code>scgms::SPersistent_Filter_Chain_Configuration</code>, see {doclink('sdk','configuration','the SDK configuration page')|noescape}) as a first parameter</li>
+    <li>filter creation callback (<code>scgms::TOn_Filter_Created</code>)</li>
+    <li>data-type-agnostic pointer (<code>void*</code>) to a data, passed as a parameter to the filter creation callback function</li>
+    <li>error list (<code>refcnt::Swstr_list</code>)</li>
+    <li>terminal (output) filter instance pointer (<code>scgms::IFilter*</code>); when passing <code>nullptr</code> (default value), the default terminal filter is used</li>
+</ol>
+
+</p>
+
 <p>
   To load the configuration and execute it programatically, follow this example:
 </p>
 
-<code>
-  <pre>
-config_filepath - fill this as desired
+<code><pre>
+const std::wstring config_filepath = L"my_example_config.ini"; // path to your config
 
 scgms::SPersistent_Filter_Chain_Configuration configuration;
 refcnt::Swstr_list errors;
 
-
-HRESULT rc = E_FAIL;		//asssume the worst
-if (configuration) {		//and check whether we have constructed the main config container
-  rc = configuration->Load_From_File(config_filepath, errors.get());	//and load it if we did
+HRESULT rc = E_FAIL;		// assume the worst
+if (configuration) {		// and check whether we have constructed the main config container
+  rc = configuration->Load_From_File(config_filepath, errors.get());	// and load it if we did
 }
 
-errors.for_each([](auto str) { std::wcerr &lt;&lt; str &lt;&lt; std::endl;	});
+errors.for_each([](auto str) {
+  std::wcerr &lt;&lt; str &lt;&lt; std::endl;
+});
 
 if (Succeeded(rc)) {    
   if (rc == S_FALSE)
     std::wcerr &lt;&lt; L"Warning: some filters were not loaded!" &lt;&lt; std::endl;
           
-    scgms::SFilter_Executor gFilter_Executor = scgms::SFilter_Executor{ configuration.get(),
-#ifndef DDO_NOT_USE_QT
-							Setup_Filter_DB_Access
-#else
-							nullptr
-#endif
-						,nullptr, errors };
+    scgms::SFilter_Executor gFilter_Executor = scgms::SFilter_Executor{ configuration.get(), nullptr, nullptr, errors };
                 
-  errors.for_each([](auto str) { std::wcerr &lt;&lt; str &lt;&lt; std::endl;	});
+    errors.for_each([](auto str) {
+      std::wcerr &lt;&lt; str &lt;&lt; std::endl;
+    });
 
-	if (!gFilter_Executor) {
-		std::wcerr &lt;&lt; L"Could not execute the filters!" &lt;&lt; std::endl;
-		return __LINE__;
-	}
+    if (!gFilter_Executor) {
+      std::wcerr &lt;&lt; L"Could not execute the filters!" &lt;&lt; std::endl;
+      return __LINE__;
+    }
 
+    // wait for filters to finish, or user to close the app
+    gFilter_Executor->Terminate(TRUE);
 
-	// wait for filters to finish, or user to close the app
-	gFilter_Executor->Terminate(TRUE);
+    if (save_config) {
+      std::wcout << L"Saving configuration...";
+      errors = refcnt::Swstr_list{};
+      const HRESULT rc = configuration->Save_To_File(nullptr, errors.get());
 
-
-	if (save_config) {
-  
-		std::wcout << L"Saving configuration...";
-		errors = refcnt::Swstr_list{};
-		const HRESULT rc = configuration->Save_To_File(nullptr, errors.get());
-		errors.for_each([](auto str) { std::wcerr &lt;&lt; str &lt;&lt; std::endl; });
+      errors.for_each([](auto str) {
+        std::wcerr &lt;&lt; str &lt;&lt; std::endl;
+      });
     
-		if (!Succeeded(S_OK)) {
-			std::wcerr &lt;&lt; std::endl &lt;&lt; L"Failed to save the configruation!" &lt;&lt; std::endl;
-			return __LINE__;
-		}
-		else
-			std::wcout &lt;&lt; L" saved." &lt;&lt; std::endl;
-	}
-
-} else
-	std::wcerr &lt;&lt; L"Cannot load the configuration file " &lt;&lt; config_filepath &lt;&lt; std::endl &lt;&lt; L"Error code: " &lt;&lt; rc &lt;&lt; std::endl;	
+      if (!Succeeded(S_OK)) {
+        std::wcerr &lt;&lt; std::endl &lt;&lt; L"Failed to save the configruation!" &lt;&lt; std::endl;
+        return __LINE__;
+      }
+      else
+        std::wcout &lt;&lt; L" saved." &lt;&lt; std::endl;
+    }
+}
+else
+    std::wcerr &lt;&lt; L"Cannot load the configuration file " &lt;&lt; config_filepath &lt;&lt; std::endl &lt;&lt; L"Error code: " &lt;&lt; rc &lt;&lt; std::endl;	
  
-  </pre>
-</code>
+</pre></code>
+
+<p>
+    Note that in <code>scgms::SFilter_Executor</code> construction, you may pass the second parameter, which is a callable function called whenever the filter gets created. This is convenient when creating a filter with an extended context, such as
+    the database reader/writer filters. Such filters need to have a database driver injected during construction. As the used database drivers may be released under incompatible license, we need to inject them externally. To use the drivers, that
+    are supplied with the SmartCGMS SDK, you may want to pass <code>Setup_Filter_DB_Access</code> SDK function as a second parameter to the constructor.
+</p>
+
+<p>
+    This mechanism is also highly convenient, when creating filters that implement a selected inspection interface. For more information, see the {doclink('api','inspection','inspection')|noescape} interface documentation.
+</p>

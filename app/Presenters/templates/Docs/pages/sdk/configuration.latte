@@ -1,16 +1,95 @@
 <h2>Configuration</h2>
 
+<p><i>This page deals with support classes and functions in the SmartCGMS SDK. To see, how the SmartCGMS is configured and how to perform batch processing, please, refer to the appropriate {doclink('api','configuration','API subpage for configuration')|noescape}.</i></p>
+
 <p>
-  As SmartCGMS processes signals through a chain of filters, configuration describes the order and configuration of individual filters. Using  {doclink('api','configuration','the configuration API')|noescape}, {doclink('tools','gui','GUI application')|noescape} let's you to create and edit the configuration. 
-  SmartCGMS stores the configuration as humnan-editable ini file. using API, it is also possible create and edit the configuration at runtime, programatically.
+  The configuration part of SmartCGMS SDK offers a number of classes, that implement the configuration API interfaces, and serves as a ready-to-use solution when building chain configuration from file or memory. The top-level class is the
+  <code>scgms::SPersistent_Filter_Chain_Configuration</code>, which implements the <code>scgms::IPersistent_Filter_Chain_Configuration</code>. This class (its implementation and storage class) encapsulates the configuration, that is used
+  to build the chain prior the simulation.
+</p>
+
+<h4>Interface implementation</h4>
+
+<p>
+  At first, let us take a brief look at the <code>scgms::IPersistent_Filter_Chain_Configuration</code> interface and its (hidden) implementation. The interface defines three main functions for loading the filter chain:
+<ul>
+    <li><code>Load_From_File</code> - this loads the configuration from file on path, which is passed as a first parameter; errors are stored in a given string container passed as a second argument</li>
+    <li><code>Load_From_Memory</code> - this loads the configuration from a place in memory indentified by its starting address passed as a first parameter and length passed as a second one; errors are stored in a given string container passed as a third argument</li>
+    <li><code>Save_To_File</code> - this saves the configuration to a file on path, which is passed as a first parameter; errors are stored in a given string container passed as a second argument</li>
+</ul>
+</p>
+
+<p>It is very likely, that when using the SmartCGMS SDK, you want to load the configuration by using the first method. An example how to do so follows:</p>
+<code><pre>
+refcnt::Swstr_list errors;
+
+scgms::SPersistent_Filter_Chain_Configuration configuration{};
+if (Succeeded(configuration->Load_From_File(L"my_config_file.ini", errors.get()))) {
+  // everything loaded and ready
+}
+
+// this prints all errors reported by filters, which are not necessarily fatal
+// if they would be fatal, the load method above returns a failure code
+mErrors.for_each([](const std::wstring& err) {
+  std::wcerr << "Error: " << err << std::endl;
+});
+</pre></code>
+
+<p>
+    It may be convenient to load a config file from memory, e.g. when embedding the file with your executable. In this case, the <code>Load_From_Memory</code> can be used instead of file-loading method as follows:
+</p>
+
+<code><pre>
+std::string my_config_in_memory = "...";
+
+if (Succeeded(configuration->Load_From_Memory(my_config_in_memory.c_str(), my_config_in_memory.length(), errors.get()))) {
+  // everything loaded and ready
+}
+</pre></code>
+
+<h4>Additional methods</h4>
+
+<p>The <code>scgms::SPersistent_Filter_Chain_Configuration</code> class offers additional methods for you to use:
+    
+<ul>
+    <li><code>Add_Link</code> - this methods adds a single link at the end of existing filter chain with a given filter GUID; the link is then returned as an instance of <code>scgms::SFilter_Configuration_Link</code> (see below)</li>
+    <li><code>for_each</code> - this allows you to call a given functor on all links of the filter chain within the given configuration instance</li>
+    <li><code>operator[]</code> - an array access operator allows you to reference a configuration link at a given index; please note, that this is an index, not a position, and thus starts at 0. This also does not equal the filter position in config file, but is rather an equivalent of coalesced filter positions shifted to 0</li>
+</ul>
+</p>
+
+<h4>Configuration link</h4>
+
+<p>
+  The <code>scgms::SFilter_Configuration_Link</code> encapsulates a single configuration link. In other words, it contains all the parameters and their values relevant to a single filter. It is merely an implementation of a interoperable container of configuration parameters.
+  In addition, this class (and its internal hidden parent) offers a set of methods, that allows you to access parameters inside the container:
+<ul>
+    <li><code>Read_String</code> - reads a string identified by given key</li>
+    <li><code>Read_File_Path</code> - reads a string identified by given key, but converts it to a filesystem path</li>
+    <li><code>Read_Int</code> - reads an integer identified by given key</li>
+    <li><code>Read_Int_Array</code> - reads an array of integers identified by given key</li>
+    <li><code>Read_GUID</code> - reads a GUID identified by given key</li>
+    <li><code>Read_Bool</code> - reads a boolean value identified by given key</li>
+    <li><code>Read_Double</code> - reads a double precision floating point number identified by given key</li>
+    <li><code>Read_Double_Array</code> - reads an array of double precision floating point numbers identified by given key</li>
+    <li><code>Read_Parameters</code> - reads a parameter set identified by given key; it could be seen as a wrapper aroung <code>Read_Double_Array</code>, but enhanced with parsing routines to split the set of values into lower bounds, upper bounds and actual parameter values</li>
+    <li><code>Write_Parameters</code> - stores a parameter set with a given key identifier</li>
+</ul>
+
+Furthermore, it also defines more helper methods (some of them are members of the interface <code>scgms::IFilter_Configuration_Link</code> implemented by internally constructed class):
+
+<ul>
+    <li><code>Clone</code> - clones the class instance into a new instance</li>
+    <li><code>for_each</code> - this allows you to call a given functor on all parameters of a given filter</li>
+    <li><code>Resolve_Parameter</code> - resolves a single filter parameter link, returns it as an instance of <code>scgms::SFilter_Parameter</code> (see below)</li>
+    <li><code>Get_Filter_Id</code> - retrieves the configured filter GUID (the target filter)</li>
+    <li><code>Set_Parent_Path</code> - sets the parent path for resolving relative paths</li>
+    <li><code>Set_Variable</code> - sets a config variable; this works similarly to retaining the system environment variables, and thus could be resolved in a config file from a <code>$(variable_name)</code> placeholder. An example could be found on an {doclink('api','configuration','API subpage for configuration')|noescape}</li>
+</ul>
+
 </p>
 
 <p>
-  When configuring, it is possible to use operating-system variables, to enable batch processing. When doing so, encode the variable as <code>$(place_variable_name)</code>. For example, you can process log files indivividually in a batch file, as depicted in this Fig. 2 of the <a href="https://www.sciencedirect.com/science/article/pii/S1877050920323164">SmartCGMS as a Testbed for a Blood-Glucose Level Prediction and/or Control Challenge with (an FDA-Accepted) Diabetic Patient Simulation</a> paper.
-
-  <center>
-    <img src="{$baseUrl}/img/docs/batch.png" alt="Batch processing" title="Batch processing with SmartCGMS" />
-  </center>
-
-  When using the configuration API, note that it is possible to define internal configuration-only variables. This may provide you a cleaner code, without the need for traversing entire configuration to search and adjust desired properties.
+    A similar set of methods can be found in <code>scgms::SFilter_Configuration</code> class. The main difference between the former and latter is that the latter is an instance of configuration supplied as a parameter to a constructed filter, while the
+    former exists as a configuration "template" before chain construction.
 </p>

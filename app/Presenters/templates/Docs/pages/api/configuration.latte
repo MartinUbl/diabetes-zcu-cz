@@ -1,3 +1,62 @@
 <h2>Configuration</h2>
 
-<p><i>This page is a placeholder...</i></p>
+<p>
+  As SmartCGMS processes signals through a chain of filters, configuration describes the order and configuration of individual filters. Using the configuration API, {doclink('tools','gui','GUI application')|noescape} let's you to create and edit the configuration. 
+  SmartCGMS stores the configuration as human-editable INI file. Using the API, it is also possible create and edit the configuration at runtime, programatically.
+</p>
+
+<p>
+  SmartCGMS loads and stores configuration as an INI file. Every section configures a single filter within a filter chain, and follows the following naming convention:
+</p>
+
+<code><pre>[Filter_###_{l}XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX}]</pre></code>
+
+<p>Here, the <code>###</code> symbol means the ordinal number of a given filter within the chain, padded to 3 decimal places with zeros. The sequence of dash-separaed <code>X</code> characters enclosed in curly brackets is a filter GUID.</p>
+<p>In each section, configuration parameters of a given filter is listed as a standard INI file key-value pairs separated by the equals sign. For example, a single {doclink('entities','signalfilters','signal mapping')|noescape} filter as a second filter in chain may be configured as follows:</p>
+
+<code><pre>
+[Filter_002_{l}8FAB525C-5E86-AB81-12CB-D95B1588530A}]
+Signal_Src_Id = {l}22D87566-AF1B-4CC7-8D11-C5E04E1E9C8A}
+Signal_Dst_Id = {l}09B16B4A-54C2-4C6A-948A-3DEF8533059B}
+</pre></code>
+
+<p>The SmartCGMS {doclink('tools','gui','GUI application')|noescape} helps you with configuring the chain by dragging existing filters into a chain. The configuration window lets you configure each available configuration parameter. If the parameter references an entity, the GUI lists all entities of such kind in a combobox. It also helps you with date-time formatting, model parameters and bounds and many more.</p>
+<p>Additionally, when using the SmartCGMS SDK or any available front-end that uses the SDK, a documenting comments are added before lines with GUID-identified entities. This helps with config readability when editing without using the GUI.</p>
+
+<p>
+  When configuring, it is possible to use operating-system variables, to enable batch processing. When doing so, encode the variable as <code>$(place_variable_name)</code>. For example, you can process log files indivividually in a batch file, as depicted in this Fig. 2 of the <a href="https://www.sciencedirect.com/science/article/pii/S1877050920323164">SmartCGMS as a Testbed for a Blood-Glucose Level Prediction and/or Control Challenge with (an FDA-Accepted) Diabetic Patient Simulation</a> paper.
+
+  <center>
+    <img src="{$baseUrl}/img/docs/batch.png" alt="Batch processing" title="Batch processing with SmartCGMS" />
+  </center>
+
+  When using the configuration API, note that it is possible to define internal configuration-only variables. This may provide you a cleaner code, without the need for traversing entire configuration to search and adjust desired properties.
+</p>
+
+<p>
+    The code and figure above demonstrates the batch processing of input files on the Windows platform. The reduced, copy-paste-friendly code follows - this code enumerates all files ending with <code>.log</code> extension and calls the function with each one as a parameter. This further assumes, that you compiled the console application with predefined name (<code>console3.exe</code>) and that you run experiments defined in configuration file <code>config.ini</code>:
+</p>
+<code><pre>
+for /R %%G in (*.log) do @call :SCGMS "%%G"
+exit /B 0
+
+:SCGMS
+set Input_File=%*
+console3.exe config.ini
+exit /B 0
+</pre></code>
+
+<p>
+    For GNU/Linux with bash interpreter or similar, you can use the following equivalent code:
+</p>
+<code><pre>
+#!/bin/bash
+
+SCGMS() {
+        export Input_File=$1
+        ./console3 config.ini
+}
+
+for ifile in *.log; do SCGMS "$ifile"; done
+exit 0
+</pre></code>

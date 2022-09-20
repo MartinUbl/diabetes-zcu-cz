@@ -8,59 +8,168 @@
 </p>
 
 <p>
-  To start the solver, you will need:
+    A solver is, in fact, not a SmartCGMS entity, but rather a service provided by an implementing library. The solver itself thus does not need to define an interoperable class.
 </p>
 
+<h3>Descriptor</h3>
+
+<p>A solver is described by the <code>scgms::TSolver_Descriptor</code> structure:
+</p>
+<code><pre>
+struct TSolver_Descriptor {
+    const GUID id;
+    const wchar_t *description;
+    const BOOL specialized;	//if false, can be applied to any model
+    const size_t specialized_count;		//can be zero with specialized == false, usually 1
+    const GUID *specialized_models;		//array of models, whose parameters the solver can solve
+};
+</pre></code>
+
+<p>
 <ul>
-  <li>Solver ID - a <code>GUID</code> identification</li>
-  <li>solver setup - <code>solver::TSolver_Setup</code> structure to tell the solver what to do</li>
-  <li>solver progress - <code>solver::TSolver_Progress</code> structure to monitor the progress</li>
+    <li><code>id</code> is an unique GUID assigned to this solver. The solver is invoked using this identifier.</li>
+    <li><code>description</code> is a string representing a name of the solver; it must not be <code>nullptr</code> and must contain a valid zero-terminated string</li>
+    <li><code>specialized</code> is a flag, marking that the solver is able to optimize just a selected subset of models; if this is set to <code>TRUE</code>, the following two fields apply:</li>
+    <li><code>specialized_count</code> is a size of the following array of models</li>
+    <li><code>specialized_models</code> is an array of size <code>specialized_count</code>, containing the GUIDs of models, that the solver is able to optimize</li>
+</ul>
+</p>
+
+<p>A shared object exporting a solver must:
+<ul>
+    <li>export a <code>do_get_solver_descriptors</code> function
+        <ul>
+            <li>this function returns a continuous array of solver descriptors identified by its first and one-after-last element</li>
+        </ul>
+    </li>
+    <li>export a <code>do_solve_generic</code> function
+        <ul>
+            <li>this function calls the solver service</li>
+        </ul>
+    </li>
+</ul>
+</p>
+
+<p>
+An example of <code>do_get_solver_descriptors</code> may be as follows:
+</p>
+<code><pre>
+const std::array<scgms::TSolver_Descriptor, 2> solver_descriptors = { { descriptor_1, descriptor_2 } };
+
+HRESULT IfaceCalling do_get_solver_descriptors(scgms::TSolver_Descriptor **begin, scgms::TSolver_Descriptor **end) {
+    *begin = solver_descriptors.data();
+    *end = solver_descriptors.data() + solver_descriptors.size();
+    return S_OK;
+}
+</pre></code>
+
+<p>An example of <code>do_solve_generic</code> may be as follows:</p>
+<code><pre>
+HRESULT IfaceCalling do_solve_generic(const GUID *solver_id, solver::TSolver_Setup *setup, solver::TSolver_Progress *progress) {
+    if (*solver_id == descriptor_1.id) {
+        CExample_Solver solver(*setup);
+        return solver.Solve(*progress);
+    }
+
+    return E_NOTIMPL;
+}
+</pre></code>
+
+<h3>Solver progress</h3>
+
+<p>
+    The <code>solver::TSolver_Progress</code> container defines the following fields:
+<ul>
+    <li><code>current_progress</code> (<code>size_t</code>) - a field containing the current progress value (e.g. a number of past generations)</li>
+    <li><code>max_progress</code> (<code>size_t</code>) - a field containing the maximum progress value (e.g. a maximum number of generations)</li>
+    <li><code>best_metric</code> (<code>TFitness</code>) - an array of best fitnesses; the SmartCGMS supports multi-criterial optimalization with maximum of <code>solver::Maximum_Objectives_Count</code> criterias (10 at the moment of writing of this document)</li>
+    <li><code>cancelled</code> (<code>BOOL</code>) - by setting this field to <code>TRUE</code> (or essentially any other value than <code>FALSE</code> (zero)), the solver is cancelled on a next checkpoint (e.g. between the generations)</li>
 </ul>
 
-<code>
-  <pre>
-namespace solver {
-  constexpr size_t Maximum_Objectives_Count = 10;
-  using TFitness = std::array<double, solver::Maximum_Objectives_Count>;
+You are not required to set any of these fields prior optimalization, the optimizer call does it automatically. Note, that the progress values are solver-dependent. When a generations-based (e.g.; evolutionary) solver is used, the value often refers
+to a current/maximum generation. Nonetheless, the progress is often represented as a fractional part done - the constraints on these values allows to simply perform a division, multiply it by a 100 to obtain percentage of work done.
+</p>
 
-  //solver sets these values to indicate its progress
-  struct TSolver_Progress {
-    size_t current_progress, max_progress;	//minimum progress is zero
-    TFitness best_metric;
-    BOOL cancelled;	//just cast it to bool, if set to true, solver cancels the current operation
-                    //in the future, this will be expanded to enum to allow a finer-grained control over the solver in progress
-  };
+<h3>Solver setup</h3>
 
-  using TObjective_Function = BOOL(IfaceCalling*)(const void *data, const size_t count, const double *solution, double * const fitness);
-    //data is an opaque handler
-    //count is the number of solutions - they are laid one after one in 1D/fixed-size array
-    //solution points to the first candidate solution, increase the pointer by n*sizeof(double)*problem_size bytes to read n-th solution
-    //fitness is an array where to store up to Maximum_Objective_Count, also laid in 1D/fixed-size array, thus increase the pointer by n*solver::Maximum_Objectives_Count*sizeof(double) bytes to write n-th fitness
-    //returns TRUE or FALSE
+<p>
+    The solver retains a configuration in a <code>solver::TSolver_Setup</code> container:
+</p>
 
-  struct TSolver_Setup {
+<code><pre>
+struct TSolver_Setup {
     const size_t problem_size;
-    const size_t objectives_count;			//1 for single objective, else the number of objectives
+    const size_t objectives_count;
     const double *lower_bound, *upper_bound;
     const double **hints;
     const size_t hint_count;
-    double * const solution;		//where to store the found solution
+    double * const solution;
 
     const void *data;
-    const TObjective_Function objective;
+    const solver::TObjective_Function objective;
 
-    const size_t max_generations;	//where relevant, maximum number of generations - zero for default value
-    const size_t population_size;	//where relevant, maximum number of population - zero for default value
-    const double tolerance;			//where relevant, objective function tolerance that indicates no further improvement
-  }; 
-
-  using TGeneric_Solver = HRESULT(IfaceCalling*)(const GUID *solver_id, const TSolver_Setup *setup, TSolver_Progress *progress);
-}
-  </pre>
-</code>
+    const size_t max_generations;
+    const size_t population_size;
+    const double tolerance;
+}; 
+</pre></code>
 
 <p>
-  To obtain the fitness function, include either the <code>Signal Error</code> or <code>Fast Signal Error</code> filter in the chain. Alternatively, it can be any filter implementing the 
+    
+<ul>
+    <li><code>problem_size</code> - the size of the optimized problem, i.e.; the count of parameters of a given model (or model set)</li>
+    <li><code>objectives_count</code> - count of objectives to optimize by</li>
+    <li><code>lower_bound</code> - lower bound of parameter values</li>
+    <li><code>upper_bound</code> - upper bound of parameter values</li>
+    <li><code>hints</code> - an array of solution hints</li>
+    <li><code>hint_count</code> - a size of above array (number of hints)</li>
+    <li><code>solution</code> - an array of double precision floating point values with the size of <code>problem_size</code>, which is used to store the best result</li>
+    <li><code>data</code> - a type-agnostic pointer to data, that are passed to the objective function</li>
+    <li><code>objective</code> - an objective function pointer, see below for details</li>
+    <li><code>max_generations</code> - a maximum number of generations (iterations) requested by the caller; this may apply depending on the solver logic</li>
+    <li><code>population_size</code> - population size (swarm size, ...) requested by the caller; this may apply depending on the solver logic</li>
+    <li><code>tolerance</code> - a maximum tolerance of parameter improvement; this may apply depending on the solver logic</li>
+</ul>
+</p>
+
+<h3>Objective function</h3>
+
+<p>
+    The solver needs an objective function to evaluate given solution. The <code>solver::TObjective_Function</code> type is defined as follows:
+</p>
+
+<code><pre>
+using TObjective_Function = BOOL(IfaceCalling*)(const void *data, const size_t count, const double *solution, double* const fitness);
+</pre></code>
+
+<p>
+<ul>
+    <li><code>data</code> retains the <code>data</code> field value from the <code>solver::TSolver_Setup</code> container - the solver does not need to know the interpretation of the contents</li>
+    <li><code>count</code> - is the number of solutions, which are coalesced in the following field</li>
+    <li><code>solution</code> - is an array of parameters, which will get evaluated
+        <ul>
+            <li>when multiple solutions is to be evaluated (<code>count</code> is greater than 1), the parameters need to be stored in a continuous memory (coalesced to a single array)</li>
+        </ul>
+    </li>
+    <li><code>fitness</code> - is the target container, where to store the calculated fitnesses
+        <ul>
+            <li>similar to above - when multiple solutions is to be evaluated, this effectively points to an array of coalesced fitness arrays</li>
+        </ul>
+    </li>
+</ul>
+</p>
+
+<p>
+  SmartCGMS supports up to <code>solver::Maximum_Objectives_Count</code> objectives, and thus the <code>fitness</code> array must point to an array of this size.
+</p>
+
+<p>
+  The multi-criterial selection of best solution is completely dependent on the solver logic. Solvers implemented in the SmartCGMS core uses a simplified Pareto front to determine the best solution. Nonetheless, the simplest approach is
+  to select the dominant error metric (e.g. the fitness at index 0) and ignore the rest.
+</p>
+
+<p>
+  To obtain the fitness function (and eventually the implicitly constructed objective function), include either the <code>Signal Error</code> or <code>Fast Signal Error</code> filter in the chain. Alternatively, it can be any filter implementing the 
   <code>scgms::ISignal_Error_Inspection::Promise_Metric</code> method with <code>segment_id = scgms::All_Segments_Id</code> and <code>defer_to_dtor = TRUE</code>. Then, SmartCGMS will use this
   method to register storage places for the fitness values. SmartCGMS will execute a filter chain it optimizes with a particular solver. On destroying the chain, the error metric filter has to
   store the fitness value to the designated pointer. Then, SmartCGMS picks it up and passes it to the chosen solver.
@@ -76,51 +185,5 @@ public:
 </code>
 
 <p>
-  Eventually, you have to call either <code>Optimize_Parameters</code> or <code>Optimize_Multiple_Parameters</code>. <code>Optimize_Parameters</code> actually calls <code>Optimize_Multiple_Parameters</code>
-  with filter_count = 1.
-</p>
-
-<code>
-  <pre>
-HRESULT Optimize_Parameters(scgms::SFilter_Chain_Configuration configuration, const size_t filter_index, const wchar_t *parameters_configuration_name,
-  scgms::TOn_Filter_Created on_filter_created, const void* on_filter_created_data,
-  const GUID &solver_id, const size_t population_size, const size_t max_generations,
-  const double** hints, const size_t hint_count,
-  solver::TSolver_Progress &progress,
-  refcnt::Swstr_list error_description);
-
-HRESULT Optimize_Multiple_Parameters(scgms::SFilter_Chain_Configuration configuration, const size_t *filter_indices, const wchar_t **parameters_configuration_names, size_t filter_count,
-  scgms::TOn_Filter_Created on_filter_created, const void* on_filter_created_data,
-  const GUID &solver_id, const size_t population_size, const size_t max_generations,
-  const double** hints, const size_t hint_count,
-  solver::TSolver_Progress &progress,
-  refcnt::Swstr_list error_description);
-}
-  </pre>
-</code>
-
-<p>
-  To each function, you have to pass the SmartCGMS filter chain configuration to optimize. Such a configrution can be either loaded from an external storage, memory, or just constructed programatically.
-  Then, you need to pass a list of filters, which contains the parameters to optimize along with names of the parameters to be optimized. Optionally, you can pass initialization callbacks and data when
-  instantiating new filter chain. This is useful e.g.; when initializing a database engine. 
-</p>
-
-<p>
-  SmartCGMS assumes a solver comaptible with evolutionary methods. Maximum generations is the maximum number of iterations, regardless the solver philosphy. It can be number of evolved generations,
- or iterative-method limit on number of iterations. Similarly, population size can be interpreted as interval-division coarsity. Hence, you pass these information right after the solver id.
-</p>
-
-<p>
-  To provide already known solutions to accelerate the optimization, you can supply a list of previously determined solutions to solver. Then, the solver can use it ti=o create the initial population.
-  For example, we used this approach <a href="http://www.sciencedirect.com/science/article/pii/S0169260716300128">succesfully in this paper</a>.
-</p>
-
-<p>
-  <code>error_description</code> is supposed to collect any error or diagnostic messages generated when instantiating the filter chain for the first time. Note that SmartCGMS performs certain optimizations
-  to speed-up the solving process. Hence, it does not report messages from subsequent runs.
-</p>
-
-<p>
-  Eventually, both optimizing functions call a generic function with C-interface. Hence, SmartCGMS can act as a general-purpose solver. Depending on library configuration, SmartCGMS can use the NLOpt and PaGMO
-  optimization libraries. Note the <code>scgms::TGeneric_Solver</code> function prototype to explore this functionality.
+  The SmartCGMS SDK implements a simplifying calls when an optimalization of a filter or model parameters are desired. For such a higher-level wrapper of the solver call, please, refer to the {doclink('sdk','optimizer','optimizer SDK page')|noescape}.
 </p>

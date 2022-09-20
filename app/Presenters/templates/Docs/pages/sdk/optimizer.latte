@@ -8,8 +8,56 @@
   With the GUI application, you will have to load, optimize and possibly save the configuration (with the optimized parameters) manually for each configuration. Hence, it is useful when you experiment with different optimizing solvers and their settings.
 </p>
 
+<h4>Optimizer calls</h4>
+
+<p>The SmartCGMS SDK offers a wrapper functions around the <code>scgms</code> library exports, allowing you to perform parameter optimalization in a single function call. There are two functions (exported and wrapped), which you can call to
+optimize the parameters:
+
+<ul>
+    <li><code>scgms::Optimize_Parameters</code> - this function optimizes parameters of a single filter (and its encapsulated model) and stores the result in the given configuration (modifies the contents)</li>
+    <li><code>scgms::Optimize_Multiple_Parameters</code> - same as above, but for multiple filters (and their encapsulated models); this is convenient if a coupled optimalization is desired (e.g. the parameters of one model depends on parameters of another model)</li>
+</ul>
+
+The function parameters for <code>scgms::Optimize_Parameters</code> are as follows:
+
+<ol>
+    <li>configuration (<code>scgms::SFilter_Chain_Configuration</code>)</li>
+    <li>optimized filter index (<code>size_t</code>)</li>
+    <li>optimized parameters configuration name (<code>wchar_t*</code>)</li>
+    <li>filter creation callback (<code>scgms::TOn_Filter_Created</code>)</li>
+    <li>data-type-agnostic pointer (<code>void*</code>) to a data, passed as a parameter to the filter creation callback function</li>
+    <li>GUID of a solver to be used for optimalization</li>
+    <li>population size (<code>size_t</code>)</li>
+    <li>maximum generations count (<code>size_t</code>)</li>
+    <li>array of parameter hints (<code>double**</code>) - if there are none, pass the <code>nullptr</code> value and set the following parameter to zero</li>
+    <li>size of hints array (<code>size_t</code>)</li>
+    <li>progress container reference (<code>solver::TSolver_Progress</code>), see below for details</li>
+    <li>error list (<code>refcnt::Swstr_list</code>)</li>
+</ol>
+
+The <code>scgms::Optimize_Multiple_Parameters</code> changes the parameters 2 and 3 to arrays, and adds an additional parameter for filter count:
+
+<ol start="2">
+    <li>an array of filter indices (<code>size_t*</code>)</li>
+    <li>an array of parameters configuration names (<code>wchar_t**</code>)</li>
+    <li>optimized filter count (<code>size_t</code>), i.e. a size of these arrays</li>
+</ol>
+
+</p>
+
 <p>
-  In the  {doclink('sdk','execution','execution')|noescape} chapter, you've learned how to load and execute SmartCGMS configuration. If you would like to optimize the parameters, let us refer to the following example.
+  Eventually, both optimizing functions call a generic function with C-interface. Hence, SmartCGMS can act as a general-purpose solver. Depending on library configuration, SmartCGMS can use the NLOpt and PaGMO
+  optimization libraries. Note the <code>scgms::TGeneric_Solver</code> function prototype to explore this functionality.
+</p>
+
+<p>
+    The call itself is blocking, and therefore, you may want to start it in another thread. To monitor the solver progress, the interface introduces the <code>solver::TSolver_Progress</code> container. The contents of this container are further described in the {doclink('api','solver','solver API page')|noescape}.
+</p>
+
+<h4>Example</h4>
+
+<p>
+  In the {doclink('sdk','execution','execution')|noescape} chapter, you've learned how to load and execute SmartCGMS configuration. If you would like to optimize the parameters, let us refer to the following example.
 </p>
 
 <code>
@@ -17,26 +65,25 @@
 refcnt::Swstr_list errors;
 solver::TSolver_Progress progress = solver::Null_Solver_Progress;
     
-
 HRESULT rc = E_FAIL;
 std::atomic<bool> optimizing_flag{ true };
 std::thread optimitizing_thread([&] {
   //use thread, not async because that could live-lock on a uniprocessor
 
-  rc = scgms::Optimize_Parameters(configuration,  optimize_filter_index, parameters_name.c_str(),
-    #ifndef DDO_NOT_USE_QT
-      Setup_Filter_DB_Access
-    #else
-      nullptr
-    #endif
-    , nullptr,
+  rc = scgms::Optimize_Parameters(configuration,
+    optimize_filter_index,
+    parameters_name.c_str(),
+    nullptr,
+    nullptr,
+
     solver_id, population_size, generation_count,
+
     hints_ptr.data(), hints_ptr.size(),
-    progress, errors);
+    progress,
+    errors);
 
-    optimizing_flag = false;
+  optimizing_flag = false;
 });
-
   
 while (optimizing_flag) {
   report_progress(progress);
@@ -56,3 +103,5 @@ if (rc == S_OK) {
 
   </pre>
 </code>
+
+<p>Please, also note that the filter creation callback rules, mentioned in the {doclink('sdk','execution','execution page')|noescape} applies to the optimizer calls as well. Therefore, if database access is desired, pass the <code>Setup_Filter_DB_Access</code> as a third parameter.</p>
