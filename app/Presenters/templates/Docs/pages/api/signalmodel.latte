@@ -1,0 +1,243 @@
+<h2>Signal model</h2>
+
+<p>
+    A signal model is a provider of a given advertised signal. The SmartCGMS provides {doclink('entities','calculatedsignal','calculated signal')|noescape} filter, which is responsible for retrieving the signal model values
+    at the right time.
+</p>
+
+<p>
+    The signal model advertises supported signals in the <code>calculated_signal_ids</code> descriptor field. The <code>reference_signal_ids</code> array contains a reference signal GUID on a respective position. This reference signal
+    triggers the calculated signal recalculation. See below for details.
+</p>
+
+<p>
+    The model and its signals are stateless (i.e.; they cannot create their own state), and thus serves only as a wrapper for a single stateless calculation with a constant memory pool. However, they can access the signal history of all
+    signals belonging to a single segment. This means, that the calculation wrapper does not operate with constant memory pool and grows in time with more incoming values. This could potentially be a drawback of using the signal models
+    and therefore it is discouraged in favor of {doclink('api','discretemodel','discrete models')|noescape} and {doclink('entities','miscfilters','native scripting interface')|noescape}.
+</p>
+
+<p>
+    Descriptor of a signal model contains <code>scgms::NModel_Flags::Signal_Model</code> in the <code>flags</code> field. The model itself is not instantiated. Instead, every advertised signal must be created by the <code>do_create_signal</code> call.
+</p>
+
+<h3>Interface</h3>
+
+<p>
+    A model itself does not have a class-level interface. Instead, its contract promises, that the library exporting the signal model is able to construct an instance of <code>scgms::ISignal</code> with the advertised GUID. For
+    more information about the signal interface and implementation, see {doclink('api','signal','signal')|noescape} subpage.
+</p>
+
+<p>
+    The only significant difference, that one must pay attention to when implementing a signal model is, that the signal entity (a child of <code>scgms::ISignal</code>) produced by this model must properly implement the
+    <code>Get_Continuous_Levels</code> and <code>Get_Default_Parameters</code> methods. The former method calculates the actual values of the signal, optionally based on a set of other signals. The latter retrieves a default
+    parameter set for the signal. Note, that the default parameter set for a signal may differ from the default parameters given in the descriptor, as a single model may emit multiple signals with different meanings, but with the
+    same shared philosophy (hence their coupling within a single model).
+</p>
+
+<p>
+    To make the development of custom signal models (and their calculated signals) easy and clean, the SDK implements the <code>CCommon_Calculated_Signal</code> class implementation, which implements the unneeded method stubs. As the signal
+    interface is common for all signals (not just calculated ones), we may safely return <code>E_NOTIMPL</code> as a result of <code>Get_Discrete_Levels</code>, <code>Get_Discrete_Bounds</code> and <code>Update_Levels</code>.
+</p>
+
+<h3>Time segments and signals</h3>
+
+<p>
+    The signal models work with the principles of time segments. Time segment philosophy is described as a container of signals in {doclink('api','time','a separate page')|noescape}. For the purpose of signal models and signal implementations,
+    the API defines the <code>scgms::ITime_Segment</code> interface. Its definition is as follows:
+</p>
+<code><pre>
+class ITime_Segment : public virtual refcnt::IReferenced {
+    public:
+        virtual HRESULT IfaceCalling Get_Signal(const GUID *signal_id, ISignal **signal) = 0;
+};
+</pre></code>
+
+<p>The sole method here is <code>Get_Signal</code>, which serves a single purpose - to return the signal entity identified by given GUID. This could either retrieve already stored signal, or create it.</p>
+
+<p>
+    SmartCGMS SDK then defines two reference-counting pointers to this interface. You can use the <code>scgms::STime_Segment</code> for strong reference counting or <code>scgms::WTime_Segment</code> for weak reference counting.
+    Both of these wrappers define a C++ wrapper method to retrieve a signal that shares the name with the interface method, but returns <code>scgms::SSignal</code> instead. For more information about signal interfaces and classes,
+    see the {doclink('api','signal','signal page')|noescape}.
+</p>
+
+<h3>Example implementation</h3>
+
+<p>
+    At first, we usually create a header defines for our model to describe the purpose and basic idea. As an example, let us define a model, that takes the interstitial glucose signal from the segment at requested time and adds
+    a sine wave to it, just for the sake of demonstration. Please note, that this is a very simple example of such a model and merely describes the interface and operation of signal models.
+</p>
+
+<p>
+    Similar to other entities, we often want to define GUIDs, structures and other relevant reusable attributes in a descriptor header file.
+</p>
+
+<code><pre>
+#include &lt;rtl/guid.h&gt;
+
+namespace example_model {
+
+    const size_t param_count = 2;
+    const double default_parameters[param_count] = { 1.0, 1.0 };
+
+    struct TParameters {
+        union {
+            struct {
+                double example_amplitude;
+                double example_frequency;
+            };
+            double vector[param_count];
+        };
+    };
+
+    constexpr GUID model_id = { 0xac716662, 0x3fb, 0x497f, { 0x88, 0x54, 0xde, 0x7a, 0xf1, 0x46, 0x72, 0x5e } };   // {l}AC716662-03FB-497F-8854-DE7AF146725E}
+    constexpr GUID signal_id = { 0x315feca4, 0x720b, 0x4881, { 0x92, 0x11, 0xae, 0x75, 0x13, 0x60, 0x7b, 0x46 } }; // {l}315FECA4-720B-4881-9211-AE7513607B46}
+}
+</pre></code>
+
+<p>Now we define the signal class (for detailed method description, see the {doclink('api','signal','signal page')|noescape}), that complies with the signal model requirements. For convenience, we use the common <code>CCommon_Calculated_Signal</code> class as a parent, which implements unneeded method stubs.
+Note the definition of <code>Get_Continuous_Levels</code> and <code>Get_Default_Parameters</code>, which are important for the signal model-produced signals. Also note, that we retain needed signal references in the constructor,
+so we don't need to store the time segment reference any further:</p>
+
+<code><pre>
+class CExample_Model_Signal : public virtual CCommon_Calculated_Signal {
+
+    private:
+        // stored reference to a different signal within a segment; this is retrieved during object construction
+        scgms::SSignal mIGSignal;
+
+    public:
+        CExample_Model_Signal(scgms::WTime_Segment segment) : CCommon_Calculated_Signal(segment), mIGSignal{ segment.Get_Signal(scgms::signal_IG) } {
+            if (!refcnt::Shared_Valid_All(mIGSignal))
+                throw std::runtime_error{ "Could not retrieve IG signal from segment (fatal error)" };
+        }
+
+        virtual ~CExample_Model_Signal() = default;
+
+        // scgms::ISignal iface
+        virtual HRESULT IfaceCalling Get_Continuous_Levels(scgms::IModel_Parameter_Vector *params, const double* times, double* const levels,
+                                                           const size_t count, const size_t derivation_order) const final {
+
+            // 1) convert generic parameter container to model-specific parameter set container
+            example_model::TParameters parameters = scgms::Convert_Parameters<example_model::TParameters>(params, example_model::default_parameters);
+            
+            HRESULT rc = S_OK;
+
+            // 2) retrieve IG values - for some reason we may base our model outputs on IG
+            std::vector<double> ig_values(count);
+            rc = mIGSignal->Get_Continuous_Levels(nullptr, times, ig_values.data(), count, scgms::apxNo_Derivation);
+            if (!Succeeded(rc)) {
+                return rc;
+            }
+
+            // 3) model output based on input values
+
+            // example model output - sine wave added to IG levels for no apparent reason
+            for (size_t i = 0; i < count; i++) {
+
+                // if not IG is available (should not happen at all - IG is a reference signal, hence is always available at a given time), output NaN
+                // quiet_NaN on model output signals the calculate filter to "ask for a value again later"
+                if (std::isnan(ig_values[i])) {
+                    levels[i] = std::numeric_limits<double>::quiet_NaN();
+                } else {
+                    levels[i] = ig_values[i] + parameters.example_amplitude * std::sin(times[i] * parameters.example_frequency);
+                }
+            }
+
+            return rc;
+        }
+
+        virtual HRESULT IfaceCalling Get_Default_Parameters(scgms::IModel_Parameter_Vector *parameters) const final {
+            double *params = const_cast<double*>(example_model::default_parameters);
+            return parameters->set(params, params + example_model::param_count);
+        }
+};
+</pre></code>
+
+<p>Now we implement the descriptor block:</p>
+
+<code><pre>
+namespace example_model {
+
+    const scgms::NModel_Parameter_Value param_types[param_count] = { scgms::NModel_Parameter_Value::mptDouble, scgms::NModel_Parameter_Value::mptDouble };
+
+    const wchar_t *param_names[param_count] = { L"Example amplitude", L"Example frequency" };
+    const wchar_t *param_columns[param_count] = { L"amplitude", L"frequency" };
+
+    const double lower_bound[param_count] = { 0.0 };
+    const double upper_bound[param_count] = { 2.0 };
+
+    const size_t signal_count = 1;
+
+    const GUID signal_ids[signal_count] = { signal_id };
+    const wchar_t *signal_names[signal_count] = { L"Example signal" };
+    const GUID reference_signal_ids[signal_count] = { scgms::signal_IG };
+
+    const scgms::TModel_Descriptor model_descriptor = {
+        model_id,
+        scgms::NModel_Flags::Signal_Model,
+        L"Example model",
+        L"example_model",
+        param_count,
+        param_types,
+        param_names,
+        param_columns,
+        lower_bound,
+        default_parameters,
+        upper_bound,
+        signal_count,
+        signal_ids,
+        reference_signal_ids
+    };
+
+    // for more info, see signal subpage
+    const scgms::TSignal_Descriptor signal_descriptor = {
+        signal_ids[0],
+        signal_names[0],
+        dsmmol_per_L,
+        scgms::NSignal_Unit::mmol_per_L,
+        0xFFFF0000,
+        0xFFFF0000,
+        scgms::NSignal_Visualization::mark,
+        scgms::NSignal_Mark::none,
+        nullptr
+    };
+}
+</pre></code>
+
+<p>
+    Similarly to the {doclink('api','discretemodel','discrete model')|noescape}, we now have to export a set of symbols (functions), that exports model and signal descriptors.
+</p>
+
+<code><pre>
+const std::array<scgms::TModel_Descriptor, 1> model_descriptions = { { example_model::model_descriptor } };
+
+const std::array<scgms::TSignal_Descriptor, 1> signal_descriptions = { { example_model::signal_descriptor } };
+
+HRESULT IfaceCalling do_get_model_descriptors(scgms::TModel_Descriptor **begin, scgms::TModel_Descriptor **end) {
+    return do_get_descriptors(model_descriptions, begin, end);
+}
+
+extern "C" HRESULT IfaceCalling do_get_signal_descriptors(scgms::TSignal_Descriptor * *begin, scgms::TSignal_Descriptor * *end) {
+    return do_get_descriptors(signal_descriptions, begin, end);
+}
+</pre></code>
+
+<p>
+    Unlike discrete models, we won't export any model creation functions, but rather a signal creation one, as mentioned above:
+</p>
+
+<code><pre>
+extern "C" HRESULT IfaceCalling do_create_signal(const GUID *calc_id, scgms::ITime_Segment *segment, const GUID* approx_id, scgms::ISignal **signal) {
+
+    if ((calc_id == nullptr) || (segment == nullptr)) {
+        return E_INVALIDARG;
+    }
+
+    if (*calc_id == example_model::signal_id) {
+        scgms::WTime_Segment wsegment{ segment };
+        return Manufacture_Object<CExample_Model_Signal>(signal, wsegment);
+    }
+
+    return E_NOTIMPL;
+}
+</pre></code>

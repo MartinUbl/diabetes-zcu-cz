@@ -170,20 +170,196 @@ using TObjective_Function = BOOL(IfaceCalling*)(const void *data, const size_t c
 
 <p>
   To obtain the fitness function (and eventually the implicitly constructed objective function), include either the <code>Signal Error</code> or <code>Fast Signal Error</code> filter in the chain. Alternatively, it can be any filter implementing the 
-  <code>scgms::ISignal_Error_Inspection::Promise_Metric</code> method with <code>segment_id = scgms::All_Segments_Id</code> and <code>defer_to_dtor = TRUE</code>. Then, SmartCGMS will use this
+  <code>scgms::ISignal_Error_Inspection</code> with properly implemented <code>Promise_Metric</code> method able to be called with parameters <code>segment_id = scgms::All_Segments_Id</code> and <code>defer_to_dtor = TRUE</code>. Then, SmartCGMS will use this
   method to register storage places for the fitness values. SmartCGMS will execute a filter chain it optimizes with a particular solver. On destroying the chain, the error metric filter has to
   store the fitness value to the designated pointer. Then, SmartCGMS picks it up and passes it to the chosen solver.
 </p>
 
-<code>
-  <pre>
-class ISignal_Error_Inspection : public virtual ILogical_Clock {
-public:
-  virtual HRESULT IfaceCalling Promise_Metric(const uint64_t segment_id, double* const metric_value, BOOL defer_to_dtor) = 0;
-    //return S_OK if there are new data available since object construction or last call of Peek_New_Data_Availables
-  </pre>
-</code>
-
 <p>
   The SmartCGMS SDK implements a simplifying calls when an optimalization of a filter or model parameters are desired. For such a higher-level wrapper of the solver call, please, refer to the {doclink('sdk','optimizer','optimizer SDK page')|noescape}.
 </p>
+
+<h3>Example implementation</h3>
+
+<p>
+    To demonstrate a simple implementation of solver interface, let us implement a solver, that attempts to randomly change the parameters of a single parameter vector, hoping to obtain a better parameter set. This is, of course, not an ideal approach,
+    should you take this just as a simple example of the interface implementation, code structure and conventions.
+</p>
+
+<p>
+    Similarly to any other entities, let us create a descriptor header file, despite containing solely the solver GUID:
+</p>
+
+<code><pre>
+#include &lt;rtl/guid.h&gt;
+
+namespace example_solver {
+    constexpr GUID id = { 0x4e24dbc6, 0xb4f4, 0x458c, { 0xba, 0xe3, 0x97, 0x13, 0x77, 0x60, 0xb0, 0x13 } };	// {l}4E24DBC6-B4F4-458C-BAE3-97137760B013}
+}
+</pre></code>
+
+<p>Although it is not necessarily needed, let us define a solver class. This helps code readability and maintainability. We split the definition and implementation:</p>
+
+<code><pre>
+#include &lt;rtl/FilterLib.h&gt;
+#include &lt;rtl/referencedImpl.h&gt;
+#include &lt;rtl/SolverLib.h&gt;
+#include &lt;rtl/UILib.h&gt;
+
+class CExample_Solver {
+
+    protected:
+        static constexpr size_t Default_Max_Generations = 1000;
+
+        protected:
+            solver::TSolver_Setup &mSetup;
+
+            // NOTE: you may want to store solver::TFitness instead, optionally initialized with solver::Nan_Fitness
+            double mBest_Metric = std::numeric_limits<double>::quiet_NaN();
+
+            void Evaluate_Solution(const double* solution, solver::TSolver_Progress &progress);
+
+	public:
+            CExample_Solver(solver::TSolver_Setup &setup) : mSetup(setup) {
+                //
+            }
+            virtual ~CExample_Solver() = default;
+
+            HRESULT Solve(solver::TSolver_Progress &progress);
+};
+</pre></code>
+
+<p>Now we need to implement the <code>Evaluate_Solution</code> and <code>Solve</code> methods we just defined. Let us start with the former one, that evaluates the current solution, and if it finds its fitness function value better,
+    it copies the results to a globally best solution:</p>
+
+<code><pre>
+void CExample_Solver::Evaluate_Solution(const double* solution, solver::TSolver_Progress &progress) {
+
+    // objective function computes a new metric values of given solution
+    TFitness metrics;
+    auto result = mSetup.objective(mSetup.data, 1, solution, metrics.data());
+
+    // let us select just the first metric for simplicity; you may want to compare fitnesses with a more profound approach
+    const double metricValue = metrics[0];
+
+    // if the new metric value is a valid number and is better than the current best metric, update our current best solution
+    if (!std::isnan(metricValue) && metricValue < mBest_Metric) {
+
+        // for our calculations:
+        mBest_Metric = metricValue;
+
+        // for GUI to display in a visual element:
+        progress.best_metric = metrics;
+    
+        // update current best solution in setup
+        std::copy(solution, solution + mSetup.problem_size, mSetup.solution);
+    }
+}
+</pre></code>
+
+<p>The <code>Solve</code> method mainly just retains the values from solver setup and performs computation within a loop:</p>
+
+<code><pre>
+HRESULT CExample_Solver::Solve(solver::TSolver_Progress &progress) {
+
+    // determine generation count
+    const size_t genCount = mSetup.max_generations ? mSetup.max_generations : Default_Max_Generations;
+
+    // set max_progress, so the GUI could display correct progress bar value
+    progress.max_progress = genCount;
+
+    // initialize (pseudo-)random number generator for our example solver
+    static std::random_device rdev;
+    std::default_random_engine reng(rdev());
+    std::uniform_real_distribution<double> rdist(0.0, 1.0);
+
+    // prepare vector for our temporary solution
+    std::vector<double> current_solution(mSetup.problem_size);
+
+    // NOTE: your solver should also respect mSetup.population_size parameter
+    //       therefore, there should be a vector of vectors instead of just a single vector;
+    //       for the sake of demonstration, we ignore this parameter
+
+
+    mBest_Metric = std::numeric_limits<double>::max();
+    // outer code may help you with some initial parameter estimation called "hints"
+    // there may not be any hints present
+    for (size_t i = 0; i < mSetup.hint_count; i++) {
+        Evaluate_Solution(mSetup.hints[i], progress);
+    }
+
+    const double preSolveMetric = mBest_Metric; // currently, we hold the best metric of all hints given
+
+    // iterate through all generations
+    // we must respect the "cancelled" parameter of progress, as outer code and another thread may set it to true - in this case,
+    // the solver must interrupt as soon as possible and return
+    for (size_t generation = 0; generation < genCount && !progress.cancelled; generation++) {
+
+        // we just "emulate" some kind of a solver, so the following lines serves just as an example of "some work" done by a solver
+        // of course, one would choose a better strategy, than introduced here
+
+        // generate a random number vector - every vector coordinate within given bounds!
+        for (size_t i = 0; i < mSetup.problem_size; i++) {
+            current_solution[i] = mSetup.lower_bound[i] + rdist(reng) * (mSetup.upper_bound[i] - mSetup.lower_bound[i]);
+        }
+
+        // evaluate newly "computed" solution - this also sets proper status, etc.
+        Evaluate_Solution(current_solution.data(), progress);
+
+        // pretend we're doing something - just to demonstrate the progress bar function in GUI
+        // NOTE: obviously you don't want the following line of code to appear in your production code
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+
+        // update current progress, so the GUI would update the visual progress bar element
+        progress.current_progress = generation;
+    }
+
+    // we may return a different code if the solver was cancelled
+    if (progress.cancelled) {
+        return S_FALSE;
+    }
+
+    // the solver did all it could, but it has not found a better solution, that is already known - in this case, always return S_FALSE
+    if (preSolveMetric < mBest_Metric) {
+        return S_FALSE;
+    }
+
+    // a better solution has been found
+    return S_OK;
+}
+</pre></code>
+
+<p>
+    To export the solver out of the library, we need to first create the descriptor. This solver is certainly not specialized to any model, so we set the corresponding attributes to <code>false</code>/zero/<code>nullptr</code>:
+</p>
+
+<code><pre>
+namespace example_solver {
+    const scgms::TSolver_Descriptor descriptor = {
+        id,
+        L"Example randomizing solver",
+        false,
+        0,
+        nullptr
+    };
+}
+</pre></code>
+
+<p>As a final step, let us define, implement and export the needed library interface:</p>
+
+<code><pre>
+const std::array<scgms::TSolver_Descriptor, 1> solver_descriptions = { example_solver::descriptor };
+
+HRESULT IfaceCalling do_get_solver_descriptors(scgms::TSolver_Descriptor **begin, scgms::TSolver_Descriptor **end) {
+    return do_get_descriptors(solver_descriptions, begin, end);
+}
+
+HRESULT IfaceCalling do_solve_generic(const GUID *solver_id, solver::TSolver_Setup *setup, solver::TSolver_Progress *progress) {
+    if (*solver_id == example_solver::descriptor.id) {
+        CExample_Solver solver(*setup);
+        return solver.Solve(*progress);
+    }
+
+    return E_NOTIMPL;
+}
+</pre></code>
