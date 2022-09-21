@@ -1,46 +1,104 @@
 <h2>Signal</h2>
 
+<p>
+    The signal entity is a general purpose container of time-ordered values. We recognize two types of signals:
+    
+<ul>
+    <li>measured signals - signals of this type typically store discrete values as they come through the filter chain
+        <ul>
+            <li>returns discrete values and bounds if requested through an appropriate method call</li>
+            <li>uses the {doclink('api','approximator','approximator')|noescape} entity to approximate/interpolate the discrete values and thus calculate the continuous levels</li>
+        </ul>
+    </li>
+    <li>calculated signals - signals produced by a {doclink('api','signalmodel','signal model')|noescape}
+        <ul>
+            <li>do not work with discrete values and/or bounds, corresponding methods return <code>E_NOTIMPL</code></li>
+            <li>use a custom implementation to calculate continuous levels, do not use any {doclink('api','approximator','approximator')|noescape}</li>
+        </ul>
+    </li>
+</ul>
+</p>
 
-<code>
-	<pre>
-struct TBounds {
-  double Min, Max;
-};
+<p>
+    An interface definition for a signal entity is called <code>scgms::ISignal</code> and is defined as follows:
+</p>
 
+<code><pre>
 class ISignal : public virtual refcnt::IReferenced {
-public:
-  /* on S_OK, *filled elements were copied into times and double levels of the count size
-     for measured signal, it returns the measured values
-     for calculated signal, it returns E_NOIMPL
-   */
-  virtual HRESULT IfaceCalling Get_Discrete_Levels(double* const times, double* const levels, const size_t count, size_t *filled) const = 0;
+    public:
+        virtual HRESULT IfaceCalling Get_Discrete_Levels(double* const times, double* const levels, const size_t count, size_t *filled) const = 0;
+        virtual HRESULT IfaceCalling Get_Discrete_Bounds(TBounds* const time_bounds, TBounds* const level_bounds, size_t *level_count) const = 0;
+        virtual HRESULT IfaceCalling Update_Levels(const double *times, const double *levels, const size_t count) = 0;
 
-  /* gets bounds and level_count, any of these parameters can be nullptr
-     for measured and calculated signals, dtto Get_Discrete_Levels
-   */
-  virtual HRESULT IfaceCalling Get_Discrete_Bounds(TBounds* const time_bounds, TBounds* const level_bounds, size_t *level_count) const = 0;
+        virtual HRESULT IfaceCalling Get_Continuous_Levels(IModel_Parameter_Vector *params, const double* times, double* const levels,
+                                                           const size_t count, const size_t derivation_order) const = 0;
 
-  /* adds measured levels to internal containers
-     for measured and calculated signals, dtto Get_Discrete_Levels
-   */
-  virtual HRESULT IfaceCalling Update_Levels(const double *times, const double *levels, const size_t count) = 0;
+        virtual HRESULT IfaceCalling Get_Default_Parameters(IModel_Parameter_Vector *parameters) const = 0;
+};
+</pre></code>
 
-  /* This method will be called in parallel by solvers and therefore it has to be const
+<p>Here, <code>TBounds</code> is a simple bounds container:</p>
 
-     params - params from which to calculate the signal, can be nullptr to indicate use of default parameters
-     times - times at which to get the levels, i.e., y values for x values
-     levels - the levels, must be already allocated with size of count - level that cannot be calculated must be se to quiet nan
-     count - the total number of times for which to get the levels
-     derivation_order - order of derivation requested
-   */
-  virtual HRESULT IfaceCalling Get_Continuous_Levels(IModel_Parameter_Vector *params,
-                                                     const double* times, double* const levels, const size_t count, const size_t derivation_order) const = 0;
+<code><pre>
+struct TBounds {
+    double Min, Max;
+};
+</pre></code>
 
-   // returns default parameters on calculated signals, E_NOIMPL on measured signal
-  virtual HRESULT IfaceCalling Get_Default_Parameters(IModel_Parameter_Vector *parameters) const = 0;
-};		
-	</pre>
-</code>
+<p>
+    Above defined methods often works with <code>times</code> and <code>levels</code> pointers. These are pointers to arrays containing the time and level values. Both of these arrays are the same size, which is determined by the <code>count</code>
+    parameter. The value at a given index in the <code>levels</code> array was recorded with a time at the same index in the <code>times</code> array.
+    
+<ul>
+    <li><code>Get_Discrete_Levels</code> - fills the <code>times</code> and <code>levels</code> arrays with internally stored <strong>time-ordered</strong> (oldest to newest) discrete values; the maximum count is determined by the <code>count</code> parameter, the actual count is stored into the <code>filled</code> parameter
+        <ul>
+            <li>a call to <code>Get_Discrete_Bounds</code> usually comes prior to this method call to obtain the actual count of values</li>
+            <li>the returned times and values are ordered from the oldest to the newest</li>
+            <li>measured signals implements this method to return measured values</li>
+            <li>calculated signals return <code>E_NOTIMPL</code></li>
+        </ul>
+    </li>
+    <li><code>Get_Discrete_Bounds</code> - fills the <code>time_bounds</code> with bounds of recorded time, fills the <code>level_bounds</code> with bounds of recorded values and <code>level_count</code> with the count of levels stored
+        <ul>
+            <li>any of the parameters may be set to <code>nullptr</code> to signalize we are not interested in such bounds or counts; this may improve performance</li>
+            <li>measured signals return valid bounds and counts, if requested</li>
+            <li>calculated signals return <code>E_NOTIMPL</code></li>
+        </ul>
+    </li>
+    <li><code>Update_Levels</code> - stored a new set of time-value pairs (given in <code>times</code> and <code>levels</code> arrays) into the internal storage
+        <ul>
+            <li>measured signals should store new levels</li>
+            <li>calculated signals return <code>E_NOTIMPL</code></li>
+        </ul>
+    </li>
+    <li><code>Get_Continuous_Levels</code> - retrieves levels (or level derivation) at given arbitrary times, that do not necessarily match the recorded discrete levels times
+        <ul>
+            <li><code>params</code> could be <code>nullptr</code>, typically when calling this method on a measured signal, or when use of default parameters is intended</li>
+            <li>the <code>levels</code> array must be equal in size to the <code>times</code> array (pre-allocated prior the method call)</li>
+            <li><code>derivation_order</code> contains the desired order of derivation to be retrieved; one may use the pre-defined constants for levels-only (scgms::apxNo_Derivation) or first-order derivation (scgms::apxFirst_Order_Derivation)
+                <ul>
+                    <li>in a measured signal, this retrieves the derivation approximation given by the approximator entity</li>
+                    <li>calculated signal calculates the derivation by its own internal rules</li>
+                    <li>however, it is <strong>not</strong> required to support any derivation order greater than 0, i.e.; the only required implementation is for retrieving the levels-only</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li><code>Get_Default_Parameters</code> - retrieves a default parameter set for a given signal
+        <ul>
+            <li>measured signals return <code>E_NOTIMPL</code></li>
+            <li>calculated signals return the default parameter set copied to the pre-allocated container (via the container <code>set</code> method)</li>
+        </ul>
+    </li>
+</ul>
+</p>
+
+<h3>Example implementation</h3>
+
+<p>Please, refer to the {doclink('api','signalmodel','signal model')|noescape} subpage to see an example of a model signal implementation. To implement a measured signal, do not inherit from the calculated signal parent, but rather implement
+every method in your class.</p>
+
+<h3>Use of a signal entity</h3>
 
 <p>
 	Many scientific papers and engineering work relies on data series to process signals. Each signal is a dedicated data series. <code>ISignal</code> interface provides
@@ -54,9 +112,9 @@ public:
 	We achieve such functionality with the Signal Model.	
 </p>
 
-<h3>Warning</h3>
+<h4>Warning</h4>
 <p>
-	Be aware that we provide this interface as a convience only. For a practical use, we strongly discourage its use in favor to the CCircular_Buffer template available with the Native Scripts.
+	Be aware that we provide this interface as a convenience only. For a practical use, we strongly discourage its use in favor to the CCircular_Buffer template available with the Native Scripts.
 	With the circular buffer, you have fixed memory use, which is important with low-power, embedded devices. <code>ISignal</code> can accomodate as many glucose levels as desired, thus 
 	possibly leading to memory exhaustion on devices with limited amounts of RAM.
 </p>
