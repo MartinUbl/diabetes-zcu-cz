@@ -272,9 +272,9 @@ Then we have to define and export <code>do_get_model_descriptors</code> and <cod
 </p>
 
 <code><pre>
-const std::array<scgms::TModel_Descriptor, 1> model_descriptors = { { example_discrete_model::desc } };
+const std::array&lt;scgms::TModel_Descriptor, 1> model_descriptors = { { example_discrete_model::desc } };
 
-const std::array<scgms::TSignal_Descriptor, 1> signal_descriptors = { { example_discrete_model::saw_signal_desc } };
+const std::array&lt;scgms::TSignal_Descriptor, 1> signal_descriptors = { { example_discrete_model::saw_signal_desc } };
 
 HRESULT IfaceCalling do_get_model_descriptors(scgms::TModel_Descriptor **begin, scgms::TModel_Descriptor **end) {
     return do_get_descriptors(model_descriptors, begin, end);
@@ -292,7 +292,7 @@ The last step is to implement the factory method <code>do_create_discrete_model<
 <code><pre>
 HRESULT IfaceCalling do_create_discrete_model(const GUID *model_id, scgms::IModel_Parameter_Vector *parameters, scgms::IFilter *output, scgms::IDiscrete_Model **model) {
     if (*model_id == example_discrete_model::model_id) {
-        return Manufacture_Object<CExample_Discrete_Model>(model, parameters, output);
+        return Manufacture_Object&lt;CExample_Discrete_Model>(model, parameters, output);
     }
 
     return E_NOTIMPL;

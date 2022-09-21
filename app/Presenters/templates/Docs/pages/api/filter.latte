@@ -89,7 +89,7 @@ HRESULT IfaceCalling do_get_filter_descriptors(scgms::TFilter_Descriptor **begin
 <code><pre>
 HRESULT IfaceCalling do_create_filter(const GUID *id, scgms::IFilter *output, scgms::IFilter **filter) {
 	if (*id == descriptor_1.id)
-		return Manufacture_Object<CMy_Filter>(filter, output);
+		return Manufacture_Object&lt;CMy_Filter>(filter, output);
 
 	return E_NOTIMPL;
 }
@@ -290,7 +290,7 @@ Now, we have to export the descriptor and the filter itself in the <code>do_get_
 
 <code><pre>
 // we often summarize known descriptors in an array or vector (continuous memory container)
-const std::array<scgms::TFilter_Descriptor, 1> filter_descriptors = { { example_filter::descriptor } };
+const std::array&lt;scgms::TFilter_Descriptor, 1> filter_descriptors = { { example_filter::descriptor } };
 
 extern "C" HRESULT IfaceCalling do_get_filter_descriptors(scgms::TFilter_Descriptor **begin, scgms::TFilter_Descriptor **end) {
 
@@ -302,7 +302,7 @@ extern "C" HRESULT IfaceCalling do_create_filter(const GUID *id, scgms::IFilter 
 
     // is this our filter? If yes, instantiate it!
 	if (*id == example_filter::descriptor.id) {
-		return Manufacture_Object<CExample_Filter>(filter, output);
+		return Manufacture_Object&lt;CExample_Filter>(filter, output);
 	}
 
     // we do not know how to instantiate such filter

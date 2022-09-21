@@ -215,7 +215,7 @@ class CExample_Solver {
             solver::TSolver_Setup &mSetup;
 
             // NOTE: you may want to store solver::TFitness instead, optionally initialized with solver::Nan_Fitness
-            double mBest_Metric = std::numeric_limits<double>::quiet_NaN();
+            double mBest_Metric = std::numeric_limits&lt;double>::quiet_NaN();
 
             void Evaluate_Solution(const double* solution, solver::TSolver_Progress &progress);
 
@@ -271,17 +271,17 @@ HRESULT CExample_Solver::Solve(solver::TSolver_Progress &progress) {
     // initialize (pseudo-)random number generator for our example solver
     static std::random_device rdev;
     std::default_random_engine reng(rdev());
-    std::uniform_real_distribution<double> rdist(0.0, 1.0);
+    std::uniform_real_distribution&lt;double> rdist(0.0, 1.0);
 
     // prepare vector for our temporary solution
-    std::vector<double> current_solution(mSetup.problem_size);
+    std::vector&lt;double> current_solution(mSetup.problem_size);
 
     // NOTE: your solver should also respect mSetup.population_size parameter
     //       therefore, there should be a vector of vectors instead of just a single vector;
     //       for the sake of demonstration, we ignore this parameter
 
 
-    mBest_Metric = std::numeric_limits<double>::max();
+    mBest_Metric = std::numeric_limits&lt;double>::max();
     // outer code may help you with some initial parameter estimation called "hints"
     // there may not be any hints present
     for (size_t i = 0; i < mSetup.hint_count; i++) {
@@ -348,7 +348,7 @@ namespace example_solver {
 <p>As a final step, let us define, implement and export the needed library interface:</p>
 
 <code><pre>
-const std::array<scgms::TSolver_Descriptor, 1> solver_descriptions = { example_solver::descriptor };
+const std::array&lt;scgms::TSolver_Descriptor, 1> solver_descriptions = { example_solver::descriptor };
 
 HRESULT IfaceCalling do_get_solver_descriptors(scgms::TSolver_Descriptor **begin, scgms::TSolver_Descriptor **end) {
     return do_get_descriptors(solver_descriptions, begin, end);

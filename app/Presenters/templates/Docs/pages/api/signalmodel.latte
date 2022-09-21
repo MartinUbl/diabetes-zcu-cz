@@ -118,12 +118,12 @@ class CExample_Model_Signal : public virtual CCommon_Calculated_Signal {
                                                            const size_t count, const size_t derivation_order) const final {
 
             // 1) convert generic parameter container to model-specific parameter set container
-            example_model::TParameters parameters = scgms::Convert_Parameters<example_model::TParameters>(params, example_model::default_parameters);
+            example_model::TParameters parameters = scgms::Convert_Parameters&lt;example_model::TParameters>(params, example_model::default_parameters);
             
             HRESULT rc = S_OK;
 
             // 2) retrieve IG values - for some reason we may base our model outputs on IG
-            std::vector<double> ig_values(count);
+            std::vector&lt;double> ig_values(count);
             rc = mIGSignal->Get_Continuous_Levels(nullptr, times, ig_values.data(), count, scgms::apxNo_Derivation);
             if (!Succeeded(rc)) {
                 return rc;
@@ -137,7 +137,7 @@ class CExample_Model_Signal : public virtual CCommon_Calculated_Signal {
                 // if not IG is available (should not happen at all - IG is a reference signal, hence is always available at a given time), output NaN
                 // quiet_NaN on model output signals the calculate filter to "ask for a value again later"
                 if (std::isnan(ig_values[i])) {
-                    levels[i] = std::numeric_limits<double>::quiet_NaN();
+                    levels[i] = std::numeric_limits&lt;double>::quiet_NaN();
                 } else {
                     levels[i] = ig_values[i] + parameters.example_amplitude * std::sin(times[i] * parameters.example_frequency);
                 }
@@ -147,7 +147,7 @@ class CExample_Model_Signal : public virtual CCommon_Calculated_Signal {
         }
 
         virtual HRESULT IfaceCalling Get_Default_Parameters(scgms::IModel_Parameter_Vector *parameters) const final {
-            double *params = const_cast<double*>(example_model::default_parameters);
+            double *params = const_cast&lt;double*>(example_model::default_parameters);
             return parameters->set(params, params + example_model::param_count);
         }
 };
@@ -209,9 +209,9 @@ namespace example_model {
 </p>
 
 <code><pre>
-const std::array<scgms::TModel_Descriptor, 1> model_descriptions = { { example_model::model_descriptor } };
+const std::array&lt;scgms::TModel_Descriptor, 1> model_descriptions = { { example_model::model_descriptor } };
 
-const std::array<scgms::TSignal_Descriptor, 1> signal_descriptions = { { example_model::signal_descriptor } };
+const std::array&lt;scgms::TSignal_Descriptor, 1> signal_descriptions = { { example_model::signal_descriptor } };
 
 HRESULT IfaceCalling do_get_model_descriptors(scgms::TModel_Descriptor **begin, scgms::TModel_Descriptor **end) {
     return do_get_descriptors(model_descriptions, begin, end);
@@ -235,7 +235,7 @@ extern "C" HRESULT IfaceCalling do_create_signal(const GUID *calc_id, scgms::ITi
 
     if (*calc_id == example_model::signal_id) {
         scgms::WTime_Segment wsegment{ segment };
-        return Manufacture_Object<CExample_Model_Signal>(signal, wsegment);
+        return Manufacture_Object&lt;CExample_Model_Signal>(signal, wsegment);
     }
 
     return E_NOTIMPL;
