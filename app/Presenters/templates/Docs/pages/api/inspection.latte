@@ -1,0 +1,192 @@
+<h2>Inspection interface</h2>
+
+<p>
+    Every entity within the SmartCGMS framework may support multiple additional entity interfaces. As stated in {doclink('api','time','object model')|noescape} page, besides the reference counting methods, every object is required to implement
+    the <code>QueryInterface</code> method.
+</p>
+
+<p>
+    The method signature is as follows:
+</p>
+
+<code><pre>
+virtual HRESULT IfaceCalling QueryInterface(const GUID* riid, void **ppvObj) = 0;    
+</pre></code>
+
+<p>
+    This follows the COM standard in all aspects - outer code may call the <code>QueryInterface</code> method on an object with any interface GUID given in <code>riid</code>. This may have two outcomes:
+    
+<ul>
+    <li>the object (its class) does not support, neither implements the queried interface; in this case, <code>E_NOINTERFACE</code> is returned</li>
+    <li>the object (its class) supports and implements the queried interface
+        <ul>
+            <li>the object typecasts itself (or related object pointer) to the interface type, and stores the result into the <code>ppvObj</code> parameter</li>
+            <li>the reference count is incremented, as a new reference is being constructed
+                <ul>
+                    <li>when using the method <code>Internal_Query_Interface</code> of <code>refcnt::CReferenced</code> (part of C++ SDK), the reference count is incremented automatically</li>
+                </ul>
+            </li>
+            <li><code>S_OK</code> is returned</li>
+        </ul>
+    </li>
+</ul>
+    
+Note that typecasted pointer usually differs from the most specific <code>this</code> pointer at the time of method call. This is due to the polymorphic type implementation in any object-oriented languages and environments.
+</p>
+
+<h3>Known inspections</h3>
+
+<p>
+    The SmartCGMS recognizes a handful of inspection interfaces to serve a specific purposes (list contains also the GUID aliases):
+    
+<ul>
+    <li><code>scgms::ISignal_Error_Inspection</code> (<code>scgms::IID_Signal_Error_Inspection</code>) - the entity is able to calculate a metric from given signals</li>
+    <li><code>scgms::IDrawing_Filter_Inspection</code> <i>(legacy)</i> (<code>scgms::IID_Drawing_Filter_Inspection</code>) - the entity is able to draw a selected graphs from data
+        <ul>
+            <li>this interface is kept for legacy reasons, any new implementations should be based on the <code>scgms::IDrawing_Filter_Inspection_v2</code> interface</li>
+        </ul>
+    </li>
+    <li><code>scgms::IDrawing_Filter_Inspection_v2</code> (<code>scgms::IID_Drawing_Filter_Inspection_v2</code>) - the entity implements a generic drawing mechanisms and views</li>
+    <li><code>scgms::ILog_Filter_Inspection</code> (<code>scgms::IID_Log_Filter_Inspection</code>) - the entity records a list of strings and exports them (e.g a log filter)</li>
+    <li><code>scgms::IEvent_Export_Filter_Inspection</code> <i>(deprecated)</i> (<code>scgms::IID_Event_Export_Filter_Inspection</code>) - this entity exports device events (all or selected), by invoking a previously registered callback</li>
+</ul>
+</p>
+
+<p>Please, refer to the SmartCGMS interface code (<code>common/iface/FilterIface.h</code>) for detailed documentation.</p>
+
+<h3>Example implementation</h3>
+
+<p>
+    Let us suppose we want to define an interface, that poses a requirement to report count of device events that passes through it. This is also a very simple example, that just serves a purpose of demonstration.
+</p>
+
+<p>
+    At first, we need to define the interface GUID and the interface itself as a base class. This definition often resides in a shared header file, that is included by both caller and callee code. The entity is also required to implement the <code>refcnt::IReferenced</code> interface, and as we want to use more complex polymorphism scheme and multiple inheritance, we
+    use virtual inheritance to deal with the "<a href="https://isocpp.org/wiki/faq/multiple-inheritance#mi-diamond" title="The dreaded diamond">diamond problem</a>":
+</p>
+
+<code><pre>
+constexpr const GUID IID_Event_Counter_Inspection = { 0xb0321b86, 0xd24f, 0x4204, { 0xb4, 0xb0, 0x16, 0xab, 0xba, 0x95, 0x31, 0x54 } }; // {l}B0321B86-D24F-4204-B4B0-16ABBA953154}
+
+class IEvent_Counter_Inspection : public virtual refcnt::IReferenced {
+    public:
+        virtual HRESULT IfaceCalling Report_Count(uint64_t* const count) const = 0;
+};
+</pre></code>
+
+<p>
+    The general requirement would be, that the <code>count</code> parameter points to a valid 8-byte long memory, where we want to store the actual count. The method returns <code>S_OK</code> when the <code>count</code> was filled with a valid count
+    of device events. It returns <code>S_FALSE</code> when no events were recorded yet, and the <code>count</code> was filled with a zero. It returns <code>E_INVALIDARG</code>, when <code>count</code> is <code>nullptr</code>.
+</p>
+
+<p>
+    Let us have an existing entity called <code>CArbitrary_Filter</code>, that serves its arbitrary purpose. We want to enhance this filter to support our defined interface. The first step is to implement the interface itself in the filter class.
+    An example of the implementation follows, excluding the unimportant parts:
+</p>
+
+<code><pre>
+class CArbitrary_Filter : public scgms::CBase_Filter, public IEvent_Counter_Inspection {
+
+    private:
+        uint64_t mEvent_Counter = 0;
+        ...
+
+    protected:
+
+        ...
+        virtual HRESULT Do_Execute(scgms::UDevice_Event event) override final {
+            ...
+            mEvent_Counter++;
+            ...
+        }
+
+    public:
+
+        ...
+        virtual HRESULT IfaceCalling Report_Count(uint64_t* const count) const {
+
+            if (!count)
+                return E_INVALIDARG;
+
+            *count = mEvent_Counter;
+
+            return (mEvent_Counter > 0) ? S_OK : S_FALSE;
+        }
+};
+</pre></code>
+
+<p>
+    The final step in the implementing class definition and implementation is to declare the interface support using the <code>QueryInterface</code> method. An example of such method implemented using the SmartCGMS SDK follows. Note that it is a
+    public member function of <code>CArbitrary_Filter</code>:
+</p>
+
+<code><pre>
+
+    public:
+
+        HRESULT IfaceCalling QueryInterface(const GUID* riid, void **ppvObj) {
+            if (Internal_Query_Interface&lt;IEvent_Counter_Inspection>(IID_Event_Counter_Inspection, *riid, ppvObj))
+                return S_OK;
+            return E_NOINTERFACE;
+        }
+
+</pre></code>
+
+<p>
+    Alternatively, when not using the C++ SDK, you may want to implement the full requirements on the method yourself. An example in C++ follows (the implementation is would be very similar in other languages):
+</p>
+
+<code><pre>
+
+    public:
+
+        HRESULT IfaceCalling QueryInterface(const GUID* riid, void **ppvObj) {
+
+            if (*riid == IID_Event_Counter_Inspection) {
+                *ppvObj = dynamic_cast&lt;IEvent_Counter_Inspection>(this);
+                AddRef();
+                return S_OK;
+            }
+
+            return E_NOINTERFACE;
+        }
+
+</pre></code>
+
+<p>
+    The callee part is now finished. To obtain the interface reference in the caller code, let us use the <code>QueryInterface</code> interface method to probe the support for the interface on such entity.
+</p>
+
+<code><pre>
+
+scgms::IFilter* referenced_filter = ...; // you would obtain this depending on the context
+
+IEvent_Counter_Inspection* inspection = nullptr;
+if (referenced_filter->QueryInterface(&IID_Event_Counter_Inspection, &inspection) == S_OK) {
+    uint64_t count;
+    HRESULT res = inspection->Report_Count(&count);
+    if (res == S_OK)
+        std::cout << "Total of " << count << " events passed through the filter" << std::endl;
+    else
+        std::cout << "No events passed through the filter" << std::endl;
+    else
+        std::cout << "Invalid call to the Report_Count method" << std::endl;
+
+    // if we successfully obtained the inspection instance, we officially own one reference; we need to release it as soon, as we don't use it to avoid memory leaks
+    inspection->Release();
+}
+else
+    std::cout << "The filter does not support the event counter interface" << std::endl;
+</pre></code>
+
+<p>
+    To avoid the need of manual release, you can use the reference counting SDK:
+</p>
+
+<code><pre>
+using SEvent_Counter_Inspection = std::shared_ptr&lt;IEvent_Counter_Inspection>;
+
+SEvent_Counter_Inspection sptr = refcnt::make_shared_reference_ext&lt;SEvent_Counter_Inspection, IEvent_Counter_Inspection>(inspection, false);
+</pre></code>
+
+<p>This creates a shared pointer with a custom deletor, that calls the <code>Release</code> method automatically during the destructor call.</p>

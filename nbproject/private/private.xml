@@ -6,32 +6,55 @@
             <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Docs/pages/overview/home.latte</file>
             <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Admin/globalStatesAdd.latte</file>
             <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Models/IcarusUploadsModel.php</file>
-            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/About/default.latte</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Docs/pages/api/configuration.latte</file>
             <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/@layout.latte</file>
             <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Homepage/default.latte</file>
-            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/AdminPresenter.php</file>
             <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Models/UploadsModel.php</file>
             <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/config/common.neon</file>
-            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/lang/pages.en.neon</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Docs/pages/api/inspection.latte</file>
             <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/lang/pages.cs.neon</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Docs/pages/api/signalmodel.latte</file>
             <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/config/local-template.neon</file>
             <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/News/read.latte</file>
             <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/www/css/main.css</file>
-            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/phinx_template.yml</file>
             <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Dashboard/default.latte</file>
-            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/migrations/20220812231043_add_icarus_uploads_table.php</file>
-            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Feed/default.latte</file>
-            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Models/BaseModel.php</file>
-            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/config/local.neon</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Docs/pages/sdk/helpers.latte</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Docs/pages/sdk/optimizer.latte</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Docs/pages/sdk/execution.latte</file>
             <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Admin/news.latte</file>
             <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/FeedPresenter.php</file>
             <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/News/default.latte</file>
-            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Admin/globalStates.latte</file>
             <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Admin/counterList.latte</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Docs/pages/api/model.latte</file>
             <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Admin/globalStatesEdit.latte</file>
             <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Models/DownloadTokensModel.php</file>
-            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/ApiPresenter.php</file>
             <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Admin/default.latte</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Docs/pages/api/feedback.latte</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Docs/pages/api/approximator.latte</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Docs/pages/api/overview.latte</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/About/default.latte</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Docs/pages/api/filter.latte</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/AdminPresenter.php</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Docs/pages/api/interface.latte</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Docs/pages/api/libraryinterface.latte</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/lang/pages.en.neon</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Docs/pages/api/discretemodel.latte</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Docs/pages/api/signal.latte</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Docs/pages/sdk/overview.latte</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Docs/pages/sdk/configuration.latte</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Docs/pages/api/simpleinterface.latte</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Docs/pages/api/solver.latte</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Docs/pages/api/metric.latte</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/phinx_template.yml</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/migrations/20220812231043_add_icarus_uploads_table.php</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Docs/pages/api/deviceevent.latte</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Feed/default.latte</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Models/BaseModel.php</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Docs/pages/api/time.latte</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/config/local.neon</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Admin/globalStates.latte</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/ApiPresenter.php</file>
+            <file>file:/C:/xampp/htdocs/diabetes-zcu-cz/app/Presenters/templates/Docs/pages/api/entities.latte</file>
         </group>
     </open-files>
 </project-private>
