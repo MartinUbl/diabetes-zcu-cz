@@ -25,13 +25,13 @@ refcnt::Swstr_list errors;
 
 scgms::SPersistent_Filter_Chain_Configuration configuration{};
 if (Succeeded(configuration->Load_From_File(L"my_config_file.ini", errors.get()))) {
-  // everything loaded and ready
+    // everything loaded and ready
 }
 
 // this prints all errors reported by filters, which are not necessarily fatal
 // if they would be fatal, the load method above returns a failure code
 mErrors.for_each([](const std::wstring& err) {
-  std::wcerr << "Error: " << err << std::endl;
+    std::wcerr << "Error: " << err << std::endl;
 });
 </pre></code>
 
@@ -43,7 +43,7 @@ mErrors.for_each([](const std::wstring& err) {
 std::string my_config_in_memory = "...";
 
 if (Succeeded(configuration->Load_From_Memory(my_config_in_memory.c_str(), my_config_in_memory.length(), errors.get()))) {
-  // everything loaded and ready
+    // everything loaded and ready
 }
 </pre></code>
 

@@ -35,48 +35,48 @@ const std::wstring config_filepath = L"my_example_config.ini"; // path to your c
 scgms::SPersistent_Filter_Chain_Configuration configuration;
 refcnt::Swstr_list errors;
 
-HRESULT rc = E_FAIL;		// assume the worst
-if (configuration) {		// and check whether we have constructed the main config container
-  rc = configuration->Load_From_File(config_filepath, errors.get());	// and load it if we did
+HRESULT rc = E_FAIL;            // assume the worst
+if (configuration) {            // and check whether we have constructed the main config container
+    rc = configuration->Load_From_File(config_filepath, errors.get());  // and load it if we did
 }
 
 errors.for_each([](auto str) {
-  std::wcerr &lt;&lt; str &lt;&lt; std::endl;
+    std::wcerr &lt;&lt; str &lt;&lt; std::endl;
 });
 
-if (Succeeded(rc)) {    
-  if (rc == S_FALSE)
-    std::wcerr &lt;&lt; L"Warning: some filters were not loaded!" &lt;&lt; std::endl;
-          
-    scgms::SFilter_Executor gFilter_Executor = scgms::SFilter_Executor{ configuration.get(), nullptr, nullptr, errors };
-                
-    errors.for_each([](auto str) {
-      std::wcerr &lt;&lt; str &lt;&lt; std::endl;
-    });
+if (Succeeded(rc)) {
+    if (rc == S_FALSE)
+        std::wcerr &lt;&lt; L"Warning: some filters were not loaded!" &lt;&lt; std::endl;
 
-    if (!gFilter_Executor) {
-      std::wcerr &lt;&lt; L"Could not execute the filters!" &lt;&lt; std::endl;
-      return __LINE__;
-    }
+        scgms::SFilter_Executor gFilter_Executor = scgms::SFilter_Executor{ configuration.get(), nullptr, nullptr, errors };
 
-    // wait for filters to finish, or user to close the app
-    gFilter_Executor->Terminate(TRUE);
+        errors.for_each([](auto str) {
+            std::wcerr &lt;&lt; str &lt;&lt; std::endl;
+        });
 
-    if (save_config) {
-      std::wcout << L"Saving configuration...";
-      errors = refcnt::Swstr_list{};
-      const HRESULT rc = configuration->Save_To_File(nullptr, errors.get());
+        if (!gFilter_Executor) {
+            std::wcerr &lt;&lt; L"Could not execute the filters!" &lt;&lt; std::endl;
+            return __LINE__;
+        }
 
-      errors.for_each([](auto str) {
-        std::wcerr &lt;&lt; str &lt;&lt; std::endl;
-      });
+        // wait for filters to finish, or user to close the app
+        gFilter_Executor->Terminate(TRUE);
+
+        if (save_config) {
+            std::wcout << L"Saving configuration...";
+            errors = refcnt::Swstr_list{};
+            const HRESULT rc = configuration->Save_To_File(nullptr, errors.get());
+
+            errors.for_each([](auto str) {
+                std::wcerr &lt;&lt; str &lt;&lt; std::endl;
+        });
     
-      if (!Succeeded(S_OK)) {
-        std::wcerr &lt;&lt; std::endl &lt;&lt; L"Failed to save the configruation!" &lt;&lt; std::endl;
-        return __LINE__;
-      }
-      else
-        std::wcout &lt;&lt; L" saved." &lt;&lt; std::endl;
+        if (!Succeeded(S_OK)) {
+            std::wcerr &lt;&lt; std::endl &lt;&lt; L"Failed to save the configruation!" &lt;&lt; std::endl;
+            return __LINE__;
+        }
+        else
+            std::wcout &lt;&lt; L" saved." &lt;&lt; std::endl;
     }
 }
 else

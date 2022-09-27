@@ -66,42 +66,42 @@ refcnt::Swstr_list errors;
 solver::TSolver_Progress progress = solver::Null_Solver_Progress;
     
 HRESULT rc = E_FAIL;
-std::atomic<bool> optimizing_flag{ true };
+std::atomic&lt;bool> optimizing_flag{ true };
 std::thread optimitizing_thread([&] {
-  //use thread, not async because that could live-lock on a uniprocessor
+    //use thread, not async because that could live-lock on a uniprocessor
 
-  rc = scgms::Optimize_Parameters(configuration,
-    optimize_filter_index,
-    parameters_name.c_str(),
-    nullptr,
-    nullptr,
+    rc = scgms::Optimize_Parameters(configuration,
+        optimize_filter_index,
+        parameters_name.c_str(),
+        nullptr,
+        nullptr,
 
-    solver_id, population_size, generation_count,
+        solver_id, population_size, generation_count,
 
-    hints_ptr.data(), hints_ptr.size(),
-    progress,
-    errors);
+        hints_ptr.data(), hints_ptr.size(),
+        progress,
+        errors);
 
-  optimizing_flag = false;
+    optimizing_flag = false;
 });
   
 while (optimizing_flag) {
-  report_progress(progress);
-  std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    report_progress(progress);
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
 }
 
 if (optimitizing_thread.joinable())
-	optimitizing_thread.join();
+    optimitizing_thread.join();
 
-errors.for_each([](auto str) { std::wcerr << str << std::endl;	});
-		
+errors.for_each([](auto str) {
+    std::wcerr << str << std::endl;
+});
+
 if (rc == S_OK) {
-   //all went ok
+    //all went ok
 } else {
-  //something went wrong or did not succeed/improve (S_FALSE then)
+    //something went wrong or did not succeed/improve (S_FALSE then)
 }
-
-  </pre>
-</code>
+</pre></code>
 
 <p>Please, also note that the filter creation callback rules, mentioned in the {doclink('sdk','execution','execution page')|noescape} applies to the optimizer calls as well. Therefore, if database access is desired, pass the <code>Setup_Filter_DB_Access</code> as a third parameter.</p>

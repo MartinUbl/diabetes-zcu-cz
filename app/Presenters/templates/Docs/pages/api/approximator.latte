@@ -1,0 +1,206 @@
+<h2>Approximator</h2>
+
+<p>An approximator is an entity, that processes the incoming discrete signal and approximates/interpolates the values with a continuous curve.</p>
+
+<h3>Descriptor</h3>
+
+<p>
+    Every approximator is described with by its descriptor (<code>scgms::TApprox_Descriptor</code>):
+</p>
+
+<code><pre>
+struct TApprox_Descriptor {
+    const GUID id;
+    const wchar_t *description;
+};
+</pre></code>
+
+<p>
+    The descriptor fields are self-explanatory - the <code>id</code> field contains a unique GUID identifier of the approximator entity and description contains the approximator entity name, represented as a null-terminated string (must not be nullptr).
+</p>
+
+<p>
+    A shared object implementing an approximator must:
+    
+<ul>
+    <li>export a <code>do_get_approximator_descriptors</code> function
+        <ul>
+            <li>this function returns a continuous array of approximator descriptors identified by its first and one-after-last element</li>
+        </ul>
+    </li>
+    <li>export a <code>do_create_approximator</code> function, and create an approximator contained within that array when called</li>
+</ul>
+</p>
+
+<p>An example of <code>do_get_approximator_descriptors</code> may be as follows:</p>
+
+<code><pre>
+const std::array&lt;scgms::TApprox_Descriptor, 3> approx_descriptions = { { ApproxDescriptor_1, ApproxDescriptor_2 } };
+
+extern "C" HRESULT IfaceCalling do_get_approximator_descriptors(scgms::TApprox_Descriptor **begin, scgms::TApprox_Descriptor **end) {
+    *begin = const_cast&lt;scgms::TApprox_Descriptor*>(approx_descriptions.data());
+    *end = *begin + approx_descriptions.size();
+    return S_OK;
+}
+</pre></code>
+
+<p>An example of <code>do_create_approximator</code> may be as follows:</p>
+<code><pre>
+extern "C" HRESULT IfaceCalling do_create_approximator(const GUID *approx_id, scgms::ISignal *signal, scgms::IApproximator **approx) {
+    if (*approx_id == ApproxDescriptor_1.id)
+        return Manufacture_Object&lt;CExample_Approximator>(approx, scgms::WSignal{ signal });
+
+    return E_NOTIMPL;
+}
+</pre></code>
+
+<h3>Interface</h3>
+
+<p>
+    Every approximator must implement a <code></code> interface, which is defined as follows:
+</p>
+
+<code><pre>
+class IApproximator : public virtual refcnt::IReferenced {
+    public:
+        virtual HRESULT IfaceCalling GetLevels(const double* times, double* const levels, const size_t count, const size_t derivation_order) = 0;
+};
+</pre></code>
+
+<p>
+    The sole interface method must return approximated curve (or its derivation, the order is given by the <code>derivation_order</code> parameter) in requested times given by the <code>times</code> array. The count of the array elements is determined by the <code>count</code> parameter value.
+    The method fills the <code>levels</code> array with either approximated levels or a <code>NaN</code> value (e.g.; <code>std::numeric_limits&ltdouble>::quiet_NaN()</code> in C++), when it is not able to perform approximation
+    within given bounds.
+</p>
+
+<p>
+    The method is allowed to return <code>E_INVALIDARG</code> if the requested derivation order could not be calculated. The approximator must always support the <code>derivation_order = 0</code>.
+</p>
+
+<p>
+    Note that the approximator object retains a reference to an original signal (as a <code>scgms::WSignal</code> weak reference) in its constructor. The object is not notified in any way when the signal is updated with new values.
+    To ensure the approximator works with recent data, an update of internal state should be issued every time the <code>GetLevels</code> method gets called.
+</p>
+
+<p>
+<center>
+<img src="{$baseUrl}/img/docs/approximator_flow.png" alt="Approximator flow" title="Approximator flow" />
+</center>
+</p>
+
+<p>
+    Above you can find the diagram depicting how the signal uses the approximator instance to approximate its discrete levels. It is common, that between the second and third flow entry, the approximator calls <code>Get_Discrete_Bounds</code>
+    and <code>Get_Discrete_Levels</code> on the signal object in order to obtain the current discrete values of the signal.
+</p>
+
+<h3>Example implementation</h3>
+
+<p>As an example, let us implement a simple "step" approximator, that outputs the most recent value to the requested time. It is a very simple example, that has very little use and serves just as a demonstration.</p>
+
+<p>Similarly to other entities, let us create a descriptor header file, despite containing solely the GUID of our approximator:</p>
+
+<code><pre>
+#include &lt;rtl/guid.h>
+
+namespace example_approx {
+    constexpr GUID id = { 0xf9b90774, 0x9326, 0x4513, { 0xbb, 0x5e, 0xa2, 0x49, 0xea, 0x70, 0xdb, 0x71 } }; // {l}F9B90774-9326-4513-BB5E-A249EA70DB71}
+};
+</pre></code>
+
+<p>
+    Then we define and implement the approximator class, complying to the <code>scgms::IApproximator</code> interface. Note, that we are always retrieving the signal values in the <code>GetLevels</code> call - that could potentially be
+    a performance drawback:
+</p>
+
+<code><pre>
+class CExample_Approximator : public virtual scgms::IApproximator, public virtual refcnt::CReferenced {
+
+    private:
+        scgms::WSignal mSignal;
+
+    public:
+        CExample_Approximator(scgms::WSignal signal): mSignal(signal) {
+        }
+
+        virtual ~CExample_Approximator() {};
+
+        virtual HRESULT IfaceCalling GetLevels(const double* times, double* const levels, const size_t count, const size_t derivation_order) override {
+
+            if (derivation_order != 0)
+                return E_INVALIDARG;
+
+            size_t levels_count;
+            if (mSignal.Get_Discrete_Bounds(nullptr, nullptr, &levels_count) != S_OK)
+                return E_FAIL;
+
+            // check that we have some signal values; this should never happen, as the GetLevels is called only when some values are already available
+            if (levels_count == 0)
+                return E_FAIL;
+
+            std::vector&lt;double> signal_times;
+            std::vector&lt;double> signal_levels;
+
+            size_t filled;
+            if (mSignal.Get_Discrete_Levels(signal_times.data(), signal_levels.data(), levels_count, &filled) != S_OK)
+                return E_FAIL;
+
+            // fill all requested values
+            for (size_t i = 0; i < count; i++) {
+
+                // we cannot fill earlier values
+                if (times[i] < signal_times[0])
+                    levels[i] = std::numeric_limits<double>::quiet_NaN();
+                else
+                {
+                    // for every requested time within bounds, let us find the closest earlier signal value
+
+                    for (size_t j = 0; j < levels_count; j++) {
+                        if (signal_times[j] > times[i] || j == levels_count - 1) {
+                            levels[i] = signal_levels[j - 1];
+                        }
+                    }
+                }
+
+            }
+
+            return S_OK;
+        }
+}
+</pre></code>
+
+<p>
+    Then, we define a descriptor block:
+</p>
+
+<code><pre>
+namespace example_approx {	
+    const scgms::TApprox_Descriptor ExampleApprox_Descriptor = {
+        id,
+        L"Example step approximator"
+    };
+}
+</pre></code>
+
+<p>
+    We have to implement and export the <code>do_get_approximator_descriptors</code> to expose implemented metric:
+</p>
+
+<code><pre>
+const std::array&lt;scgms::TApprox_Descriptor, 1> approx_descriptions = { { example_approx::ExampleApprox_Descriptor } };
+
+HRESULT IfaceCalling do_get_approximator_descriptors(scgms::TApprox_Descriptor const **begin, scgms::TApprox_Descriptor const **end) {
+    return do_get_descriptors(approx_descriptors, begin, end);
+}
+</pre></code>
+
+<p>And as a last step, implement and export the <code>do_create_approximator</code> factory function:</p>
+
+<code><pre>
+extern "C" HRESULT IfaceCalling do_create_approximator(const GUID *approx_id, scgms::ISignal *signal, scgms::IApproximator **approx) {
+
+    if (*approx_id == example_approx::ExampleApprox_Descriptor.id)
+        return Manufacture_Object&lt;CExample_Approximator>(approx, scgms::WSignal{ signal });
+
+    return E_NOTIMPL;
+}
+</pre></code>

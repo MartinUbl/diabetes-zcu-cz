@@ -1,50 +1,81 @@
 <h2>Simple Interface</h2>
 
 <p>
-  To enable interoperativity with other than C++ languages, we provide a simple, C-style API - <code>SimpleIface.h</code>. Basically, it provides four functions to load, execute and free SmartCGMS configuration. An opaque handle represents the instantiated, live configuration. The fourth function injects an event into the filter chain.
+  To enable interoperativity with other than C++ languages, we provide a simple, C-style API - <code>SimpleIface.h</code>. Basically, it provides three functions to load, execute and free SmartCGMS configuration.
+  An opaque handle represents the instantiated, live configuration.
 </p>
-
-
-<code>
-  <pre>
-typedef struct _TSCGMS_Event_Data {
-  uint8_t event_code;
-  GUID device_id;				//supporting parallel measurements
-  GUID signal_id;				//blood, ist, isig, model id aka e.g, calculated blood, etc.
-
-  double device_time;				//signal with multiple values are aggregated by device_time with the same signal_id and device_id
-  int64_t logical_time;
-
-  uint64_t segment_id;			// segment identifier or Invalid_Segment_Id
-
-  //the following members are not in a union to make it easier for certain languages
-  double level;					//level event
-
-  double *parameters;				//parameters event
-  size_t count;
-
-  wchar_t *str;					//info event
-} TSCGMS_Event_Data;
-
-#pragma pack(pop)
-
-typedef void* scgms_execution_t;
-
-typedef HRESULT(SimpleCalling *TSCGMS_Execution_Callback)(TSCGMS_Event_Data *event);
-typedef scgms_execution_t(SimpleCalling *TExecute_SCMGS_Configuration)(const char *config, TSCGMS_Execution_Callback callback);
-
-typedef BOOL(SimpleCalling *TInject_SCGMS_Event)(const scgms_execution_t execution, const TSCGMS_Event_Data *event);
-
-typedef void(SimpleCalling *TShutdown_SCGMS)(const scgms_execution_t execution, BOOL wait_for_shutdown);
-  </pre>
-</code>
 
 <p>
-  To obtain entry points to the API, follow this code:
+The SmartCGMS main library (<code>scgms.dll</code>, <code>libscgms.so</code>, ...) exports three functions:    
 </p>
 
-<code>
-  <pre>
+<code><pre>
+scgms_execution_t SimpleCalling Execute_SCGMS_Configuration(const char *config, TSCGMS_Execution_Callback callback, scgms::TOn_Filter_Created filterCreatedCallback);
+BOOL SimpleCalling Inject_SCGMS_Event(const scgms_execution_t execution, const TSCGMS_Event_Data *simple_event);
+void SimpleCalling Shutdown_SCGMS(const scgms_execution_t execution, BOOL wait_for_shutdown);
+</pre></code>
+
+<p>
+    Here, <code>SimpleCalling</code> is an alias for <code>__cdecl</code> on Windows, or translates to an empty string on other systems.
+    
+<ul>
+    <li><code>Execute_SCGMS_Configuration</code> - executes given configuration, registers an execution callback and returns the opaque handle
+        <ul>
+            <li>the configuration given by the parameter <code>configuration</code> is a null-terminated string containing the whole configuration (not the path)</li>
+            <li>the parameter <code>callback</code> points to a function, that gets invoked whenever there is an event leaving the filter chain at the terminal end</li>
+        </ul>
+    </li>
+    <li><code>Inject_SCGMS_Event</code> - injects an event to the filter chain
+        <ul>
+            <li>retains the opaque handler as the first parameter <code>execution</code></li>
+            <li>note, that the event gets injected, and as a result, the registered callback may be invoked depending on configuration; when the same event triggers the callback, the call is done in the same thread</li>
+        </ul>
+    </li>
+    <li><code>Shutdown_SCGMS</code> - shuts down the SmartCGMS execution identified by the handle given as the first parameter
+        <ul>
+            <li>optionally, it may wait for the <code>Shut_Down</code> event before the chain gets terminated</li>
+            <li>this call blocks until the chain is destroyed</li>
+        </ul>
+    </li>
+</ul>
+</p>
+
+<p>
+    To substitute the compound device event structure, the simple interface defines a simplified, marshallable version of the device event called <code>TSCGMS_Event_Data</code>. The structure is as follows:
+</p>
+
+<code><pre>
+typedef struct _TSCGMS_Event_Data {
+    uint8_t event_code;
+    GUID device_id;
+    GUID signal_id;
+
+    double device_time;
+    int64_t logical_time;
+
+    uint64_t segment_id;
+
+    double level;
+    double *parameters;
+    size_t count;
+
+    wchar_t *str;
+} TSCGMS_Event_Data;
+</pre></code>
+
+<p>
+    The execution callback is a function pointer <code>TSCGMS_Execution_Callback</code>, which is an alias for the full definition:
+</p>
+
+<code><pre>
+typedef HRESULT(SimpleCalling *TSCGMS_Execution_Callback)(TSCGMS_Event_Data *event);
+</pre></code>
+
+<p>
+    To obtain entry points to the API, we provide this example C++ code:
+</p>
+
+<code><pre>
 #include &lt;utils/winapi_mapping.h&gt;
 
 TExecute_SCMGS_Configuration Execute_SCGMS_Configuration;
@@ -55,95 +86,96 @@ HMODULE scgms = NULL;
 
 // platform-dependent choice for SCGMS library
 #if defined(WIN32)
-  const wchar_t* SCGMS_Library_File_Name = L"scgms.dll";
+    const wchar_t* SCGMS_Library_File_Name = L"scgms.dll";
 #elif defined(__APPLE__)
-  const wchar_t* SCGMS_Library_File_Name = L"libscgms.dylib";
+    const wchar_t* SCGMS_Library_File_Name = L"libscgms.dylib";
 #else
-  const wchar_t* SCGMS_Library_File_Name = L"libscgms.so";
+    const wchar_t* SCGMS_Library_File_Name = L"libscgms.so";
 #endif
 
 int Load_SCGMS() {
-  scgms = LoadLibraryW(SCGMS_Library_File_Name);
-  if (scgms) {
-    Execute_SCGMS_Configuration = (TExecute_SCMGS_Configuration) GetProcAddress(scgms, "Execute_SCGMS_Configuration");
-    Inject_SCGMS_Event = (TInject_SCGMS_Event) GetProcAddress(scgms, "Inject_SCGMS_Event");
-    Shutdown_SCGMS = (TShutdown_SCGMS) GetProcAddress(scgms, "Shutdown_SCGMS");
+    scgms = LoadLibraryW(SCGMS_Library_File_Name);
+    if (scgms) {
+        Execute_SCGMS_Configuration = (TExecute_SCMGS_Configuration) GetProcAddress(scgms, "Execute_SCGMS_Configuration");
+        Inject_SCGMS_Event = (TInject_SCGMS_Event) GetProcAddress(scgms, "Inject_SCGMS_Event");
+        Shutdown_SCGMS = (TShutdown_SCGMS) GetProcAddress(scgms, "Shutdown_SCGMS");
 
-    if (!(Execute_SCGMS_Configuration && Inject_SCGMS_Event  && Shutdown_SCGMS)) {
-      Free_SCGMS();
+        if (!(Execute_SCGMS_Configuration && Inject_SCGMS_Event && Shutdown_SCGMS)) {
+            Free_SCGMS();
+        }
     }
-  }
 
-  return scgms ? 1 : 0;
+    return scgms ? 1 : 0;
 }
 
 void Free_SCGMS() {
-  if (scgms) {
-    FreeLibrary(scgms);
-    scgms = NULL;
-   }
+    if (scgms) {
+        FreeLibrary(scgms);
+        scgms = NULL;
+    }
 }
-
-  </pre>
-</code>
+</pre></code>
 
 <p>
-  With this code, we can write the simple main function:
+    Using the code above, we prepared the environment for calling the simple interface. Now, we can write the simple main function:
 </p>
 
 
-<code>
-  <pre>
+<code><pre>
 HRESULT SimpleCalling SCGMS_Execution_Callback(TSCGMS_Event_Data *event) {
-  const GUID signal_Carb_Intake = { 0x37aa6ac1, 0x6984, 0x4a06,{ 0x92, 0xcc, 0xa6, 0x60, 0x11, 0xd, 0xd, 0xc7 } };
-  HRESULT rc = S_OK;
    
-   do_what_ever_we_wish_with(event);
-   
-   
-   //eventually, let us inject e.g.; 50-gram CHO food 
-   TSCGMS_Event_Data event;
-	 memset(&event, 0, sizeof(event));
+    do_what_ever_we_wish_with(event);
 
-	 event.event_code = ec_level;	//Level
-	 event.level = 50.0;
-	 event.device_time = event.device_time;
-	 event.segment_id = 1;
-
-	 event.signal_id = signal_Carb_Intake;
-
-	Inject_SCGMS_Event(execution, &event);
+    return S_OK;
 }
-
-
-  return rc;
-}
-
 
 int MainCalling main(int argc, char **argv) {
-  if (!Load_SCGMS()) {
-    printf("Cannot load the SCGMS engine!\n"
-           "Make sure that this executable is in the same directory the scgms dynamic library.\n");
-    return -2;
-  }
 
-  setlocale(LC_ALL, "");
-  if (!getlocale(LC_ALL)) {
-    setlocale(LC_ALL, "C.UTF-8");
-  }
+    if (!Load_SCGMS()) {
+        printf("Cannot load the SCGMS engine!\n"
+               "Make sure that this executable is in the same directory the scgms dynamic library.\n");
+        return -2;
+    }
 
-  executor = Execute_SCGMS_Configuration(configuration, SCGMS_Execution_Callback);
-  if (executor) {
-    Shutdown_SCGMS(executor, TRUE);
-  } else {
-   printf("Error: unable to execute the configuration!\n");
-   Free_SCGMS();
-   return -1;
-  }
+    executor = Execute_SCGMS_Configuration(configuration, SCGMS_Execution_Callback);
+    if (executor) {
 
-  Free_SCGMS();
-  return 0;
+        // now we have the execution up and running. Let us inject e.g.; 50-gram CHO food
+        const GUID signal_Carb_Intake = { 0x37aa6ac1, 0x6984, 0x4a06,{ 0x92, 0xcc, 0xa6, 0x60, 0x11, 0xd, 0xd, 0xc7 } };
+
+        TSCGMS_Event_Data event;
+        memset(&event, 0, sizeof(event));
+
+        event.event_code = ec_level;	//Level
+        event.level = 50.0;
+        event.device_time = event.device_time;
+        event.segment_id = 1;
+        event.signal_id = signal_Carb_Intake;
+
+        Inject_SCGMS_Event(executor, &event);
+
+        // and wait for it to end
+        Shutdown_SCGMS(executor, TRUE);
+    } else {
+        printf("Error: unable to execute the configuration!\n");
+        Free_SCGMS();
+        return -1;
+    }
+
+    // we are done - clean up
+    Free_SCGMS();
+
+    return 0;
 }
+</pre></code>
 
-  </pre>
-</code>
+<p>
+    To make sure, that the locale matches the SmartCGMS conventions, you may add the following code to the start of the main function:
+</p>
+
+<code><pre>
+setlocale(LC_ALL, "");
+if (!getlocale(LC_ALL)) {
+    setlocale(LC_ALL, "C.UTF-8");
+}
+</pre></code>

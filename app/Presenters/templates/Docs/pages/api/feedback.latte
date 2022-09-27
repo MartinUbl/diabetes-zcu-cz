@@ -18,30 +18,30 @@ between the algorithm filter and the feedback filter. Note that pump itself can 
 applied insulin delivery rate to algorithm-filter input. Therefore, we still need to establish the feedback as with any other control/regulatory system.
 </p>
 
+<h3>Interface</h3>
+
 <p>
  To establish the feedback link use the <code>Signal Feedback</code> filter. In this filter, configure the feedback name. Similarly, configure another feedback-receiving filter 
  with the same feedback name. Note that only some filters (such as model filters) can act as feedback receivers. To act as a feedback receiver, the filter must implement 
  the <code>IFilter_Feedback_Receiver</code> interface. 
 </p>
 
-<code>
-	<pre>
+<code><pre>
 class IFilter_Feedback : public virtual scgms::IFilter {
-public:
-  virtual HRESULT IfaceCalling Name(wchar_t** const name) = 0;
+    public:
+        virtual HRESULT IfaceCalling Name(wchar_t** const name) = 0;
 };
 
 constexpr GUID IID_Filter_Feedback_Receiver = { 0xee9d9028, 0xb714, 0x4412, { 0x98, 0xd8, 0xe5, 0xf7, 0xe5, 0xf1, 0xcf, 0x7a } };
-  class IFilter_Feedback_Receiver : public virtual scgms::IFilter_Feedback {
+class IFilter_Feedback_Receiver : public virtual scgms::IFilter_Feedback {
 };
 
 constexpr GUID IID_Filter_Feedback_Sender = { 0x19d21259, 0x7358, 0x4533, { 0x8c, 0x18, 0x85, 0x65, 0x25, 0xc2, 0x35, 0x9 } };
 class IFilter_Feedback_Sender : public scgms::IFilter_Feedback {
-public:
-  virtual HRESULT IfaceCalling Sink(scgms::IFilter_Feedback_Receiver *receiver) = 0;
+    public:
+        virtual HRESULT IfaceCalling Sink(scgms::IFilter_Feedback_Receiver *receiver) = 0;
 };
-	</pre>
-</code>
+</pre></code>
 
 <p>
 	When instantiating the filter chain, SmartCGMS will automatically pair feedback sender and receiver, which shares the same name. The <code>IFilter_Feedback_Sender</code> allow
@@ -55,4 +55,29 @@ public:
 	<code>signal_Requested_Insulin_Basal_Rate</code> and <code>signal_Requested_Insulin_Bolus</code> signals, process and discard them, while producing a respective <code>signal_Delivered_Insulin_Bolus</code>
 	and <code>signal_Delivered_Insulin_Basal_Rate</code> signals. Note that insulin-pump motor-controller itself may set a different basal rate than the requested one and that insulin bolus may be translated 
 	to a temporarily altered insulin basal rate.
+</p>
+
+<h3>Operation</h3>
+
+<p>
+    As was already stated above, the SmartCGMS will automatically establish the link. This only means, that the sender stores a list of receivers, which expect to receive events from the feedback during operation.
+    The feedback link is a simple reference to an earlier filter, without any extension methods. The feedback sender invokes the <code>Execute</code> method of the receiver. It is not generally possible to distinguish
+    events, that came from the previous filter, from events coming through the feedback link.
+</p>
+
+<p>
+    This implies, that the event, that triggered the feedback link, should not reach the same feedback sender again. Feedback sender is configured to forward events with specific signal GUID, so the common practice is
+    to change the signal GUID while processing the event. A good example would be the one mentioned above - the feedback sender sends <code>signal_Requested_Insulin_Basal_Rate</code> to the pump filter (or model filter),
+    and upon setting the basal rate to the internal controller, it changes the signal GUID to <code>signal_Delivered_Insulin_Basal_Rate</code>. This effectively avoids further recursive feedback invocation.
+</p>
+
+<p>
+<center>
+<img src="{$baseUrl}/img/docs/feedback_link.png" alt="Feedback link" title="Feedback link" />
+</center>
+</p>
+
+<p>
+    The above figure illustrates the operation of a feedback link. Note that red dashed line depicts an unwanted scenario, when the feedback-sended event reaches the same feedback sender again. That would cause
+    possibly infinite recursion. The feedback sender filter implemented within the SmartCGMS tracks this recursion depth and when the same event loops more than 10 times (<code>mMaximum_Stack_Depth</code>), an error is returned.
 </p>
