@@ -51,6 +51,7 @@ Note that typecasted pointer usually differs from the most specific <code>this</
     <li><code>scgms::IEvent_Export_Filter_Inspection</code> <i>(deprecated)</i> (<code>scgms::IID_Event_Export_Filter_Inspection</code>) - this entity exports device events (all or selected), by invoking a previously registered callback</li>
     <li><code>scgms::IFilter_Feedback_Receiver</code> (<code>scgms::IID_Filter_Feedback_Receiver</code>) - this entity serves as a feedback receiver and could be linked with the matching sender entity</li>
     <li><code>scgms::IFilter_Feedback_Sender</code> (<code>scgms::IID_Filter_Feedback_Sender</code>) - this entity serves as a feedback sender; the SmartCGMS links this entity with matching receiver entites upon configuration</li>
+    <li><code>db::IDb_Sink</code> (<code>db::Db_Sink_Filter</code>) - this entity requires the database connection; the SmartCGMS injects the connector instance through the <code>Set_Connector</code> upon configuration</li>
 </ul>
 </p>
 

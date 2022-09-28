@@ -53,6 +53,7 @@ final class DocsPresenter extends BasePresenter
                     'signalgenerator' => 'Signal generator filter',
                     'databasefilters' => 'Database reader &amp; writer filter',
                     'dbformat' => '<i class="bi bi-caret-right"></i>&nbsp;Database structure',
+                    'filereader' => 'File reader filter',
                     'calculatedsignal' => 'Calculated signal filter',
                     'errormetric' => 'Error metric filter',
                     'logfilters' => 'Log &amp; log replay filter',
@@ -60,10 +61,10 @@ final class DocsPresenter extends BasePresenter
                     'feedbacksender' => 'Feedback sender filter',
                     'signalfilters' => 'Mapping and masking filters',
                     'miscfilters' => 'Other filters',
+                    'models' => 'Models',
                     'metrics' => 'Metrics',
                     'solvers' => 'Solvers',
                     'approximators' => 'Approximators',
-                    
                 ]
             ],
             'sdk' => [

@@ -1,0 +1,52 @@
+<h2>Database schema</h2>
+
+<p>
+    The database schema is best described by the ERA diagram below:
+</p>
+
+<p>
+<center>
+<img src="{$baseUrl}/img/docs/dbschema.png" alt="ERA diagram" title="ERA diagram" />
+</center>
+</p>
+
+<p>
+    The schema is designed to be as generic, as possible to reflect the signal-processing purpose of the framework.
+</p>
+
+<p>
+    If the database driver does not recognize the <i>uuid</i> type, a similar type could be used, e.g.; <i>guid</i>, or a <i>varchar</i> of matching size. The same applies to the <i>datetime</i> data type - usually, a <i>varchar</i> type is
+    used to store datetime (e.g. when using SQLite, that does not support the <i>datetime</i> type). Regarding the <i>byte array</i> data type, one usual substitution is the <i>blob</i> (binary large object) data type or similar.
+</p>
+
+<h3>Subjects</h3>
+
+<p>
+    Rows in the <code>subject</code> table represents subjects (human, animal or virtual). Every subject has its unique <code>id</code>. It also has a <code>name</code>, that is displayed in the GUI. Optionally,
+    the <code>comment</code> can be added to the subject entry.
+</p>
+
+<p>
+    The table <code>subject</code> is in a one-to-many relation to the <code>subject_properties</code> table. It contains GUID-identified properties of subjects. There are three columns, which may store the parameter value -
+    <code>value_string</code>, <code>value_int</code> and <code>value_double</code>. Exactly one of these columns must be filled.
+</p>
+
+<h3>Time segments, values and parameters</h3>
+
+<p>
+    Every time segment has a record in the <code>time_segments</code> table. Tables <code>measured_value</code> and <code>model_parameters</code> are in the many-to-one relationship to the <code>time_segments</code> table.
+    Segments should have their name attribute filled to distinguish them in the GUI.
+</p>
+
+<p>
+    Measured values are stored in the <code>measured_value</code> table. Each recorded value is stored by its signal GUID in the <code>signal_id</code> attribute. Model parameters are stored in the <code>model_parameters</code> table.
+    Every parameter set belongs to a model-signal pair. The GUIDs of both these entities are stored in the <code>model_id</code> and <code>signal_id</code> attributes, respectively. Multiple parameters of a single model-signal combination
+    are allowed. If there are multiple parameter sets stored, they all may be used as solution hints for solvers.
+</p>
+
+<h3>Identifier name maps</h3>
+
+<p>
+    The table <code>id_names</code> serves as an information table. It stores the GUID-name pairs of every GUID-identified entity stored in the database. The use of this table is not mandatory, though it is recommended. No currently implemented
+    entity currently uses this table.
+</p>

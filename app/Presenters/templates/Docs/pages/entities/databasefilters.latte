@@ -1,0 +1,115 @@
+<h2>Database filters</h2>
+
+<p>
+    Currently, there are two filters for database interfacing - the database reader and writer. Both are independent on a specific database management system, however, there is a strong need for a SQL-based one. The specific database connector
+    is implemented separately and is later injected through the <code>db::IDb_Sink</code> inspection interface. The specific driver is selected by the configuration parameter, which is passed directly to the connector.
+</p>
+
+
+<h3>Configuration</h3>
+
+<h4>Common options</h4>
+
+<p>
+<ul>
+    <li><code>Host</code> (string) - database daemon host
+        <ul>
+            <li>empty for file-based databases like SQLite</li>
+        </ul>
+    </li>
+    <li><code>Port</code> (integer) - database daemon port
+        <ul>
+            <li>ignored for file-based databases like SQLite</li>
+        </ul>
+    </li>
+    <li><code>Provider</code> (string) - a specifier of a database driver, fully dependent on the database connector implementation
+        <ul>
+            <li>for example, when using the Qt framework, one may use QPSQL for PostgreSQL, QSQLITE for SQLite3 and <a href="https://doc.qt.io/qt-6/sql-driver.html" title="Qt database drivers">more</a></li>
+        </ul>
+    </li>
+    <li><code>Name</code> (string) - the name of the database, or database file path for file-based databases</li>
+    <li><code>User_Name</code> (string) - username for database connection
+        <ul>
+            <li>empty for file-based databases like SQLite</li>
+        </ul>
+            
+    </li>
+    <li><code>Password</code> (string) - password for database connection
+        <ul>
+            <li>empty for file-based databases like SQLite</li>
+        </ul>
+    </li>
+</ul>
+</p>
+
+<h4>Database reader</h4>
+
+<p>
+<ul>
+    <li><code>Time_Segment_Id</code> (integer array) - time segments from database, that will be loaded and sent through the chain</li>
+    <li><code>Shutdown_After_Last</code> (boolean) - when operating in the asynchronous mode, should we emit the <code>Shut_Down</code> device event after the last step?</li>
+</ul>
+</p>
+
+<h4>Database writer</h4>
+
+<p>
+<ul>
+    <li><code>Generate_Primary_Keys</code> (boolean) - if set to <code>true</code>, it creates a new time segment (with its own identifier) for every incoming segment; if set to <code>false</code>, it uses the segment ID from the device event</li>
+    <li><code>Store_Data</code> (boolean) - should the filter store signal levels to the database?</li>
+    <li><code>Store_Parameters</code> (boolean) - should the filter store signal/model parameters to the database?</li>
+    <li><code>Subject_Id</code> (integer) - identifier of a subject to store data for
+        <ul>
+            <li>for an existing subject, use a valid number greater than zero</li>
+            <li>to create a new subject, use the value <code>New_Subject_Identifier</code> (<code>-1</code>)</li>
+            <li>to use an anonymous subject, use the value <code>db::Anonymous_Subject_Identifier</code> (<code>-2</code>)</li>
+        </ul>
+    </li>
+</ul>
+</p>
+
+<h3>Supported interfaces</h3>
+
+<ul>
+    <li><code>db::IDb_Sink</code></li>
+</ul>
+
+<h3>General function</h3>
+
+<h4>Database reader</h4>
+
+<p>
+    The database reader is a rather simple entity. It loads all the values of all requested segments (<code>Time_Segment_Id</code>) and sends them through the filter chain. A beginning of every requested segment is marked with the
+    <code>Time_Segment_Start</code> device event (device time matches the recorded time of the first level), and every end by <code>Time_Segment_End</code> (device time matches the recorded time of the last level). If there are
+    parameters stored for the segment, it is emitted as a device event right after the segment start marker.
+</p>
+
+<p>
+    The filter starts a new thread to read from database and emit events through the chain. The database connection is established in this thread to comply with the general requirement of such software models.
+</p>
+
+<p>
+    When a <code>Warm_Reset</code> device event is received, the database reader is restarted and sends all the events again.
+</p>
+
+<h4>Database writer</h4>
+
+<p>
+    The database writer stores the contents of configured device events to store them into database. If the <code>Store_Data</code> parameter is set to <code>true</code>, it stores the signal levels contained in the
+    <code>Level</code> and <code>Masked_Level</code> device events. If the <code>Store_Parameters</code> parameter is set to <code>true</code>, it stores the model parameters contained in the <code>Parameters</code>
+    device events.
+</p>
+
+<p>
+    The values are stored into memory first, and are flushed to the database upon the <code>Time_Segment_End</code> device event, or when the filter operation is terminated by the <code>Shut_Down</code> device event.
+</p>
+
+<p>
+    Depending on the subject selection, it either stores values by an existing subject (a valid existing subject or <code>db::Anonymous_Subject_Identifier</code> (<code>-2</code>)), or creates a new one (<code>New_Subject_Identifier</code> (<code>-1</code>)).
+    The anonymous subject always have the database ID set to 1 by a convention. The purpose of the anonymous subject is to group every time segment, that does not belong to a specific subject, or the original subject is not known.
+</p>
+
+<p>
+    The <code>Generate_Primary_Keys</code> signals the database writer, if it should create a new primary key for every time segment, or it should rather use the ID that came in the device event. This parameter might be useful,
+    when working with already stored segments to obtain a model parameters - then, usually, the <code>Store_Parameters</code> is set to <code>true</code> and <code>Store_Data</code> to <code>false</code>.
+</p>
