@@ -1,0 +1,116 @@
+<h2>Signal generator</h2>
+
+<p>
+    The signal generator is an entity, that instantiates a {doclink('api','discretemodel','discrete model')|noescape}, manages its lifetime and steps it based on the incoming device events.
+</p>
+
+<h3>Configuration</h3>
+
+<p>
+<ul>
+    <li><code>Model</code> (GUID) - a GUID of a discrete model to encapsulate</li>
+    <li><code>Feedback_Name</code> (string) - a string representing the name of the feedback link</li>
+    <li><code>Synchronize_To_Signal</code> (boolean) - if set, the stepping of the model will be synchronized to device events containing signal with specified GUID (see the next line)</li>
+    <li><code>Synchronization_Signal</code> (GUID) - if the previous parameter is set to <code>true</code>, this is the GUID of the signal to synchronize to</li>
+    <li><code>Time_Segment_Id</code> (integer) - ID of a time segment to emit when operating in the asynchronous mode</li>
+    <li><code>Shutdown_After_Last</code> (boolean) - when operating in the asynchronous mode, should we emit the <code>Shut_Down</code> device event after the last step?</li>
+    <li><code>Stepping</code> (time) - the model will be stepped with this period of simulated time (regardless the actual time spacing of incoming events, when synchronized to a signal; see below)</li>
+    <li><code>Maximum_Time</code> (time) - when operating in the asynchronous mode, how much time should we simulate?</li>
+    <li><code>Echo_Default_Parameters_As_Event</code> (boolean) - if set to <code>true</code>, configured parameters are emited as a device event when configured</li>
+    <li><code>Individualize_Segment_Specific_Parameters</code> (boolean) - if set to <code>true</code>, the signal generator will work with segment-specific parameters independently for all segments</li>
+    <li><code>Parameters</code> (double array) - configured model parameters as a concatenated array of lower parameter bounds, default parameters and upper parameter bounds</li>
+</ul>
+</p>
+
+<h3>Supported interfaces</h3>
+
+<p>
+<ul>
+    <li><code>scgms::IFilter_Feedback_Receiver</code></li>
+</ul>
+</p>
+
+<h3>General function</h3>
+
+<p>
+    The purpose of the signal generator entity is to operate a discrete model in either synchronous or asynchronous mode. The synchronous mode is selected, when the <code>Synchronize_To_Signal</code> is set to <code>true</code>
+    and other related fields are set to a valid value.
+</p>
+
+<p>
+    The signal generator calls <code>Initialize</code> method of the encapsulated model depending on the configuration. See the specific modes of operation below.
+</p>
+
+<p>
+    When the signal generator performs a <i>step</i> operation on the model (the model <i>is stepped</i>), the internal timer is incremented by the <code>Stepping</code> value and the <code>Step</code> method of the encapsulated model
+    is called with the time delta. As the stepping parameter is configured once, the stepping parameter passed to the model is constant. However, in general, this is not an interface requirement - it is always true only when using a model
+    encapsulated in a signal generator.
+</p>
+
+<h4>Synchronous mode</h4>
+
+<p>
+    A signal generator operates in a synchronous mode, when:
+<ul>
+    <li><code>Synchronize_To_Signal</code> is set to <code>true</code></li>
+    <li><code>Synchronization_Signal</code> is set to a valid signal GUID or <code>scgms::signal_All</code></li>
+</ul>
+</p>
+
+<p>
+    Every time a device event containing a level of the specified signal (<code>Synchronization_Signal</code>) passes through the signal generator filter, the internal model may be stepped. The first time such an event passes through,
+    the <code>Initialize</code> method of the model is called. Every other time, the filter increments the internal timer, and if the value delta reaches (or exceeds) a multiple of the stepping value, the model is stepped. For example,
+    when the <code>Stepping</code> value is set to 5 minutes, first level comes at time <code>t</code> and the next level comes at time <code>t+12</code> (minutes), the model is stepped exactly twice, so the current internal time of the model is
+    now <code>t+10</code>. When a next event reaches the filter at time <code>t+15</code>, the model is stepped once to reach the multiple of stepping value.
+</p>
+
+<p>
+    The signal generator instantiates multiple models, one for each time segment. This means, that each model instance operates independently for every time segment. This also allows for segment-specific parameters to come into action,
+    as every model might have its own set of parameters, that can be optimized individually using a solver. To achieve this, the model needs to have segment-specific parameter count set to a valid value. The rest is managed by the 
+    SmartCGMS system.
+</p>
+
+<p>
+    This mode of operation is useful when a model must rely on another signal as a synchronization source. We may take an insulin pump controller adjusting the basal insulin dosage as an example. The model changes the output if and only if
+    a newer value of the interstitial glucose signal is available.
+</p>
+
+<p>
+    Another example would be an educational tool, when a controlled stepping is desired. For example, we use one of the available metabolism models, then we set the <code>Stepping</code> to 5 minutes and we synchronize the model to a
+    <code>scgms::signal_Synchronization</code>, which serves as a control signal only. Then, we start the chain and start a new timer thread in the outer code (e.g. to fire every second). Every time a stepping is desired, we send a <code>scgms::signal_Synchronization</code>
+    signal event through the chain.
+</p>
+
+<p>
+<center>
+<img src="{$baseUrl}/img/docs/stepping.png" alt="Discrete model synchronized stepping" title="Discrete model synchronized stepping" />
+</center>
+</p>
+
+<p>
+    The diagram above illustrates the model stepping when variable time spacing occurs in the control signal series. The time is denoted in minutes for simplicity, although the actual values are represented as a {doclink('api','time','rat time')|noescape}.
+</p>
+
+<h4>Asynchronous mode</h4>
+
+<p>
+    A signal generator operates in an asynchronous mode, when:
+<ul>
+    <li><code>Synchronize_To_Signal</code> is set to <code>false</code></li>
+    <li><code>Maximum_Time</code> is set to a valid value greater than the <code>Stepping</code> value</li>
+</ul>
+</p>
+
+<p>
+    The signal generator creates a separate thread for the model, in which it steps the model with the fixed stepping until the <code>Maximum_Time</code> is reached. Once it reaches this limit, it may emit the <code>Shut_Down</code>
+    event, if the <code>Shutdown_After_Last</code> is set to <code>true</code>.
+</p>
+
+<p>
+    This mode of operation is useful when there is no control signal to synchronize to. It basically implies, that the model outputs are based solely on the model (and filter) configuration, and does not take any other events into account.
+</p>
+
+<p>
+    An example of the asynchronous model use may be a "scenario generator", that creates a test scenario based on its parameters. Such a model does not take any other inputs. Usually, a synchronous signal generator (embedding a patient model) synchronized
+    to all signals (<code>scgms::signal_All</code>) follows in the filter chain, so the dynamically generated test scenario could be evaluated.
+</p>
