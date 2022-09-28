@@ -1,0 +1,250 @@
+<h2>File reader</h2>
+
+<p>
+    The file reader is an entity, that reads a foreign file format and emits all relevant information as device events. This might be an insulin pump data dump file, or any other similar file with a structured data format.
+    For now, this entity is designed to work with glucose readings (IG, BG) only, hence the parameter definitions.
+</p>
+
+<h3>Configuration</h3>
+
+<p>
+<ul>
+    <li><code>Input_File</code> (string) - a path to the file for data extraction</li>
+    <li><code>Maximum_IG_Interval</code> (time) - maximum interval between interstitial glucose readings, that is accepted within a single time segment
+        <ul>
+            <li>when an IG value with time spacing greater, than this option comes, the current time segment is ended and a new one is started</li>
+        </ul>
+    </li>
+    <li><code>Shutdown_After_Last</code> (boolean) - when operating in the asynchronous mode, should we emit the <code>Shut_Down</code> device event after the last step?</li>
+    <li><code>Minimum_Required_IGs</code> (integer) - how many interstitial glucose levels are required to even consider a given time segment</li>
+    <li><code>Require_BG</code> (boolean) - if this parameter is set to <code>true</code>, the time segment will be considered if and only if it contains at least one blood glucose level</li>
+</ul>
+</p>
+
+<h3>Supported interfaces</h3>
+
+<p>
+    <i>None.</i>
+</p>
+
+<h3>General function</h3>
+
+<p>
+    The file reader opens the source file and attempts to recognize the format using a signature approach (see below). When a pattern matches, the appropriate extractor is instantiated and extraction process begins.
+    The extractor first loads all values and relevant information into memory, analyzes it, organizes values into time segments and discards unused levels (e.g. when certain conditions set by <code>Minimum_Required_IGs</code> and
+    <code>Require_BG</code> are not met). Then, it sends all extracted info through the filter chain as device events.
+</p>
+
+<p>
+    The format recognizer and extractor works with a rule set stored in file, that allows for additional format adding without the need for recompilation. A basic rule set is embedded within the file, but it can be merged with a
+    rule set stored in an external file.
+</p>
+
+<p>Historically, the file reader supported data file anonymization for storing the original file without sensitive information. The anonymization step is not needed as we do not extract and store such information in the SmartCGMS anymore.</p>
+
+<p>
+    We currently support the following file formats:
+<ul>
+    <li>CareLink Pro data dump file</li>
+    <li>DiaSend export</li>
+    <li>iPro glucose monitor data file</li>
+    <li>Dexcom insulin pump data dump file</li>
+    <li>Ohio T1DM dataset</li>
+</ul>
+</p>
+
+<h4>Rule set file format</h4>
+
+<p>
+    The rule set file format is an INI file. As the extractor currently supports table-structured (e.g. a CSV) and hierarchical (e.g. an XML) file formats, the notation for the fields take two different forms.
+</p>
+
+<p>For the recognizer and extractor, the INI contains sections with names, that serves as a format identifier. This section name must be identical in both recognizer and extractor rule set files.</p>
+
+<p>
+    The key in every section is a cell/field locator. For the table-structured formats, it could be either a comma-separated row-column pair (e.g. <code>4,6</code>), or a letter-number pair (e.g. <code>B4</code>, as commonly seen
+    in the table processor software). For the hierarchical formats, it is a path within the tree, with each node separated by a slash (e.g. <code>/Patient/GlucoseReadings</code>). Optionally, when using an XML with attributes, the attribute of the given element is selected
+    by appending the attribute name preceded by a dot (e.g. <code>/Patient/Events/Event.DisplayTime</code>.
+</p>
+
+<p>
+    A simple conditional is supported for an exact match. For example, when the value types are distinguished by an attribute, we use a special rule <code>event-cond-header</code> to link the selection rule with extraction rule. An example follows:
+</p>
+
+<code><pre>
+/Patient/Values/Value.Type=event-cond-header
+
+?event-cond-header>InterstitialGlucose=ig-header
+?event-cond-header>BloodGlucose=bg-header
+</pre></code>
+
+<p>
+    This first locates the <code>/Patient/Values/Value</code> element and reads the <code>Type</code> attribute using the selection rule (first line). Then, the element is evaluated using the two rules below. If the <code>Type</code> attribute
+    matches the string <code>InterstitialGlucose</code>, the extraction rule <code>ig-header</code> is used. Similarly, when it matches the <code>BloodGlucose</code> string, the extraction rule <code>bg-header</code> is used.
+</p>
+
+<h4>Format recognizer</h4>
+
+<p>
+    The format recognizers use rules to recognize file format. It always tries to match all the known formats, regardless of the file type.
+</p>
+
+<p>Additional rules might be stored in a file named <code>patterns.ini</code></p>
+
+<p>
+    The key contains a cell/field locator. The value is a string, that must be matched. Note that the recognizer recognizes the file as the first format, that matches all rules. Therefore, when specifying a new format, you should
+    define a sufficiently comprehensive set of rules.
+</p>
+
+<p>
+    For example, we may recognize a format based on the device signature; therefore, a single rule suffices:
+</p>
+
+<code><pre>
+[my-new-format]
+0,1=Super CGM Device
+</pre></code>
+
+<p>Using the format defined in the example above, the recognizer looks for a string value <code>Super CGM Device</code> in a cell, that is located in the row index 0 and column index 1. When this rule matches, the <code>my-new-format</code>
+is recognized and extraction rules for this format are used.</p>
+
+<h4>Extractor</h4>
+
+<p>Additional rules might be stored in a file named <code>format_rules.ini</code></p>
+
+<p>
+    The extractor use rules to identify data streams of useful values. Then it iterates the rule over all linked cells/fields (e.g. the whole column or an element subtree).
+</p>
+
+<p>
+    The key contains a cell/field locator. The value is a string, that identifies a known (internal) field extraction rule (see below). When a table-structured format is extracted, we locate the header of the column. When a hierarchical format
+    is extracted, we locate the element group (that shares the tag name within a single parent), that contains the extracted elements.
+</p>
+
+<p>
+    For example, let us suppose we have a CSV file (of the above mentioned format), that contains only the time and interstitial glucose readings. This may look as follows:
+</p>
+
+<code><pre>
+Device;Super CGM Device
+time;value
+2022-09-01 15:50;7.557
+2022-09-01 15:55;7.62
+...
+</pre></code>
+
+<p>
+    Then we need two extraction rules:
+</p>
+
+<code><pre>
+[my-new-format]
+1,0=datetime-header
+1,1=ist-header
+</pre></code>
+
+<p>
+    This identifies the data stream starting with a header cell at <code>1,0</code> and <code>1,1</code> as a stream of datetime values and interstitial glucose values, respectively. The extractor then moves to the next row and starts
+    data extraction by iterating the extraction rule on all subsequent rows.
+</p>
+
+<h4>Field extraction rules</h4>
+
+<p>The extractor needs to identify the types of data streams by matching the values to their meanings. Currently supported field extraction rules are:
+
+<ul>
+    <li><code>date-header</code> - date of measured value</li>
+    <li><code>time-header</code> - time of measured value</li>
+    <li><code>datetime-header</code> - date and time of measured value (as a single cell)</li>
+    <li><code>ist-header</code> - interstitial glucose levels (mmol/L)</li>
+    <li><code>ist-mgdl-header</code> - interstitial glucose levels (mg/dL)</li>
+    <li><code>isig-header</code> - ISIG values</li>
+    <li><code>blood-raw-calibration-header</code> - blood glucose calibration values (mmol/L)</li>
+    <li><code>blood-calibration-header</code> - blood glucose calibration values (mg/dL)</li>
+    <li><code>blood-raw-header</code> - blood glucose values (mmol/L)</li>
+    <li><code>blood-header</code> - blood glucose values (mg/dL)</li>
+    <li><code>insulin-bolus-header</code> - insulin bolus values (U)</li>
+    <li><code>insulin-basal-rate-header</code> - insulin basal rate values (U/hr)</li>
+    <li><code>insulin-temp-basal-rate-header</code> - temporary basal rate values (U/hr)</li>
+    <li><code>insulin-temp-basal-rate-datetime-header</code> - start of temporary basal rate</li>
+    <li><code>insulin-temp-basal-rate-datetime-end-header</code> - end of temporary basal rate</li>
+    <li><code>carbohydrates-header</code> - carbohydrates intake values (g)</li>
+    <li><code>event-header</code> - generic events, we distinguish between them using conditionals</li>
+    <li><code>event-datetime-header</code> - datetime of an event</li>
+    <li><code>event-cond-header</code> - event conditional, see above</li>
+    <li><code>physical-activity-header</code> - physical activity intensity</li>
+    <li><code>physical-activity-duration-header</code> - duration of the physical activity</li>
+    <li><code>skin-temperature-header</code> - temperature of the skin</li>
+    <li><code>air-temperature-header</code> - temperature of the air</li>
+    <li><code>heartrate-header</code> - heartrate (BPM)</li>
+    <li><code>electrodermal-activity-header</code> - electrodermal activity value</li>
+    <li><code>steps-header</code> - number of steps</li>
+    <li><code>sleep-quality-header</code> - sleep quality index</li>
+    <li><code>acceleration-magnitude-header</code> - acceleration vector magnitude</li>
+</ul>
+</p>
+
+<p>
+    The above listed rules are directly linked to the internally implemented rules, that matches the extracted values to a signal.
+</p>
+
+<p>
+    There should not be a need for custom field extraction rule definition. However, if you need to define such a rule, you need to link it to an existing internal rule. This is useful basically only when
+    the extracted field needs to be converted to an internal unit by multiplying it by a given multiplier, or when the value needs to be parsed out of a string.
+</p>
+
+<p>The field extraction rule set supports the following parameters:
+
+<ul>
+    <li><code>header</code> - this is the parameter, that links to the internal rule by its string identifier (see below)</li>
+    <li><code>multiplier</code> - multiply the extracted value by this factor</li>
+    <li><code>stringformat</code> - an expected format of a string, that contains the value; uses the <code>%f</code> placeholder to find the actual value</li>
+</ul>
+</p>
+
+<p>Additional rules might be stored in a file named <code>format_rule_templates.ini</code></p>
+
+<p>
+
+<p>To define a field extraction rule, create new section with your chosen name and link the rule with the internal rule. For example, let us suppose we have an insulin bolus value defined in mU (instead of U), and also stored
+in a string with an additional characters we want to parse out (e.g. "Bolus 1500 mU"). Then we need to define a new rule:</p>
+
+<code><pre>
+[insulin-bolus-mu-header]
+header=insulin-bolus
+multiplier=0.001
+stringformat=Bolus %f mU
+</pre></code>
+
+<p>
+    We recognize the following internal rules:
+    
+<ul>
+    <li><code>date</code></li>
+    <li><code>time</code></li>
+    <li><code>datetime</code></li>
+    <li><code>ist</code></li>
+    <li><code>isig</code></li>
+    <li><code>blood</code></li>
+    <li><code>blood-calibration</code></li>
+    <li><code>insulin-bolus</code></li>
+    <li><code>insulin-basal-rate</code></li>
+    <li><code>insulin-temp-basal-rate</code></li>
+    <li><code>insulin-temp-basal-rate-datetime</code></li>
+    <li><code>insulin-temp-basal-rate-datetime-end</code></li>
+    <li><code>carbohydrates</code></li>
+    <li><code>event</code></li>
+    <li><code>event-datetime</code></li>
+    <li><code>event-condition</code></li>
+    <li><code>physical-activity</code></li>
+    <li><code>physical-activity-duration</code></li>
+    <li><code>skin-temperature</code></li>
+    <li><code>air-temperature</code></li>
+    <li><code>heartrate</code></li>
+    <li><code>electrodermal-activity</code></li>
+    <li><code>steps</code></li>
+    <li><code>sleep-quality</code></li>
+    <li><code>acceleration-magnitude</code></li>
+</ul>
+</p>
+
