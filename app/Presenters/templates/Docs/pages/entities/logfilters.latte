@@ -1,0 +1,98 @@
+<h2>Log filters</h2>
+
+<p>
+    Currently, two filters that works with the log file format exists: the log filter, and the CSV log replay filter. As the name suggests, the log filter stores all device events to a file, and the CSV File Log Replay filter reads the log file
+    and replays the log such that all rows are transformed to a device events and are sent through the chain.
+</p>
+
+<h3>Configuration</h3>
+
+<h4>Log filter</h4>
+
+<p>
+<ul>
+    <li><code>Log_File</code> (string) - a path to a file to log the simulation into</li>
+    <li><code>Log_Segments_Individually</code> (boolean) - log each segment into a separate file</li>
+    <li><code>Reduce_Log</code> (boolean) - should the log filter omit several fields to reduce log size?</li>
+</ul>
+</p>
+
+<h4>CSV file log replay filter</h4>
+
+<p>
+<ul>
+    <li><code>Log_File</code> (string) - a path to the log file or directory containing log files</li>
+    <li><code>Emit_Shutdown</code> (boolean) - should the filter emit the <code>Shut_Down</code> message after the replay?</li>
+    <li><code>Filename_as_segment_id</code> (boolean) - should the filter interpret the file name as a segment identifier? (hash)</li>
+    <li><code>Emit_All_Events_Before_Shutdown</code> (boolean) - should the filter emit all the other events before the <code>Shut_Down</code> message (no matter the source)</li>
+</ul>
+</p>
+
+<h3>Supported interfaces</h3>
+
+<h4>Log filter</h4>
+
+<p>
+<ul>
+    <li>scgms::ILog_Filter_Inspection</li>
+</ul>
+</p>
+
+<h4>CSV file log replay filter</h4>
+
+<p><i>None.</i></p>
+
+<h3>General function</h3>
+
+<p>
+    Both filters operate on the same file format. The log filter creates it and log replay filter loads it and transforms it back to device events.
+</p>
+
+<h4>Log filter</h4>
+
+<p>
+    The filter opens the destination file given by the <code>Log_File</code> parameter and creates the file header (see below). Then it waits for the events to come through the chain. Once a device event passes through this filter,
+    it is transformed to a row in a CSV file.
+</p>
+
+<p>
+    Several fields are first converted to a string format for a better readability. The filter converts the following fields:
+    
+<ul>
+    <li>device time is converted to a local time string conforming to ISO-8601</li>
+    <li>model (signal) parameters are serialized as a space-separated array of floating point numbers</li>
+    <li>signal GUID is transformed to a string representation, if the signal is registered within the SmartCGMS system</li>
+    <li>event code is transcribed as a string</li>
+</ul>
+</p>
+
+<p>
+    If the <code>Log_Segments_Individually</code> parameter is set to <code>true</code>, the log filter creates one file for each time segment. The file naming convention then includes the segment identified as a dot-separated integer
+    before the file extension. Events not belonging to any segment (or to all segments) are written into all log files.
+</p>
+
+<h4>CSV file log replay filter</h4>
+
+<p>
+    The CSV file log replay loads the log file (or all log files from a directory) and replays them as device events. This might be seen as an "inverse operation" to the logging operation, but with several differences.
+</p>
+
+<p>
+    This filter ignores the logical clock values when replaying, as there is no effective way of renumbering the logical clocks of multiple logs. It also fixes the potential timing errors, when the log filter stored the time segment
+    markers, that does not match the actual signal time bounds.
+</p>
+
+<h4>File format</h4>
+
+<p>
+    The common format is a CSV file format with semicolons used as separators. Every log has a fixed header:
+</p>
+
+<code><pre>
+Logical Clock; Device Time; Event Code; Signal; Info; Segment Id; Event Code Id; Device Id; Signal Id
+</pre></code>
+
+<p>
+    Then, rows with device event transcriptions follow. Some informations are duplicated in different forms to allow human-readability, e.g. the signal ID and name (<code>Signal</code> for name, <code>Signal Id</code> for GUID),
+    event code and its identifier (<code>Event Code</code> for the transcription, <code>Event Code Id</code> for the identifier).
+<p>
