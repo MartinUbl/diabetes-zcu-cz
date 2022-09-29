@@ -1,0 +1,83 @@
+<h2>Calculated signal filter</h2>
+
+<p>The calculated signal filter maintains the lifetime of the calculated signal entity of a given {doclink('api','signalmodel','signal model')|noescape}. It can run the solver during the simulation and perform additional operations
+on the signal object.</p>
+
+<p>
+    <i>Please note, that the use of signal models is discouraged in favor of {doclink('api','discretemodel','discrete models')|noescape}. This filter, as well, as the signal model subsystem is kept for legacy reasons.</i>
+</p>
+
+<h3>Configuration</h3>
+
+<p>
+<ul>
+    <li><code>Model</code> (GUID) - a GUID of a signal model to select signals from</li>
+    <li><code>Signal</code> (GUID) - a GUID of the signal from the selected signal model</li>
+    <li><code>Prediction_Window</code> (time) - a time delta for signal's <code>Get_Continuous_Levels</code> call</li>
+    <li><code>Model_Bounds</code> (double array) - model parameters with lower and upper bounds (order: lower bounds, default parameters, upper bounds)</li>
+    <li><code>Solve_Parameters</code> (boolean) - should we start the solver to obtain model parameters?</li>
+    <li><code>Solver</code> (GUID) - a GUID of the selected solver</li>
+    <li><code>Solve_On_Level_Count</code> (integer) - when to run solver - when this many new levels are obtained</li>
+    <li><code>Solve_On_Calibration</code> (boolean) - when to run solver - when a calibration signal is obtained (<code>scgms::signal_Calibration</code>)</li>
+    <li><code>Solve_On_Time_Segment_End</code> (boolean) - when to run solver - when the <code>Time_Segment_End</code> device event is obtained</li>
+    <li><code>Solve_Using_All_Segments</code> (boolean) - use all segments to run solver?</li>
+    <li><code>Metric</code> (GUID) - a GUID of a metric to use when running the solver</li>
+    <li><code>Levels_Required</code> (integer) - metric parameter - how many levels are required to calculate the metric value</li>
+    <li><code>Measured_Levels</code> (boolean) - use discrete levels instead of continuous levels as a reference for fitness calculation</li>
+    <li><code>Relative_Error</code> (boolean) - metric parameter - use relative error instead of absolute</li>
+    <li><code>Squared_Diff</code> (boolean) - metric parameter - use squared differences for metric calculation</li>
+    <li><code>Prefer_More_Levels</code> (boolean) - metric parameter - prefer more levels over less, when calculating metric value</li>
+    <li><code>Metric_Threshold</code> (double) - metric parameter - a threshold for given metric; this is a specific parameter for every metric, may be ignored</li>
+</ul>
+</p>
+
+<h3>Supported interfaces</h3>
+
+<p>
+<ul>
+    <li><code>scgms::ICalculate_Filter_Inspection</code></li>
+</ul>
+</p>
+
+<h3>General function</h3>
+
+<p>
+    The calculated signal filter internally maintains time segments and all of the levels, that were obtained through the filter chain. It does not put any memory constraints on accumulated values - for larger segments, this filter may
+    potentially allocate large portions of memory. It gathers all values, sorts them into time segments and repeatedly calls the <code>Get_Continuous_Levels</code> method of selected signal to obtain calculated values of this signal.
+</p>
+
+<p>
+    When calling the <code>Get_Continuous_Levels</code> method, there are a handful of implications that needs to be taken into account. First, when the signal returns <code>NaN</code> for a requested time, the calculate filter tries to
+    retrieve this time again in the future. Second, the calculated signal levels are retained as measured levels in any further filter - there is no way, that any other filter, than the calculated value source, will recognize the signal
+    as calculated. This has one effect on the calculated signal itself - if the calculated signal needs another signal, that was calculated by the previous filter, the only way to consider its values is to either use discrete levels only
+    (through the <code>Get_Discrete_Levels</code> call), or to instantiate an approximator to obtain continuous levels. However, the latter has a potential performance drawback. Better solution is to configure calculated signals to emit
+    levels at the same time (or time delta), so we can be sure, that there is a matching discrete level at the requested time.
+</p>
+
+<h4>Running the solver</h4>
+
+<p>
+    If the <code>Solve_Parameters</code> is set to <code>true</code>, every solver and metric-related parameter applies. When the solver is started, it pauses all the events in the chain (<code>Execute</code> call blocks) until it finishes.
+</p>
+
+<p>
+    There are a few possible occasions, when the solver is started:
+<ul>
+    <li><code>Solve_On_Level_Count</code> is set to a valid value greater, than zero, and exactly this many device events containing a signal level passes through the filter</li>
+    <li><code>Solve_On_Calibration</code> is set to <code>true</code>, and a <code>scgms::signal_Calibration</code> signal level passes through the filter</li>
+    <li><code>Solve_On_Time_Segment_End</code> is set to <code>true</code>, and a <code>Time_Segment_End</code> device event passes through the filter</li>
+</ul>
+</p>
+
+<p>
+    The metric of the selected GUID (<code>Metric</code> parameter) is instantiated to calculate the metric values during solving. All the parameters are further described in the {doclink('api','metric','metric subpage')|noescape}.
+</p>
+
+<p>
+    Once finished, the filter evaluates the metric value of the newly obtained parameter set, and if the value improved, it applies the parameter set to the signal for further <code>Get_Continuous_Levels</code> method calls and
+    sends the new parameters through the filter chain as a <code>Parameters</code> device event.
+</p>
+
+<p>
+    The solver obtains every paramaters of such signal, that comes thorugh the chain as a <code>Parameters</code> device event in a form of solution hint.
+</p>
