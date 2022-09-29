@@ -6,8 +6,8 @@
 </p>
 
 <p>
-  SmartCGMS offers two filters to compute the metric. First one, <code>Signal Error</code> filter, accumulates all differences between measured(error-biased) and referenced signals/time series. Then, it uses a post-processing to compute the resulting metric as precisely as possible. This filter is useful for processing
-  on devices with no memory nor computational constraints. For example, it is good when devising and testing metric, or when computing some statistics about the patient.
+  SmartCGMS offers two filters to compute the metric. First one, <code>Signal Error</code> filter, accumulates all differences between measured(error-biased) and referenced signals/time series. Then, it uses a post-processing to compute the resulting
+  metric as precisely as possible. This filter is useful for processing on devices with no memory nor computational constraints. For example, it is good when devising and testing metric, or when computing some statistics about the patient.
 </p>
 
 <p>
@@ -23,3 +23,82 @@
   <li>Average</li>
   <li>Average plus Standard Deviation</li>
 </ul>
+
+<p>The fast signal error filter does not use the metric entites, but rather reimplements the calculation in its own code. This concept was introduced to speed up the calculations when using commonly used metrics with a simple calculation.</p>
+
+<h3>Configuration</h3>
+
+<p>
+<ul>
+    <li><code>Description</code> (string) - a string description of the error values; this is displayed in GUI and written to the CSV file</li>
+    <li><code>Reference_Signal</code> (GUID) - a GUID of a reference signal</li>
+    <li><code>Error_Signal</code> (GUID) - a GUID of an error signal</li>
+    <li><code>Metric</code> (GUID) - a GUID of a metric to calculate</li>
+    <li><code>Levels_Required</code> (integer) - metric parameter - how many levels are required to calculate the metric value</li>
+    <li><code>Relative_Error</code> (boolean) - metric parameter - use relative error instead of absolute</li>
+    <li><code>Squared_Diff</code> (boolean) - metric parameter - use squared differences for metric calculation</li>
+    <li><code>Prefer_More_Levels</code> (boolean) - metric parameter - prefer more levels over less, when calculating metric value</li>
+</ul>
+</p>
+
+<h4>Error metric</h4>
+
+<p>
+<ul>
+    <li><code>Metric_Threshold</code> (double) - metric parameter - a threshold for given metric; this is a specific parameter for every metric, may be ignored</li>
+    <li><code>Emit_Metric_As_Signal</code> (boolean) - emit calculated metric value as a signal and send it through the chain</li>
+    <li><code>Emit_Last_Value_Only</code> (boolean) - if the <code>Emit_Metric_As_Signal</code> is set to <code>true</code>, this causes the filter to emit just the last value of the metric upon segment end or shutdown</li>
+    <li><code>Output_CSV_file</code> (string) - if set, the filter summarizes the errors into a CSV file; please note, that this option is active even during the parameters optimalization and may potentially slow down the solving process</li>
+</ul>
+</p>
+
+<h4>Fast error metric</h4>
+
+<p>
+    <i>There are no specific configuration parameters for fast error metric filter</i>
+</p>
+
+<h3>Supported interfaces</h3>
+
+<p>
+<ul>
+    <li><code>scgms::ISignal_Error_Inspection</code> (both filters)</li>
+</ul>
+</p>
+
+<h3>General function</h3>
+
+<p>
+    Both filters shares a similar interface for metric calculation, but differs in a way they do it. The error metric filter favors calculation and structured approach, the fast error metric filter favors performance and constant memory
+    requirements.
+</p>
+
+<h4>Error metric</h4>
+
+<p>
+    The error metric filter instantiates a {doclink('api','metric','metric')|noescape} entity. When a pair of matching signals (reference and error) comes through the chain, it calls the <code>Accumulate</code> method of the metric object
+    to accumulate the differences between the signals.
+</p>
+
+<p>
+    The filter can be configured to emit the metric value as a signal by the <code>Emit_Metric_As_Signal</code> parameter. If set, every metric value calculated will be send through the filter chain as a level device event with the
+    <code>signal_error::metric_signal_id</code> signal ID. Optionally, sending just the last value might be requested using the <code>Emit_Last_Value_Only</code> parameter - if set to <code>true</code>, the metric value is send through
+    the chain upon receiving a <code>Time_Segment_End</code> or <code>Shut_Down</code> device event. In the former case, just the single segment metric value is sent. The latter case finalizes all segments and sends their respective 
+    metric values through the chain as separate device events.
+</p>
+
+<h4>Fast error metric</h4>
+
+<p>
+    The fast signal error metric filter on the other hand does not initialize a metric entity. It shares the metric configuration to reimplement parts of the calculation in its own code. The configured <code>Metric</code> GUID is used
+    to select the internal reimplementation of the selected metric.
+</p>
+
+<p>
+    Additionally, this filter does not store all the differences, but compresses them in a single value, depending on the selected metric. For example, stream calculation of an average difference metric is perfectly possible without the
+    knowledge of all prior differences.
+</p>
+
+<p>
+    This filter does not support all the implemented metrics, as stated above. It sacrifices the generalization in favor of performance and constant memory requirements.
+</p>
