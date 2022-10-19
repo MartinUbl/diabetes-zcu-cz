@@ -141,12 +141,13 @@ class DownloadTokensModel extends BaseModel
     
     /**
      * Retrieves month offset from current date
-     * @param \Nette\Utils\DateTime $date
+     * @param \Nette\Utils\DateTime | string $date
      * @return int
      */
-    public static function getMonthOffset($date)
+    public static function getMonthOffset($dateIn)
     {
         $dtNow = new \Nette\Utils\DateTime("now");
+		$date = new \Nette\Utils\DateTime($dateIn);
         
         $mNow = intval($dtNow->format('n')) - 1; // rebase to 0
         $yNow = intval($dtNow->format('Y'));
