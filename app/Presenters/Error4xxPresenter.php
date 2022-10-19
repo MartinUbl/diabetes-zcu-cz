@@ -13,6 +13,8 @@ final class Error4xxPresenter extends Nette\Application\UI\Presenter
         parent::startup();
         if (!$this->getRequest()->isMethod(Nette\Application\Request::FORWARD))
             $this->error();
+
+		$this->template->presenterName = "Error4xx";
     }
 
     public function renderDefault(Nette\Application\BadRequestException $exception): void
