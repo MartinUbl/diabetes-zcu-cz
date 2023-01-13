@@ -185,7 +185,7 @@ about:
 team:
     banner:
         title: "Team"
-        text: "We are a heterogeneous team to cover all the taks of medical informatics. In our team, there are physicians, experts on modelling and simulation, data proecessing, visualizations, databases, programmers, and talented bachelor, master and doctoral students."
+        text: "We are a heterogeneous team to cover all the tasks of medical informatics. In our team, there are physicians, experts on modelling and simulation, data processing, visualizations, databases, programmers, and talented bachelor, master and doctoral students."
     koutny: "Tomas is the project founder and its general director. He is the author of the diffusion model of glucose dynamics and principal architect of the SmartCGMS system. He is focused on modelling glucose metabolism and transport, from measuring glucose level to its regulation. In addition, he has a strong background in applied mathematics, heterogeneous computing and fail-safe systems, all complemented with the required medical knowledge."
     krcma: "He is focused on prevention, diagnostics and therapy of Diabetes mellitus, metabolic and endocrinal diseases. He is head of the 1st Department of Internal Medicine at the Faculty Hospital in Pilsen, Charles University in Prague."
     majdisova: "She completed her Ph.D. study in 2020, in the field of numerical analysis. Now, she specializes in the development of the Icarus game. Her research is focused on the player education."
