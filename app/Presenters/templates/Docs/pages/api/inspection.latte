@@ -170,7 +170,7 @@ if (referenced_filter->QueryInterface(&IID_Event_Counter_Inspection, &inspection
     HRESULT res = inspection->Report_Count(&count);
     if (res == S_OK)
         std::cout << "Total of " << count << " events passed through the filter" << std::endl;
-    else
+    else if (res == S_FALSE)
         std::cout << "No events passed through the filter" << std::endl;
     else
         std::cout << "Invalid call to the Report_Count method" << std::endl;
@@ -192,4 +192,4 @@ using SEvent_Counter_Inspection = std::shared_ptr&lt;IEvent_Counter_Inspection>;
 SEvent_Counter_Inspection sptr = refcnt::make_shared_reference_ext&lt;SEvent_Counter_Inspection, IEvent_Counter_Inspection>(inspection, false);
 </pre></code>
 
-<p>This creates a shared pointer with a custom deletor, that calls the <code>Release</code> method automatically during the destructor call.</p>
+<p>This creates a shared pointer with a custom deletor, that calls the <code>Release</code> method automatically during the destructor call. Note that the <code>false</code> parameter instructs the constructor not to add a reference counter value, as the <code>QueryInterface</code> already did that.</p>
