@@ -1,4 +1,6 @@
 app/config/local.neon
 composer.lock
 phinx.yml
+nbproject
+nbproject/*
 /.vs
