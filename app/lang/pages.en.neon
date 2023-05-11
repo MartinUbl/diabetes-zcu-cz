@@ -97,7 +97,7 @@ smartcgms:
     installation:
         title: "Installation"
         text_1: "SmartCGMS source codes are available under appropriate licencing conditions in the binary distribution archive mentioned below."
-        text_2: "The building environment should have the following prerequisities installed:<ul><li>compiler with C++17 (e.g.; gcc 7 or newer)</li><li>CMake</li><li>git - shall you use the GitLab repository</li><li>Qt 5</li></ul>"
+        text_2: "The building environment should have the following prerequisities installed:<ul><li>compiler with C++17 (e.g.; gcc 7 or newer)</li><li>CMake</li><li>Qt 6</li></ul>"
         text_3: "To build SmartCGMS, a CMakeLists.txt file is included. The <i>core</i> directory is empty - source code of your custom filters belong here."
         text_4: "After a successful build, a <i>bin</i> subdirectory is created. It contains the following, important files and directories:<ul><li><i>gpredict3-desktop</i> - research application with graphical user interface</li><li><i>gpredict3-console</i> - console version of the research application</li><li><i>filters</i> - directory containing filter libraries</li></ul>"
     download:
