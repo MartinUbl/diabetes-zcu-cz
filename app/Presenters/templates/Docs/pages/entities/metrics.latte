@@ -1,0 +1,51 @@
+<h2>Metrics</h2>
+
+<p>
+    This page summarizes metrics distributed with the SmartCGMS installation.
+</p>
+
+<h3>Simple metrics</h3>
+
+<p>
+    SmartCGMS is distributed with a set of simple, well-known metrics:
+    
+<ul>
+    <li><i>average error</i> - an average value from all differences</li>
+    <li><i>maximum error</i> - a maximum value from all differences</li>
+    <li><i>error at percentile</i> - selects an error (difference) from a given percentile</li>
+    <li><i>standard deviation (with Bessel correction)</i> - standard deviation calculated from all differences</li>
+    <li><i>variation (with Bessel correction)</i> - variation calculated from all differences</li>
+    <li><i>average error plus standard deviation (with Bessel correction)</i> - calculates an average value and standard deviation from all differences and calculate the result as a sum of these two values</li>
+    <li><i>RMSE</i> - root mean square error from all differences</li>
+    <li><i>area under ECDF</i> - sums up an area under an ECDF</li>
+</ul>
+</p>
+
+<h3>Advanced metrics</h3>
+
+<p>Apart from the simple metric set, the SmartCGMS distribution ships with some more advanced metrics.</p>
+
+<h4>Crosswalk</h4>
+
+<p>
+    <i>Based on: <a href="https://doi.org/10.1007/978-981-10-5122-7_221">https://doi.org/10.1007/978-981-10-5122-7_221</a></i>
+</p>
+
+<p>
+    Crosswalk is a time-ordered metric. We prefer to use this metric as it yields satisfactory results faster, than the common metric set.
+</p>
+
+<h4>Akaike Information Criterion</h4>
+
+<p>
+    <i>Based on: <a href="https://doi.org/10.1109/MSP.2004.1311138">https://doi.org/10.1109/MSP.2004.1311138</a></i>
+</p>
+
+<h4>Leal 2010</h4>
+
+<p>
+    <i>Based on: <a href="https://doi.org/10.1177/193229681000400221">https://doi.org/10.1177/193229681000400221</a></i>
+</p>
+
+<p>This metric is an implementation of the "Best fit" equation from the above linked paper. However, as all metrics in SmartCGMS are considered distances from the ideal solution,
+the metric is inverted and the square root is dropped in favour of performance.</p>

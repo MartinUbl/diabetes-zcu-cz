@@ -1,0 +1,24 @@
+<h2>Approximators</h2>
+
+<p>
+    This page summarizes approximators distributed with the SmartCGMS installation. While there is a support for multiple approximators, the signal implementation
+    uses only the Akima spline interpolator by default.
+</p>
+
+<h3>Line approximator</h3>
+
+<p>
+    Line approximator is, in fact, only a first order spline interpolator. Its implementation is very fast and is intended to be used when there is no need for
+    resulting function differentiability.
+</p>
+
+<h3>Akima spline approximator</h3>
+
+<p>
+    <i>Based on: <a href="https://doi.org/10.1145/321607.321609">https://doi.org/10.1145/321607.321609</a></i>
+</p>
+
+<p>
+    Akima spline approximator uses Akima splines to interpolate the signal. This approximator is a bit slower, than the line approximator, but it provides a
+    smooth, differentiable curve.
+</p>

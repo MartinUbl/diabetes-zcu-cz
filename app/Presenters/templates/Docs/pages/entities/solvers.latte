@@ -1,0 +1,56 @@
+<h2>Solvers</h2>
+
+<p>
+    This page summarizes solvers distributed with the SmartCGMS installation.
+</p>
+
+<h3>Meta-Differential evolution (MetaDE)</h3>
+
+<p>
+    <i>Based on: <a href="https://doi.org/10.1016/j.cmpb.2016.05.011">https://doi.org/10.1016/j.cmpb.2016.05.011</a></i>
+</p>
+
+<p>
+    This solver algorithm is a differential evolution algorithm, which considers meta-parameters (mutation constant, crossover rate, crossover strategy, ...)
+    a part of a genome. Therefore, the algorithm adapts to the data.
+</p>
+
+<p>Any evolutionary approach relies on a fast and reliable random number generator. The SmartCGMS supports four variants of the MetaDE algorithm, each using
+one of the following random number generators:
+
+<ul>
+    <li><i>MT MetaDE</i> - uses C++ standard library implementation of the Mersenne-Twister generator</li>
+    <li><i>Halton MetaDE</i> - uses a custom implementation of Halton sequence generator</li>
+    <li><i>RND MetaDE</i> - uses true random number generator, if available in system (slow, but truly random)</li>
+    <li><i>Xor-Shift* MetaDE</i> - uses the fast XOR-Shift* algorithm to generate random sequences</li>
+</ul>
+</p>
+
+<h3>Particle Swarm Optimization (PSO)</h3>
+
+<p>
+    <i>Based on: ISBN 978-1-55860-595-4, <a href="https://www.sciencedirect.com/book/9781558605954/swarm-intelligence">https://www.sciencedirect.com/book/9781558605954/swarm-intelligence</a></i>
+</p>
+
+<p>
+    This is the original version of the PSO algorithm. The SmartCGMS supports only a Halton sequence generator in conjunction with this algorithm.
+</p>
+
+<h3>Sequential Brute-Force Scan</h3>
+
+<p>
+    This algorithm traverses the search space with a fine stepping in each dimension. There is no algoritmic optimization - the algorithm is intended to pose
+    a baseline for all other solvers.
+</p>
+
+<h3>Sequential Convex Scan</h3>
+
+<p>
+    <i>This work is yet to be published. Be patient, we will update the page as soon, as the results are public.</i>
+</p>
+
+<h3>RumorOpt</h3>
+
+<p>
+    <i>This work is yet to be published. Be patient, we will update the page as soon, as the results are public.</i>
+</p>
