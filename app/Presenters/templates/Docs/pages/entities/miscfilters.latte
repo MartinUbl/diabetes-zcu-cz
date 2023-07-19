@@ -1,0 +1,123 @@
+<h2>Miscellanous filters</h2>
+
+<p>
+    SmartCGMS is distributed with a larger set of filters, that fulfills miscellanous roles during signal processing. Following sections roughly describe their function, configuration and important notes.
+</p>
+
+<h3>Native scripting</h3>
+
+<p>
+    Using the native scripting filter, you can quickly develop a new native filter without the need for compiling the SmartCGMS SDK explicitly. The only requirement is to have a development environment set up and
+    ready for use. For example, you can use MS Visual Studio on MS Windows, gcc or clang on GNU/Linux or macOS.
+</p>
+
+<p>
+    You need to specify the environment paths into the native filter configuration - the path to the compiler, to the environment setup script, SmartCGMS SDK and the actual file to be compiled. Once you compile your
+    native script, you can distribute it as-is, as it does not rely on the buildsystem anymore. If the native script is changed, the native scripting filter will detect this based on the change timestamp and will
+    rebuild your native script to keep it up-to-date.
+</p>
+
+<p>
+    The native filter wrapper will forward signals to your code based on the configuration. For example, you may request the IG, CHO and insulin signals, and the wrapper will supply them to your code through the signals
+    array at their respective index.
+</p>
+
+<p>
+    Every native filter must have an entry point called <code>execute</code> with the following parameters:
+</p>
+
+<code><pre>
+void execute(GUID& signal_id, double& device_time, double& level, HRESULT& rc, TNative_Environment& environment, const void* context) {
+    ...
+}
+</pre></code>
+
+<p>
+    Here, the <code>signal_id</code> denotes the signal GUID that triggered the execution, <code>device_time</code> marks the current time of the event, <code>level</code> contains the measured/calculated level, <code>rc</code>
+    is a reference to return code you should set before returning (<code>S_OK</code> for success, and so on), <code>environment</code> refers to the environment wrapper you can use to perform SmartCGMS-related actions and
+    <code>context</code> is a transparent pointer to native execution context you need to use for some actions regarding the environment.
+</p>
+
+<p>
+    The array <code>environment.signal_id</code> refers to the signal GUIDs configured in the filter.
+</p>
+
+<p>
+    The following example shows, how to create a signal mapping filter, that remaps all configured signals to the first one:
+</p>
+
+<code><pre>
+#include &lt;iface/NativeIface.h&gt;
+
+void execute(GUID& sig_id, double& device_time, double& level, HRESULT& rc, TNative_Environment& environment, const void* context) {
+    const size_t sig_idx = environment.current_signal_index;
+    if (sig_idx != 0 && sig_idx < native::max_signal_count) { // map all incoming signals to signal on index 0
+        sig_id = environment.signal_id[0];
+    }
+}
+</pre></code>
+
+<p>
+    You can also specify custom data, that is stored per-segment. If the script defines a structure or class named <code>TCustom_Data</code>, the wrapper registers the type and allocates an additional memory in each segment
+    record into <code>environment-&gt;custom_data</code>, typed as the custom type.
+</p>
+
+<h3>Signal decoupling</h3>
+
+<p>
+    This filter shares the base functionality with the {doclink('entitites','signalfilters','mapping filter')|noescape}, except that it evaluates a configured condition prior to mapping. Furthermore, the mapping could be switched
+    off and the filter might just collect statistics about the signal.
+</p>
+
+<p>
+    The <code>Condition</code> configuration parameter holds a string, that is evaluated on every source signal GUID match. If the condition is true, then the filter might either map the signal ID to the desired ID, collect
+    statistics about the passing events, or both. The <code>Output_CSV_file</code> configuration parameter points to an output file to be written after the execution ends.
+</p>
+
+<h3>Signal statistics</h3>
+
+<p>The signal statistics filter calculates basic statistics about the signal. Namely, it calculates and stores:
+
+<ul>
+    <li>minimum value</li>
+    <li>25th percentile</li>
+    <li>median (50th percentile)</li>
+    <li>75th percentile</li>
+    <li>95th percentile</li>
+    <li>99th percentile</li>
+    <li>maximum value</li>
+</ul>
+</p>
+
+<p>
+    The <code>Output_CSV_file</code> configuration parameter points to an output file, that stores the signal statistics after the execution ends.
+</p>
+
+<h3>Impulse response filter</h3>
+
+<p>
+    This filter performs an on-line moving average smoothing of the signal given as <code>Signal_ID</code> configuration parameter. The <code>Response_Window</code> configuration parameter holds a time span (window), for which the
+    smoothing is performed. Please note, that this filter overwrites the original signal values with smoothed ones.
+</p>
+
+<p>
+    There is currently no way to add weights to the impulse response, and therefore there is no such filter maintaining a weigthed moving average (WMA). However, if a WMA implementation is desired, please, refer to the examples
+    of the SmartCGMS SDK - there is a native script example, that performs the WMA.
+</p>
+
+<h3>Basal to bolus</h3>
+
+<p>
+    This filter emulates the function of an insulin pump, and therefore is specialized to diabetes treatment. In a typical glucose control scenario, there is an insulin pump, that doses insulin in two modes - bolus and basal insulin.
+    The basal insulin is a continuous dosage, in which the patient sets the infusion rate and the pump maintains the dosage by its internal logic. The bolus insulin is a single larger dose of insulin, which is dosed at one time. However,
+    the insulin pump contains shared logic for both basal and bolus insulin, and therefore we need to spread the continuous dosage to discrete infusions.
+</p>
+
+<p>
+    The logic of this filter converts the basal infusion rate to multiple small bolus doses, which reflects a real scenario.
+</p>
+
+<p>
+    The filter encapsulates a model, which has two parameters: minimal dosage and spreading period. The minimal dosage parameter represents a minimal dosage resolution of the pump hardware, e.g., the pump is physically unable to dose
+    amounts smaller than 0.05 U. The spreading period is the period between the boluses generated from basal infusion rate setting.
+</p>

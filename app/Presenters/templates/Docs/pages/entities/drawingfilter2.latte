@@ -1,0 +1,88 @@
+<h2>Drawing Filter v2</h2>
+
+<p>
+    The drawing filter accumulates all signals and relevant events to create visualization. This version of a drawing filter is supercedes the {doclink('entities','drawingfilter','Drawing filter (legacy)')|noescape}. However, not all features of the legacy
+    filter are supported in this version and are yet to be implemented.
+</p>
+
+<p>
+    It uses SVG as an exchange format - the GUI needs to support SVG graphics format to properly draw it in its widgets.
+</p>
+
+<p>
+    The drawing filter currently supports the following views:
+    <ul>
+        <li><i>Graph view</i> - an overview plot of all signals</li>
+        <li><i>CVGA</i> - Control variability grid analysis; this visualizes every time segment as a single dot in a grid to depict the quality of glucose control</li>
+    </ul>
+</p>
+
+<h3>Configuration</h3>
+
+<p>
+<ul>
+    <li><code>Default_Width</code> (integer) - default width of the canvas, to which the renderer will draw; this can be later changed in drawing request</li>
+    <li><code>Default_Height</code> (integer) - default height of the canvas, to which the renderer will draw; this can be later changed in drawing request</li>
+    <li><code>Graph_View_Filename</code> (string) - path to an output file for graph view</li>
+    <li><code>Cvga_Filename</code> (string) - path to an output file for CVGA view</li>
+</ul>
+</p>
+
+<h3>Supported interfaces</h3>
+
+<p>
+<ul>
+    <li><code>scgms::IDrawing_Filter_Inspection_v2</code></li>
+    <li><code>scgms::ILogical_Clock</code></li>
+</ul>
+</p>
+
+<h3>General function</h3>
+
+<p>
+    The drawing filter instance accumulates all events and draws a set of plots upon request. The request is usually triggered periodically by the GUI, or upon receiving a <code>Shut_Down</code> device event. Once the <code>Shut_Down</code>
+    device event arrives, the filter stores the generated drawings into given output files.
+</p>
+
+<p>
+    This filter chooses visualization elements based on the actual signal descriptors, unlike the legacy filter, {doclink('entities','drawingfilter','Drawing filter (legacy)')|noescape}.
+</p>
+
+<p>The filter maintains an internal logical clock. When a new event arrives, that would cause an update to the drawings, the logical clock increments. An external controller can determine, if a redraw is needed based on this value. The
+    logical clock value could be retrieved using <code>HRESULT Logical_Clock(ULONG* clock)</code> method. The <code>clock</code> pointer points to a current value of the clock seen by the external source. The implementation
+    then compares the current logical clock value to the supplied one, and outputs <code>S_FALSE</code> if the clock value did not change, <code>S_OK</code> if the clock value changed and also updates the referenced clock value, or
+    <code>E_ILLEGAL_STATE_CHANGE</code> if the referenced value is greater, than the internal clock value (thus indicating an error in controller logic).</p>
+
+<p>
+    The external controller code can determine the supported plots via the <code>HRESULT Get_Capabilities(refcnt::IVector_Container&lt;scgms::TPlot_Descriptor&gt;* descs)</code> method call. The container holds a vector of plot descriptors,
+    which are just a pair of <code>GUID</code> and a textual description (<code>const wchar_t*</code>).
+</p>
+
+<p>
+    For the purpose of GUI interactivity, the external controller might retrieve visualizable segments via the <code>HRESULT Get_Available_Segments(refcnt::IVector_Container&lt;uint64_t&gt;* segments)</code> call. This call retrieves 
+    a vector of time segment IDs, that are currently stored in the drawing filter memory and could be visualized.
+</p>
+
+<p>
+    The same applies to retrieving all available signals via the <code>HRESULT Get_Available_Signals(uint64_t segment_id, refcnt::IVector_Container&lt;GUID&gt;* out_signals)</code> call. The GUI controller can retrieve a set of
+    signals for a given time segment. The method fills the vector of drawable signals (i.e., their respective GUIDs).
+</p>
+
+<p>
+    Once the GUI controller decides to perform drawing, it calls the <code>HRESULT Draw(const GUID* plot_id, refcnt::str_container* svg, const scgms::TDraw_Options* options)</code> method. It requests the view identified by the
+    GUID stored in <code>plot_id</code> parametrized by the options stored in <code>options</code> container. Once the drawing is finished, it stores the resulting SVG graphics into the <code>svg</code> string container.
+</p>
+
+<p>
+    The options container structure contains the following parameters:
+<ul>
+    <li><code>segments</code> (array of integers) - contains an array of segment IDs to be drawn; if set to <code>nullptr</code>, the filter draws all segments</li>
+    <li><code>segment_count</code> (integer) - contains the size of the <code>segments</code> array</li>
+    <li><code>in_signals</code> (array of GUIDs) - contains an array of signal GUIDs to be drawn; if set to <code>nullptr</code>, all signals are drawn</li>
+    <li><code>reference_signals</code> (array of GUIDs) - contains an array of reference signal GUIDs to the matching signals (on the same index) in the <code>in_signals</code> array; this is needed for e.g., the error grid analysis and ECDF views</li>
+    <li><code>signal_count</code> (integer) - contains the size of the <code>in_signals</code> and <code>reference_signals</code> arrays</li>
+    <li><code>width</code> (integer) - requested canvas width; if set to 0, default width is used</li>
+    <li><code>height</code> (integer) - requested canvas height; if set to 0, default height is used</li>
+</ul>
+</p>
+

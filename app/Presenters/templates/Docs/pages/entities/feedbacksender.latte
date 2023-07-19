@@ -1,0 +1,49 @@
+<h2>Feedback sender filter</h2>
+
+<p>
+    The feedback sender filter closes the feedback loop with a preceding filter implementing the <code>scgms::IFilter_Feedback_Receiver</code> interface. This could be e.g., an {doclink('entities','signalgenerator','Signal generator filter')|noescape}.
+</p>
+
+<p>
+    The filter loops any incoming level event with given signal GUID to the feedback receiver.
+</p>
+
+<h3>Configuration</h3>
+
+<p>
+<ul>
+    <li><code>Signal_Src_Id</code> (GUID) - signal GUID, that should be looped back to the feedback receiver</li>
+    <li><code>Remove_From_Source</code> (boolean) - should this filter remove the event from the chain upon sending to the feedback loop?</li>
+    <li><code>Feedback_Name</code> (string) - feedback link identifier; this should be identical to the feedback receiver identifier</li>
+</ul>
+</p>
+
+<h3>Supported interfaces</h3>
+
+<p>
+<ul>
+    <li><code>scgms::IFilter_Feedback_Sender</code></li>
+</ul>
+</p>
+
+<h3>General function</h3>
+
+<p>
+    Once all the filters are instantiated, the SmartCGMS factory library links all the feedback loops based on the configured feedback names (<code>Feedback_Name</code> configuration parameter). When a pair with matching names is found, it calls the
+    <code>HRESULT Sink(scgms::IFilter_Feedback_Receiver *receiver)</code> method on the sender instance to establish the feedback link.
+</p>
+
+<p>
+    If the feedback link is successfully established, every time an event with the configured GUID passes this filter, the filter sends it to the linked feedback receiver. Please, be aware, that the original event and the event passing through the
+    feedback link cannot be distinguished, as the feedback sender calls the <code>Execute</code> method on the receiver.
+</p>
+
+<p>
+    An usual setup assumes, that the feedback link passes an event with signal GUID, that is later changed in filters between the linked filters. For example, if one filter calculates the requested insulin bolus dosage, it emits the device event with
+    <code>scgms::signal_Requested_Insulin_Bolus</code>. The event passes through the feedback link and reaches the feedback receiver, e.g., the insulin pump controller. The controller then changes the requested insulin bolus dosage to delivered insulin
+    bolus, i.e, <code>scgms::signal_Delivered_Insulin_Bolus</code>, so that the event does not pass the feedback loop again.
+</p>
+
+<p>If the event passes through the feedback loop multiple times, it is not necessarily considered an error. As the feedback link is executed synchronously, every time the event passes, a recursive call is invoked. If the recursion would reach
+the level of 10, i.e., the same event loops 10 times, an error is indicated and the event does not loop again.</p>
+

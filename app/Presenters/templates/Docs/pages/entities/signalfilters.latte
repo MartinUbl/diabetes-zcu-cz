@@ -1,0 +1,94 @@
+<h2>Mapping and masking filters</h2>
+
+<p>
+    There are two filters, that modifies a single property of passing device event. Mapping filter remaps the signal ID of the passing event to another one. Masking and unmasking filters masks passing events according to a bit mask.
+</p>
+
+<p>
+    Signal mapping is useful, when you need to change the signal ID of a passing event either temporarily or permanently. One such example is, when you obtain a calculated model signal and you need to consider it a reference one. This situation
+    occurs, when a physiological model produces a model-calculated interstitial glucose signal, and the rest of the chain expects the measured interstitial glucose signal (i.e., <code>scgms::signal_IG</code>). When using mapping filter, be aware,
+    that if the filter chain already contains the target signal ID, it is impossible to distinguish mapped and original signals.
+</p>
+
+<p>
+    For the purposes of temporary mapping, SmartCGMS defines a set of virtual signals <code>scgms::signal_Virtual_1</code> through <code>scgms::signal_Virtual_100</code> in the SDK.
+</p>
+
+<p>
+    A special case for mapping is, when a mapping to <code>scgms::signal_Null</code> is requested. In this case, all events with matching source signal GUIDs are released from memory and not passed through in any way.
+</p>
+
+<p>
+    Signal masking and unmasking is particularly useful, when dividing data to learn and validation sets. This way, the filter "hides" pieces of data transparently, while still being able to recover them by using the unmasking filter.
+</p>
+
+<h3>Configuration</h3>
+
+<h4>Mapping filter</h4>
+
+<p>
+<ul>
+    <li><code>Signal_Src_Id</code> (GUID) - signal GUID, that should be mapped</li>
+    <li><code>Signal_Dst_Id</code> (GUID) - signal GUID to which the filter should map</li>
+</ul>
+</p>
+
+<h4>Masking filter</h4>
+
+<p>
+<ul>
+    <li><code>Signal</code> (GUID) - signal GUID, that should be masked</li>
+    <li><code>Bitmask</code> (string) - a string of zeroes and ones, representing a bitmask for masking; zeroes represents recurring positions of events to be masked</li>
+</ul>
+</p>
+
+<h4>Unmasking filter</h4>
+
+<p>
+<ul>
+    <li><code>Signal</code> (GUID) - signal GUID, that should be unmasked</li>
+</ul>
+</p>
+
+<h3>Supported interfaces</h3>
+
+<p>
+    <i>None</i>
+</p>
+
+<h3>General function</h3>
+
+<h4>Mapping filter</h4>
+
+<p>
+    The mapping filter contains a very simple logic, that could be summarized to the following control flow diagram. The logic is executed every time an event passes through the filter:
+</p>
+
+<p>
+<center>
+<img src="{$baseUrl}/img/docs/mapping_diag.png" alt="Mapping filter flow diagram" title="Mapping filter flow diagram" />
+</center>
+</p>
+
+<h4>Masking filter</h4>
+
+<p>
+    Masking filter changes the device event code from <code>scgms::NDevice_Event_Code::Level</code> to <code>scgms::NDevice_Event_Code::Masked_Level</code> for device events with configured signal GUID, conforming to the configured bitmask.
+    Once the bitmask is "depleted", it repeats the same pattern for subsequent device events. Time diagram below depicts the logic.
+</p>
+
+<p>
+<center>
+<img src="{$baseUrl}/img/docs/masking_time.png" alt="Masking filter time diagram" title="Masking filter time diagram" />
+</center>
+</p>
+
+<p>
+    The masking filter supports bitmasks with 8 to 64 bits. The configured string may contain spaces for better readability - they are removed during configuration and bitmask parsing.
+</p>
+
+<h4>Unmasking filter</h4>
+
+<p>
+    The unmasking filter changes the device event code back from <code>scgms::NDevice_Event_Code::Masked_Level</code> to <code>scgms::NDevice_Event_Code::Level</code> for device events with configured signal GUID.
+</p>

@@ -1,0 +1,61 @@
+<h2>Drawing Filter (legacy)</h2>
+
+<p>
+    The drawing filter accumulates all signals and relevant events to create visualization. This version is partially superceded by {doclink('entities','drawingfilter2','Drawing filter v2')|noescape} and is kept for legacy reasons and functionality,
+    that is not yet implemented in the newer version.
+</p>
+
+<p>
+    It uses SVG as an exchange format - the GUI needs to support SVG graphics format to properly draw it in its widgets.
+</p>
+
+<p>
+    The drawing filter currently supports the following views:
+    <ul>
+        <li><i>Graph view</i> - an overview plot of all signals relevant to glucose metabolism in human body</li>
+        <li><i>Daily view</i> - the same as daily view, but wrapped arount the one day boundary</li>
+        <li><i>AGP</i> - Ambulatory glycemic profile view</li>
+        <li><i>Parkes error grid</i> - Parkes error grid for error grid analysis of T1DM and T2DM</li>
+        <li><i>Clarke error grid</i> - Clarke error grid for error grid analysis</li>
+        <li><i>ECDF</i> - empirical cummulative distribution function; this requires the signal to have a reference signal properly set</li>
+        
+        <li><i>Mobile glucose</i> - a graph of glucose concentration optimized for mobile view</li>
+        <li><i>Mobile insulin</i> - a graph of insulin dosage and insulin on board optimized for mobile view</li>
+        <li><i>Mobile carbohydrates</i> - a graph of carbohydrate dosage and carbohydrates on board optimized for mobile view</li>
+    </ul>
+</p>
+
+<h3>Configuration</h3>
+
+<p>
+<ul>
+    <li><code>Canvas_Width</code> (integer) - width of the canvas, to which the renderer will draw</li>
+    <li><code>Canvas_Height</code> (integer) - height of the canvas, to which the renderer will draw</li>
+    <li><code>Graph_File_Path</code> (string) - path to an output file for graph view</li>
+    <li><code>Day_File_Path</code> (string) - path to an output file for daily view</li>
+    <li><code>AGP_File_Path</code> (string) - path to an output file for AGP view</li>
+    <li><code>Parkes_File_Path</code> (string) - path to an output file for Parkes error grid</li>
+    <li><code>Clark_File_Path</code> (string) - path to an output file for Clarke error grid</li>
+    <li><code>ECDF_File_Path</code> (string) - path to an output file for ECDF view</li>
+</ul>
+</p>
+
+<h3>Supported interfaces</h3>
+
+<p>
+<ul>
+    <li><code>scgms::IDrawing_Filter_Inspection</code></li>
+</ul>
+</p>
+
+<h3>General function</h3>
+
+<p>
+    The drawing filter instance accumulates all events and draws a set of plots upon request. The request is usually triggered periodically by the GUI, or upon receiving a <code>Shut_Down</code> device event. Once the <code>Shut_Down</code>
+    device event arrives, the filter stores the generated drawings into given output files.
+</p>
+
+<p>
+    This filter chooses visualization elements based on its internal logic, not on the actual signal descriptors. Hence, we developed a new filter, {doclink('entities','drawingfilter2','Drawing filter v2')|noescape}, which aims to supercede
+    this filter. When implementing a new logic or a new view, please, do not use this filter, as it does not fully respect the design and interfaces of the SmartCGMS software platform.
+</p>

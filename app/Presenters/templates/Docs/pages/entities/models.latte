@@ -1,0 +1,139 @@
+<h2>Models</h2>
+
+<p>
+    This page summarizes models distributed with the SmartCGMS installation.
+</p>
+
+<h3>Discrete models</h3>
+
+<p>
+    {doclink('api','discretemodel','Discrete models')|noescape} are models intended to be used in conjunction with the {doclink('entities','signalgenerator','signal generator')|noescape} filter.
+</p>
+
+<h4>Bergman extended minimal model</h4>
+
+<p>
+    <i>Based on: <a href="https://doi.org/10.1152/ajpendo.1979.236.6.E667">https://doi.org/10.1152/ajpendo.1979.236.6.E667</a> and <a href="https://doi.org/10.1088/0967-3334/25/4/010">https://doi.org/10.1088/0967-3334/25/4/010</a></i>
+</p>
+
+<p>
+    This model is a physiological model of human metabolism. It is based on the works of Bergman et al. and Hovorka et al. This is a baseline model for physiological simulation and should be used only as a reference model when developing
+    a new, more accurate model.
+</p>
+
+<p>
+    Historically, we used this model in our game, Icarus has Diabetes. Later, we replaced it with newer, S2017 model, that is more accurate and responds to more inputs.
+</p>
+
+<h4>S2013 model</h4>
+
+<p>
+    <i>Based on: <a href="https://doi.org/10.1177%2F1932296813514502">https://doi.org/10.1177%2F1932296813514502</a></i>
+</p>
+
+<p>
+    This model is based on the S2013 model paper from 2014 and implements the work of Dalla Man et al. It is more accurate than the Bergman model with all the enhacements. It was originally deployed within the T1DMS simulation suite
+    with a cohort of 10 (100) patients. However, we don't possess any parameters of the model regarding the patient cohort, and we obtained our own parameter set to serve as default. We extracted the parameters using the Ohio T1DM dataset.
+</p>
+
+<h4>S2017 model</h4>
+
+<p>
+    <i>Based on: <a href="https://doi.org/10.1177%2F1932296818757747">https://doi.org/10.1177%2F1932296818757747</a></i>
+</p>
+
+<p>
+    This model is based on the S2017 model paper from 2018 and implements the work of Visentin et al. It is even more accurate than the Bergman model and S2013 and is certified for use within the DMMS.R simulator suite to evaluate
+    controllers on a single-day scenarios.
+</p>
+
+<p>
+    As regards the parameters, we also don't possess any parameters of the original patient cohort.
+</p>
+
+<h4>Samadi model</h4>
+
+<p>
+    <i>Based on: <a href="https://doi.org/10.1016/j.compchemeng.2019.106565">https://doi.org/10.1016/j.compchemeng.2019.106565</a></i>
+</p>
+
+<p>
+    This model is based on the software simulation suite paper by Rashid, Samadi et al. It is an evolution of the Bergman, Hovorka and other models, which also support physical activity. We use this model only experimentally.
+</p>
+
+<h4>GCT model</h4>
+
+<p>
+    <i>Based on: <a href="https://doi.org/10.1016/j.procs.2022.10.127">https://doi.org/10.1016/j.procs.2022.10.127</a></i>
+</p>
+
+<p>
+    This model is our initial attempt to implement a new physiological model using a new method for a multi-compartmental model implementation. The current state of the model supports glucose intake, subcutaneous insulin delivery
+    and physical activity. We obtained the default parameter set using Ohio T1DM dataset.
+</p>
+
+<p>
+    This model is in an experimental phase and should not be used for a controller evaluation in its current state.
+</p>
+
+
+<h3>Signal models</h3>
+
+<p>
+    {doclink('api','signalmodel','Signal models')|noescape} are models intended to be used in conjunction with the {doclink('entities','calculatedsignal','calculated signal')|noescape} filter. Please note, that this concept is considered
+    deprecated and we will be migrating all of the following models to the discrete model concept.
+</p>
+
+<h4>IOB</h4>
+
+<p>
+    <i>Based on: <a href="http://dx.doi.org/10.1088/0967-3334/25/4/010">http://dx.doi.org/10.1088/0967-3334/25/4/010</a></i>
+</p>
+
+<p>
+    The Insulin-on-Board (IOB) model calculates the currently unabsorbed insulin in a subcutaneous tissue. The model itself is able to calculate the IOB as well, as the insulin activity. The insulin activity is the first derivation of the IOB
+    signal.
+</p>
+
+<h4>COB</h4>
+
+<p>
+    <i>Based on: <a href="http://dx.doi.org/10.1088/0967-3334/25/4/010">http://dx.doi.org/10.1088/0967-3334/25/4/010</a></i>
+</p>
+
+<p>
+    The Carbohydrates-on-Board (COB) model calculates the currently unabsorbed amount of carbohydrates ingested orally. 
+</p>
+
+<h4>Physical activity detection</h4>
+
+<p>
+    This model estimates the physical activity index using a heart rate signal. The model has a single parameter - the resting heart rate. The physical activity index is calculated as a ratio of the current heart rate and the
+    resting rate. The input heart rate has a threshold of 200, in which the physical activity index has a value of 1.
+</p>
+
+<h4>Diffusion model</h4>
+
+<p>
+    <i>Based on: <a href="https://doi.org/10.1016/j.compbiomed.2014.07.017">https://doi.org/10.1016/j.compbiomed.2014.07.017</a></i>
+</p>
+
+<p>
+    This model bases on the work of Koutny et al. Its main purpose is to reconstruct the blood glucose levels using interstital glucose measurements and sporadically measured blood glucose levels.
+</p>
+
+<h4>Steil-Rebrin model</h4>
+
+<p>
+    <i>Based on: <a href="https://doi.org/10.1089/15209150050194332">https://doi.org/10.1089/15209150050194332</a></i>
+</p>
+
+<p>
+    This model bases on the work of Rebrin and Steil. The main purpose of this model is to reconstruct blood glucose levels using interstitial glucose measurements and sporadically measured blood glucose levels.
+</p>
+
+<h4>Constant model</h4>
+
+<p>
+    This model only emits a constant value configured as a parameter. This is convenient for e.g., controller evaluation and measuring errors from a constant setpoint.
+</p>

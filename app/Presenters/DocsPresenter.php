@@ -57,6 +57,7 @@ final class DocsPresenter extends BasePresenter
                     'calculatedsignal' => 'Calculated signal filter',
                     'errormetric' => 'Error metric filter',
                     'logfilters' => 'Log &amp; log replay filter',
+                    'drawingfilter2' => 'Drawing filter v2',
                     'drawingfilter' => 'Drawing filter (legacy)',
                     'feedbacksender' => 'Feedback sender filter',
                     'signalfilters' => 'Mapping and masking filters',
