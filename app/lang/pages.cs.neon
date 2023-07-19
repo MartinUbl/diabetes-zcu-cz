@@ -97,7 +97,7 @@ smartcgms:
     installation:
         title: "Instalace"
         text_1: "Zdrojové kódy aplikace jsou k dispozici v souladu s licencí všech použitých knihoven v archivu s binární distribucí, který lze stáhnout níže."
-        text_2: "Pro správné přeložení musí na daném prostředí být nainstalovány tyto prerekvizity:<ul><li>kompilátor s podporou C++17 (např. gcc 7 nebo vyšší)</li><li>CMake</li><li>git - použijete-li repozitář na GitLab</li><li>Qt 5</li></ul>"
+        text_2: "Pro správné přeložení musí na daném prostředí být nainstalovány tyto prerekvizity:<ul><li>kompilátor s podporou C++17 (např. gcc 7 nebo vyšší)</li><li>CMake</li><li>Qt 6</li></ul>"
         text_3: "K přeložení je přiložen soubor CMakeLists.txt, kterým lze systém SmartCGMS sestavit. Adresář <i>core</i> je prázdný - tam patří zdrojové kódy Vašich vlastních filtrů."
         text_4: "S úspěšným přeložením je vytvořen podadresář <i>bin</i>, ve kterém naleznete tyto důležité soubory a adresáře:<ul><li><i>gpredict3-console</i> - konzolová verze bez grafického prostředí</li><li><i>gpredict3-desktop</i> - verze s grafickým prostředím</li><li><i>filters</i> - adresář s jednotlivými filtry</li></ul>"
     download:
