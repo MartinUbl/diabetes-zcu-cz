@@ -116,6 +116,27 @@ final class DocsPresenter extends BasePresenter
         $template = $this->templateFactory->createTemplate();
         $template->setFile($tplFileName);
         $template->addFunction('doclink', function($page, $subpage, $title) { return "<a href=\"".$this->link("Docs:", ['page' => $page, 'subpage' => $subpage])."\">".$title."</a>"; });
+        $template->addFunction('getTime', function($type) {
+            $curUnixTime = time();
+            if ($type == "unix")
+                return $curUnixTime;
+            $curTimeStr = date("H:i:s j. n. Y", $curUnixTime);
+            if ($type == "str")
+                return $curTimeStr;
+            $curRatTime = $this->getRatTime($curUnixTime);
+            
+            return $curRatTime;
+        });
         $this->template->docContents = $template->renderToString();
+    }
+    
+    private function getRatTime($unix)
+    {
+        $diffFrom1970To1900 = 2209161600.0;
+        $MSecsPerDay = 24.0*60.0*60.0*1000.0;
+        $InvMSecsPerDay = 1.0 / (double)$MSecsPerDay;
+
+        $diff = $unix + (double)$diffFrom1970To1900;
+        return 1000.0 * $diff * $InvMSecsPerDay;
     }
 }

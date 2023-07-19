@@ -1,5 +1,49 @@
 <h2>Frequently asked questions</h2>
 
+<p>This section summarizes frequently asked questions. If you have a question, that is not contained within this FAQ, feel free to contact us via e-mail.</p>
+
+<h5>Can I use SmartCGMS in our commercial product?</h5>
+
 <p>
-<i>There will be a frequently asked questions section</i>
+    <i>Answer: </i> Yes, it is possible to use SmartCGMS commercially, but you are required to contact us to agree on the exact conditions.
 </p>
+
+<h5>I am a hobbyist/student/researcher. Can I use SmartCGMS for my project?</h5>
+
+<p>
+    <i>Answer: </i> Yes, you can use SmartCGMS free of charge. Please, keep in mind, that when you publish any derivative work, you are required to cite the following paper:<br/>
+    <i>Tomas Koutny and Martin Ubl, "SmartCGMS as a Testbed for a Blood-Glucose Level Prediction and/or Control Challenge with (an FDA-Accepted) Diabetic Patient Simulation", Procedia Computer Science, Volume 177, pp. 354-362, 2020</i>
+</p>
+
+<h5>Is it possible to obtain full source code?</h5>
+
+<p>
+    <i>Answer: </i> Unfortunately, the only source code available is the SDK distribution on this website, which contains the complete development kit needed to develop for SmartCGMS. The rest of the software is distributed in
+    its binary form and no source code is available.
+</p>
+
+<h5>Is it possible to use any other programming language, than C++?</h5>
+<p>
+    <i>Answer: </i> Yes, but the language must support native shared library loading and execution. We previously used C# (within the .NET MAUI, Xamarin and Unity environments) to execute SmartCGMS using the simple interface,
+    and we also experimented with Python as a loader of the main <code>scgms</code> library.
+</p>
+<p>
+    If you intend to implement any of the entities (such as filter) on different programming language, the resulting entity must conform to the object interface declared in {doclink("api","interface","Object interface")|noescape} documentation.
+</p>
+
+<h5>Can I run SmartCGMS on an embedded device?</h5>
+<p>
+    <i>Answer: </i> Yes, it is possible to run SmartCGMS on an embedded device. We previously experimented with running the SmartCGMS on a battery-powered Raspberry Pi. Further work is focused on no-OS/FreeRTOS environment.
+</p>
+
+<h5>Can I use SmartCGMS to perform the actual treatment or measurements on a real patient?</h5>
+<p>
+    <i>Answer: </i> No, it is strictly prohibited to do so without obtaining all required approvals from the respective regulatory bodies.
+</p>
+
+{*
+<h5></h5>
+<p>
+    <i>Answer: </i>
+</p>
+*}

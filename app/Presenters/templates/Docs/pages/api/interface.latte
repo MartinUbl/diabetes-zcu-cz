@@ -54,7 +54,7 @@ complies with given requirements. The SmartCGMS SDK offers the generic <code>ref
 
 <p>
 Each object implementing the <code>refcnt::IReferenced</code> interface is required to implement the <code>QueryInterface</code> method. This method is used to declare support for
-a GUID-identified interface. If the interface is supported, the <code>QueryInterface</code> method sets typecasted this pointer to the interface and <code>S_OK</code>. Otherwise, it returns
+a GUID-identified interface. If the interface is supported, the <code>QueryInterface</code> method sets typecasted <code>this</code> pointer to the interface and returns <code>S_OK</code>. Otherwise, it returns
 <code>E_NOINTERFACE</code>.
 </p>
 <p>This is often used to support {doclink('api','inspection','entity inspection')|noescape} interfaces.</p>

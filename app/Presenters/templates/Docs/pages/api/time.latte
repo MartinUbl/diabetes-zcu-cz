@@ -1,19 +1,3 @@
-<?php
-function getRatTime($unix)
-{
-    $diffFrom1970To1900 = 2209161600.0;
-    $MSecsPerDay = 24.0*60.0*60.0*1000.0;
-    $InvMSecsPerDay = 1.0 / (double)$MSecsPerDay;
-
-    $diff = $unix + (double)$diffFrom1970To1900;
-	return 1000.0 * $diff * $InvMSecsPerDay;
-}
-
-$curUnixTime = time();
-$curTimeStr = date("H:i:s j. n. Y", $curUnixTime);
-$curRatTime = getRatTime($curUnixTime);
-?>
-
 <h2>Time and time segments</h2>
 
 <p>
@@ -34,9 +18,9 @@ and COM's variant in general.
 <p>The SDK contains <code>rattime.h</code> and <code>rattime.cpp</code> files, which offers functions to convert UNIX timestamps to rat time and vice versa.</p>
 
 <p>
-Current date and time: <?php echo $curTimeStr; ?><br />
-Current unix timestamp: <?php echo $curUnixTime; ?><br />
-Current rat time: <?php echo $curRatTime; ?><br />
+Current date and time: {getTime("str")}<br />
+Current unix timestamp: {getTime("unix")}<br />
+Current rat time: {getTime("rat")}<br />
 </p>
 
 <h3>Logical time</h3>

@@ -6,15 +6,7 @@
   </center>
 
   When executing the GUI application, the File menu lets you to load and save particular configurations. It is also possible to pass the filename as the first argument, when executing the GUI's executable - <code>gpredict.exe</code>. The Tools menu provides access to the filter-chain configuration, its execution and parameters optimization. 
-  The figure above depicts as there are two list-boxes - one for configured filters in the order in which it processes the signals, and one for available filters. Multiple instances of the same filter can be added.  
-</p>
-
-<p>
-  To establish the feedback link use the <code>Signal Feedback</code> filter. In this filter, configure the feedback name. Similarly, configure another feedback-receiving filter with the same feedback name. Note that only some filters (such as model filters) can act as feedback receivers.
-</p>
-
-<p>
-  Configure the signal-feedback filter to react on a specific signal. It is recommended to remove the signal event, once it arrives at the signal-feedback filter. For more information, see {doclink('api','feedback','respective API')|noescape}.
+  The figure above depicts the GUI. In the first sub-window, there are two list-boxes - one for configured filters in the order in which it processes the signals, and one for available filters. Multiple instances of the same filter can be added.  
 </p>
 
 <p>
@@ -29,4 +21,14 @@
 
 <p>
   Finally, the Tools menu provides access to the optimization dialog. There, you select which parameters of which filters to optimize, along with optimizing solver and its configuration.
+</p>
+
+<h4>Notes</h4>
+
+<p>
+  To establish the feedback link use the <code>Signal Feedback</code> filter. In this filter, configure the feedback name. Similarly, configure another feedback-receiving filter with the same feedback name. Note that only some filters (such as model filters) can act as feedback receivers.
+</p>
+
+<p>
+  Configure the signal-feedback filter to react on a specific signal. It is recommended to remove the signal event, once it arrives at the signal-feedback filter. For more information, see {doclink('api','feedback','respective API')|noescape}.
 </p>
