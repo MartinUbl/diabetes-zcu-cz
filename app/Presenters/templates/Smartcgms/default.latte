@@ -3,8 +3,8 @@
     <div class="row">
         <div class="col-12">
             <div class="p-5 text-white bg-dark">
-                <h3>{_pages.smartcgms.banner.title}</h3>
-                <p class="lead">{_pages.smartcgms.banner.text}</p>
+                <h3>SmartCGMS</h3>
+                <p class="lead">SmartCGMS is a next-generation continuous glucose monitoring system.</p>
             </div>
         </div>
     </div>
@@ -15,18 +15,18 @@
 
 <div class="row">
     <div class="col-12">
-        <h3>{_pages.smartcgms.about.title}</h3>
+        <h3>About SmartCGMS</h3>
         
-        <p>{_pages.smartcgms.about.text_1}</p>
-        <p>{_pages.smartcgms.about.text_2}</p>
-        <p>{_pages.smartcgms.about.text_3}</p>
+        <p>SmartCGMS is a software-stack for the next generation of continuous glucose monitoring, controlling and research systems. Its architecture comprises a number of building blocks, which could be either real or simulated devices such as glucose-sensor, model of glucose dynamics and insulin pump. Simulation is an irreplaceable tool in the development of new methods and algorithm. Our software allows the user to define such simulation and later, when the new method is ready, just switch the simulated device for the real one with the same program code.</p>
+        <p>SmartCGMS architecture builds on the top of ideas of co-simulation and the High-Level Architecture standard. As insulin pump and mobile devices in general have limited computational resources and power supply, the architecture was simplified to allow adaptation to low-power devices.</p>
+        <p>SmartCGMS contains/supports the following in-silico models:</p>
         
         <ul>
-            <li>{_pages.smartcgms.about.feature_1}</li>
-            <li>{_pages.smartcgms.about.feature_2}</li>
-            <li>{_pages.smartcgms.about.feature_3}</li>
-            <li>{_pages.smartcgms.about.feature_4}</li>
-            <li>{_pages.smartcgms.about.feature_5}</li>
+            <li>Bergman-Hovorka-Willinska-Koutny model combination</li>
+            <li>UVA/Padova S2013</li>
+            <li>SimGlucose, by setting UVA/Padova S2013 xi parameter to zero</li>
+            <li>T1DMS</li>
+            <li>DMMS.R</li>
         </ul>
     </div>
 </div>
@@ -36,21 +36,21 @@
         <img class="img-responsible" src="{$baseUrl}/img/smartcgms/smartcgms_calc.png" width="100%">
     </div>
     <div class="col-xs-12 col-sm-12 col-md-5">
-        <h3>{_pages.smartcgms.app.title}</h3>
+        <h3>Research</h3>
         
-        <p>{_pages.smartcgms.app.text_1}</p>
-        <p>{_pages.smartcgms.app.text_2}</p>
-        <p>{_pages.smartcgms.app.text_3}</p>
+        <p>The research application comes in the graphical-user-interface and console variants. Graphical user interfaces lets a researcher to set up a simulation, including individual component parametrization. Once the simulation is set, the researcher can start it in the simulation view. Researcher can control the simulation during its runtime.</p>
+        <p>The research application visualize the results with graphs, plots and grids during the simulation - daily statistics, overall view, Parke's and Clarke's grids or ambulatory glucose profile, metrics and empirical cumulative distribution function of errors. Graphical user interface updates all of this in the real time, while offering additional filtering options. Entire experiment can be recorded and replayed as needed.</p>
+        <p>Generated graphs can be zoomed and visible are saved to a vector-graphics file format.</p>
     </div>
 </div>
 
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-5">
-        <h3>{_pages.smartcgms.configuration.title}</h3>
+        <h3>Setting up</h3>
         
-        <p>{_pages.smartcgms.configuration.text_1}</p>
-        <p>{_pages.smartcgms.configuration.text_2}</p>
-        <p>{_pages.smartcgms.configuration.text_3}</p>
+        <p>The graphical environment offers the configuration window, where the user can build custom configurations using predefined blocks, called filters. The right side contains available filters; the left side contains already selected filters. The order of filters is important - they are connected in a linear manner to a chain, with a simplex message passing.</p>
+        <p>Typically, the first filter in chain is a filter, which loads or generates input data. Such data may be loaded from a database, standard output file of CGM device or a log of previously simulated scenario. Then, calculation filters are defined. Such a filter schedules the solver algorithm to obtain model parameters. Then, the filter calculates the model signal using the determined parameters. In the graphical environment, visualization filter must be present to observe the calculated signal. This filter maintains graphical output, error metrics and simulation logging.</p>
+        <p>Detailed description of all available filters is present in documentation.</p>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-7">
         <img class="img-responsible" src="{$baseUrl}/img/smartcgms/smartcgms_conf.png" width="100%">
@@ -62,40 +62,40 @@
         <img class="img-responsible" src="{$baseUrl}/img/smartcgms/smartcgms_mobile_watch.jpg" width="100%">
     </div>
     <div class="col-xs-12 col-sm-12 col-md-8">
-        <h3>{_pages.smartcgms.mobile.title}</h3>
+        <h3>Mobile application</h3>
         
-        <p>{_pages.smartcgms.mobile.text_1}</p>
-        <p>{_pages.smartcgms.mobile.text_2}</p>
-        <p>{_pages.smartcgms.mobile.text_3}</p>
+        <p>Thanks to the architecture design, our implementation could be ported to a low-power device without any change in the source code. Mobile phone is an example of such a device, which could be complemented with smart watch and insulin pump.</p>
+        <p>The mobile application is able to connect to a sensor implementing IEEE-11073 standard for glucose sensors, using low-energy Bluetooth. Hence, with a minimal configuration change we can instantly put the selected research configuration into the practice.</p>
+        <p>By complementing the mobile phone with smart watch, the patient's comfort increases. To determine glucose levels, user simply looks at the wrist. There is no need to install any additional application - data are displayed in the existing watch-face.</p>
     </div>
 </div>
 
 <div class="row">
     <div class="col-12">
-        <h3>{_pages.smartcgms.matlab.title}</h3>
+        <h3>Matlab</h3>
         
-        <p>{_pages.smartcgms.matlab.text_1}</p>
-        <p>{_pages.smartcgms.matlab.text_2}</p>
-        <p>{_pages.smartcgms.matlab.text_3|noescape}</p>
-        <p>{_pages.smartcgms.matlab.text_4}</p>
+        <p>The application is highly modular and supports integration with other tools. Along implementing custom filter, model, metric and solver algorithm with a compiled language (e.g. C++), a researcher can create custom model or solver algorithm with Matlab.</p>
+        <p>Matlab user can implement custom model of glucose dynamics or a solver algorithm. You can find an example of such scripts in the matlab subdirectory - simple linear regression and linear model. Let this example be your starting point in developing a custom model or solver algorithm.</p>
+        <p>The most important file in Matlab connection is a manifest - <i>matlab_manifest.xml</i>. This file contains XML-formatted structures, which defines Matlab scripts to be run for a given purpose. This file should be present in <i>filters</i> subdirectory of the compiled software. The developer can further specify input and output parameters, such as signals needed for the calculation.</p>
+        <p>By defining the session name and exporting the same name in already running instance of Matlab, the debugging routines becomes available.</p>
     </div>
 </div>
     
 <div class="row">
     <div class="col-12">
-        <h3>{_pages.smartcgms.installation.title}</h3>
+        <h3>Installation</h3>
         
-        <p>{_pages.smartcgms.installation.text_1|noescape}</p>
-        <p>{_pages.smartcgms.installation.text_2|noescape}</p>
-        <p>{_pages.smartcgms.installation.text_3|noescape}</p>
-        <p>{_pages.smartcgms.installation.text_4|noescape}</p>
+        <p>SmartCGMS source codes are available under appropriate licencing conditions in the binary distribution archive mentioned below.</p>
+        <p>The building environment should have the following prerequisities installed:<ul><li>compiler with C++17 (e.g.; gcc 7 or newer)</li><li>CMake</li><li>Qt 5 or 6</li></ul></p>
+        <p>To build SmartCGMS, a CMakeLists.txt file is included. The <i>core</i> directory is empty - source code of your custom filters belong here.</p>
+        <p>After a successful build, a <i>bin</i> subdirectory is created. It contains the following, important files and directories:<ul><li><i>gpredict3-desktop</i> - research application with graphical user interface</li><li><i>gpredict3-console</i> - console version of the research application</li><li><i>filters</i> - directory containing filter libraries</li></ul></p>
     </div>
 </div>
     
 <div class="row">
     <div class="col-12">
-        <h3>{_pages.smartcgms.download.title}</h3>
+        <h3>Download SmartCGMS</h3>
         
-        <p>{_pages.smartcgms.download.text_1, [link => $presenter->link('Downloads:')]|noescape}</p>
+        <p>The SmartCGMS software could be downloaded in the <a n:href="Downloads:">downloads</a> section, as well, as CGM profile database. More information and steps needed to obtain SmartCGMS and database could be found there.</p>
     </div>
 </div>

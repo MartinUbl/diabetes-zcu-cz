@@ -1,12 +1,12 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>{_mail.forgotten.subject}</title>
+    <title>diabetes.zcu.cz - zapomenuté heslo</title>
 </head>
 <body>
-    <p>{_mail.forgotten.intro}</p>
-    <p>{_mail.forgotten.text_1}</p>
-    <p>{_mail.forgotten.text_2, ['link' => $link]|noescape}</p>
-    <p>{_mail.forgotten.outro}</p>
+    <p>Dear user,</p>
+    <p>somebody requested a password recovery on a diabetes.zcu.cz portal of an account registered to this e-mail address. If it weren't you, who requested the recovery, do not click on the following link and ignore this message.</p>
+    <p>You can set a new password using the following link: <a href="{$link}">{$link}</a></p>
+    <p>Portal diabetes.zcu.cz</p>
 </body>    
 </html>

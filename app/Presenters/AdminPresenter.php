@@ -9,12 +9,6 @@ use Nette,
 
 final class AdminPresenter extends BaseAdminPresenter
 {
-    /** @var \App\Services\TwitterService */
-    private $twitterService;
-
-    /** @var \App\Services\FacebookService */
-    private $facebookService;
-    
     /** @var \App\Models\DownloadTokensModel */
     private $downloadTokens;
     
@@ -30,11 +24,9 @@ final class AdminPresenter extends BaseAdminPresenter
     /** @var \Nette\Database\Table\ActiveRow */
     private $existingNews = null;
 
-    public function __construct(\App\Services\TwitterService $twitterService, \App\Services\FacebookService $facebookService, \App\Models\DownloadTokensModel $downloadTokens, \App\Models\NewsModel $news, \App\Models\GlobalStatesModel $globalStates) {
+    public function __construct(\App\Models\DownloadTokensModel $downloadTokens, \App\Models\NewsModel $news, \App\Models\GlobalStatesModel $globalStates) {
         parent::__construct("admin");
         
-        $this->twitterService = $twitterService;
-        $this->facebookService = $facebookService;
         $this->downloadTokens = $downloadTokens;
         $this->news = $news;
         $this->globalStates = $globalStates;
@@ -131,9 +123,7 @@ final class AdminPresenter extends BaseAdminPresenter
             
             if (!$this->existingNews->social_media_posted && $vals->post_on_socials)
             {
-                $this->twitterService->tweet($vals->short_content);
-                // TODO: post on Facebook
-                //$this->facebookService->postToPage($vals->short_content);
+                // disabled for now
             }
             
             $this->flashMessage('News edited successfully', 'success');
@@ -151,9 +141,7 @@ final class AdminPresenter extends BaseAdminPresenter
             
             if ($vals->post_on_socials)
             {
-                $this->twitterService->tweet($vals->short_content);
-                // TODO: post on Facebook
-                //$this->facebookService->postToPage($vals->short_content);
+                 // disabled for now
             }
             
             $this->flashMessage('News added successfully', 'success');
@@ -190,10 +178,11 @@ final class AdminPresenter extends BaseAdminPresenter
     
     public function onGlobalStatesFormSuccess(Form $form)
     {
-        if ($this->stateEdited)
+        if ($this->stateEdited) {
             $this->globalStates->updateState($this->stateEdited, $form->values->value);
-        else
+        } else {
             $this->globalStates->updateState($form->values->key, $form->values->value);
+        }
         
         $this->flashMessage('Global state has been stored', 'success');
         $this->redirect("Admin:globalStates");

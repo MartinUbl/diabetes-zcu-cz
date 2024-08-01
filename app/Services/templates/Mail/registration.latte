@@ -1,12 +1,12 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>{_mail.registration.subject}</title>
+    <title>diabetes.zcu.cz - registration</title>
 </head>
 <body>
-    <p>{_mail.registration.intro}</p>
-    <p>{_mail.registration.text_1}</p>
-    <p>{_mail.registration.text_2, ['link' => $link]|noescape}</p>
-    <p>{_mail.registration.outro}</p>
+    <p>Dear user,</p>
+    <p>your account on our portal diabetes.zcu.cz was successfully created. Before you sign in, you need to activate it.</p>
+    <p>You can activate your account using the following link: <a href="{$link}">{$link}</a></p>
+    <p>Portal diabetes.zcu.cz</p>
 </body>    
 </html>

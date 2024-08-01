@@ -3,8 +3,8 @@
     <div class="row">
         <div class="col-12">
             <div class="p-5 text-white bg-dark">
-                <h3>{_pages.login.banner.title}</h3>
-                <p class="lead">{_pages.login.banner.text}</p>
+                <h3>Sign in</h3>
+                <p class="lead">Log in to access the full potential of this portal. If you don't already have an account, you can proceed with registration below.</p>
             </div>
         </div>
     </div>
@@ -18,7 +18,7 @@
         
         {if $user->isLoggedIn()}
             
-            <p>{_pages.login.note.alreadylogged, ['username'=>$user->getIdentity()->email,'logoutlink'=>$presenter->link('logout!')]|noescape}</p>
+            <p>"You are already loggen in as {$user->getIdentity()->email}. To sign in as another user, <a n:href="logout!">log out</a> first.</p>
             
         {else}
         
@@ -69,12 +69,12 @@
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-6 form-group">
                 <div class="d-grid gap-2">
-                    <a n:href="Login:forgotten" class="btn btn-secondary">{_pages.login.form.forgot_link}</a>
+                    <a n:href="Login:forgotten" class="btn btn-secondary">Forgotten password</a>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6 form-group">
                 <div class="d-grid gap-2">
-                    <a n:href="Login:registration" class="btn btn-secondary">{_pages.login.form.registration_link}</a>
+                    <a n:href="Login:registration" class="btn btn-secondary">Sign up</a>
                 </div>
             </div>
         </div>

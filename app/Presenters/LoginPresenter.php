@@ -32,10 +32,9 @@ final class LoginPresenter extends BasePresenter
     public function actionActivate($id)
     {
         $user = $this->users->getUserByActivationToken($id);
-        if (!$user)
+        if (!$user) {
             $this->redirect('Login:activationFail');
-        else
-        {
+        } else {
             $this->users->clearActivationTokenForUser($user->id);
             $this->redirect('Login:activationSuccess');
         }
@@ -50,13 +49,13 @@ final class LoginPresenter extends BasePresenter
     {
         $form = new Form();
         
-        $form->addEmail('email', $this->translator->trans('pages.login.form.name'))
-             ->setRequired($this->translator->trans('pages.login.form.name_required'));
+        $form->addEmail('email', 'E-mail')
+             ->setRequired("Please, enter you e-mail!");
         
-        $form->addPassword('password', $this->translator->trans('pages.login.form.password'))
-             ->setRequired($this->translator->trans('pages.login.form.password_required'));
+        $form->addPassword('password', "Password")
+             ->setRequired("Please, enter your password!");
         
-        $form->addSubmit('submit', $this->translator->trans('pages.login.form.submit'));
+        $form->addSubmit('submit', "Sign in");
         
         $form->addProtection();
         
@@ -73,10 +72,11 @@ final class LoginPresenter extends BasePresenter
             
             $this->redirect("Dashboard:");
         } catch (Nette\Security\AuthenticationException $ex) {
-            if ($ex->getCode() == Nette\Security\Authenticator::NOT_APPROVED)
+            if ($ex->getCode() == Nette\Security\Authenticator::NOT_APPROVED) {
                 $this->redirect("Login:activationNeeded");
-            else
-                $this->template->loginFormError = $this->translator->trans('pages.login.form.generic_credential_error');
+            } else {
+                $this->template->loginFormError = "Invalid username and/or password!";
+            }
         }
     }
     
@@ -87,12 +87,12 @@ final class LoginPresenter extends BasePresenter
         // force "POST", so the reCAPTCHA works well
         $form->setMethod(Form::POST);
         
-        $form->addEmail('email', $this->translator->trans('pages.forgotten.form.name'))
-             ->setRequired($this->translator->trans('pages.forgotten.form.name_required'));
+        $form->addEmail('email', "E-mail")
+             ->setRequired("Please, enter you e-mail!");
         
-        $form->addReCaptcha('recaptcha', '', $this->translator->trans('pages.registration.form.recaptcha_required'));
+        $form->addReCaptcha('recaptcha', '', "Please, prove that you're not a robot");
         
-        $form->addSubmit('submit', $this->translator->trans('pages.forgotten.form.submit'));
+        $form->addSubmit('submit', "Request");
         
         $form->addProtection();
         
@@ -115,14 +115,15 @@ final class LoginPresenter extends BasePresenter
         {
             $data = $this->users->createPasswordResetTokenForUser($usr->id);
             
-            $this->mailer->sendMail($vals->email, $this->translator->trans('mail.forgotten.subject'), 'forgotten', [
+            $this->mailer->sendMail($vals->email, "diabetes.zcu.cz - zapomenuté heslo", 'forgotten', [
                 'link' => $this->link("//Login:passwordReset", ['id' => $data['token']])
             ]);
         }
-        else
+        else {
             usleep(random_int(200, 400)); // emulate the delay, that would otherwise be caused by accessing the database and sending e-mail
+        }
         
-        $this->flashMessage($this->translator->trans('pages.forgotten.success'), 'success');
+        $this->flashMessage("If the e-mail you entered is in our database, we've just sent a password recovery link to it.", 'success');
         $this->redirect("Login:");
     }
     
@@ -133,27 +134,27 @@ final class LoginPresenter extends BasePresenter
         // force "POST", so the reCAPTCHA works well
         $form->setMethod(Form::POST);
         
-        $form->addText('first_name', $this->translator->trans('pages.registration.form.first_name'));
-        $form->addText('last_name', $this->translator->trans('pages.registration.form.last_name'));
+        $form->addText('first_name', "First name");
+        $form->addText('last_name', "Last name");
         
-        $form->addEmail('email', $this->translator->trans('pages.registration.form.name'))
-             ->addRule(\Nette\Application\UI\Form::EMAIL, $this->translator->trans('pages.registration.form.email_format'))
-             ->setRequired($this->translator->trans('pages.registration.form.name_required'));
+        $form->addEmail('email', "E-mail")
+             ->addRule(\Nette\Application\UI\Form::EMAIL, "Invalid e-mail format!")
+             ->setRequired("E-mail is required!");
         
-        $passField = $form->addPassword('password', $this->translator->trans('pages.registration.form.password'))
-             ->addRule(\Nette\Application\UI\Form::MIN_LENGTH, $this->translator->trans('pages.registration.form.pass_min_chars', ['amount' => 8]), 8)
-             ->setRequired($this->translator->trans('pages.registration.form.password_required'));
+        $passField = $form->addPassword('password', "Password")
+             ->addRule(\Nette\Application\UI\Form::MIN_LENGTH, "You password must be at least 8 characters long!", 8)
+             ->setRequired("Please, enter your password!");
         
-        $form->addPassword('password_again', $this->translator->trans('pages.registration.form.password_again'))
-             ->addRule(Form::EQUAL, $this->translator->trans('pages.registration.form.passwords_must_match'), $passField)
-             ->setRequired($this->translator->trans('pages.registration.form.password_again_required'));
+        $form->addPassword('password_again', "Password again")
+             ->addRule(Form::EQUAL, "Passwords must match!", $passField)
+             ->setRequired("Please, repeat your password!");
         
-        $form->addCheckbox('agree', $this->translator->trans('pages.registration.form.terms'))
-             ->setRequired($this->translator->trans('pages.registration.form.agree_required'));
+        $form->addCheckbox('agree', "I agree with personal data processing")
+             ->setRequired("You must agree");
         
-        $form->addReCaptcha('recaptcha', '', $this->translator->trans('pages.registration.form.recaptcha_required'));
+        $form->addReCaptcha('recaptcha', '', "Please, prove that you're not a robot");
 
-        $form->addSubmit('submit', $this->translator->trans('pages.registration.form.submit'));
+        $form->addSubmit('submit', "Sign up");
         
         $form->addProtection();
         
@@ -169,13 +170,13 @@ final class LoginPresenter extends BasePresenter
         $usr = $this->users->getUserByEmail($vals->email);
         if ($usr)
         {
-            $this->template->registerFormError = $this->translator->trans('pages.registration.form.err_already_exists');
+            $this->template->registerFormError = "This e-mail is already in use!";
             return;
         }
         
         $data = $this->users->registerUser($vals->email, $vals->password, empty($vals->first_name) ? null : $vals->first_name, empty($vals->last_name) ? null : $vals->last_name);
         
-        $this->mailer->sendMail($vals->email, $this->translator->trans('mail.registration.subject'), 'registration', [
+        $this->mailer->sendMail($vals->email, "diabetes.zcu.cz - registrace", 'registration', [
             'link' => $this->link("//Login:activate", ['id' => $data['activation_token']['token']])
         ]);
         
@@ -189,13 +190,13 @@ final class LoginPresenter extends BasePresenter
         // force "POST", so the reCAPTCHA works well
         $form->setMethod(Form::POST);
         
-        $form->addEmail('email', $this->translator->trans('pages.activation.needed.resend_email'))
-             ->addRule(\Nette\Application\UI\Form::EMAIL, $this->translator->trans('pages.registration.form.email_format'))
-             ->setRequired($this->translator->trans('pages.activation.needed.resend_name_required'));
+        $form->addEmail('email', "Your e-mail")
+             ->addRule(\Nette\Application\UI\Form::EMAIL, "Invalid e-mail")
+             ->setRequired("Please, enter your e-mail");
         
-        $form->addReCaptcha('recaptcha', '', $this->translator->trans('pages.registration.form.recaptcha_required'));
+        $form->addReCaptcha('recaptcha', '', "Please, prove that you're not a robot");
 
-        $form->addSubmit('submit', $this->translator->trans('pages.activation.needed.resend_button'));
+        $form->addSubmit('submit', "Resend link");
         
         $form->addProtection();
         
@@ -218,14 +219,15 @@ final class LoginPresenter extends BasePresenter
         {
             $data = $this->users->createActivationTokenForUser($usr->id);
             
-            $this->mailer->sendMail($vals->email, $this->translator->trans('mail.registration.subject'), 'registration', [
+            $this->mailer->sendMail($vals->email, "diabetes.zcu.cz - registrace", 'registration', [
                 'link' => $this->link("//Login:activate", ['id' => $data['token']])
             ]);
         }
-        else
+        else {
             usleep(random_int(200, 400)); // emulate the delay, that would otherwise be caused by accessing the database and sending e-mail
+        }
         
-        $this->flashMessage($this->translator->trans('pages.registration.resend_ok'), 'success');
+        $this->flashMessage("If the e-mail is in our database for an inactive account, an activation link has been sent.", 'success');
         $this->redirect("Login:activationNeeded");
     }
     
@@ -233,15 +235,15 @@ final class LoginPresenter extends BasePresenter
     {
         $form = new Form();
         
-        $passField = $form->addPassword('password', $this->translator->trans('pages.registration.form.password'))
-             ->addRule(\Nette\Application\UI\Form::MIN_LENGTH, $this->translator->trans('pages.registration.form.pass_min_chars', ['amount' => 8]), 8)
-             ->setRequired($this->translator->trans('pages.registration.form.password_required'));
+        $passField = $form->addPassword('password', "Password")
+             ->addRule(\Nette\Application\UI\Form::MIN_LENGTH, "You password must be at least 8 characters long!", 8)
+             ->setRequired("Please, enter your password!");
         
-        $form->addPassword('password_again', $this->translator->trans('pages.registration.form.password_again'))
-             ->addRule(Form::EQUAL, $this->translator->trans('pages.registration.form.passwords_must_match'), $passField)
-             ->setRequired($this->translator->trans('pages.registration.form.password_again_required'));
+        $form->addPassword('password_again', "Password again")
+             ->addRule(Form::EQUAL, "Passwords must match!", $passField)
+             ->setRequired("Please, repeat your password!");
 
-        $form->addSubmit('submit', $this->translator->trans('pages.passwordreset.form.submit'));
+        $form->addSubmit('submit', "Set a new password");
         
         $form->addProtection();
         
@@ -262,10 +264,11 @@ final class LoginPresenter extends BasePresenter
         {
             $this->users->setUserPassword($usr->id, $vals->password);
         }
-        else
+        else {
             usleep(random_int(200, 400)); // emulate the delay, that would otherwise be caused by accessing the database and sending e-mail
+        }
         
-        $this->flashMessage($this->translator->trans('pages.passwordreset.reset_ok'), 'success');
+        $this->flashMessage("If the link was valid, we've just set a new password to an account bound to it.", 'success');
         $this->redirect("Login:");
     }
     

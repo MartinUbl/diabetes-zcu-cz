@@ -3,8 +3,8 @@
     <div class="row">
         <div class="col-12">
             <div class="p-5 text-white bg-dark">
-                <h3>{_pages.patient.banner.title}</h3>
-                <p class="lead">{_pages.patient.banner.text}</p>
+                <h3>Patient</h3>
+                <p class="lead">This portal is available to any patient to monitor glucose levels in both blood and subcutaneous tissue. Below, you will learn all about the input data and how to use this portal to visualize them.</p>
             </div>
         </div>
     </div>
@@ -15,17 +15,17 @@
 
 <div class="row">
     <div class="col-12">
-        <h3>{_pages.patient.calc.title}</h3>
+        <h3>Measure your glucose level</h3>
         <img class="img-rounded" src="{$baseUrl}/img/graph.png" alt="graf" width="100%" />
         
-        <p>{_pages.patient.calc.text_1}</p>
-        <p>{_pages.patient.calc.text_2}</p>
-        <p>{_pages.patient.calc.text_3}</p>
-        <p>{_pages.patient.calc.text_4}</p>
-        <p>{_pages.patient.calc.text_5}</p>
-        <p>{_pages.patient.calc.text_6}</p>
-        <p>{_pages.patient.calc.text_7|noescape}</p>
-        <p>{_pages.patient.calc.text_8}</p>
+        <p>Body acquires nutrients by digesting a food. Many enzymes, hormones and other substances are involved. Fructose, glucose and galactose are final products of carbohydrate digestion, whereas glucose has circa 80% share of these. Once absorbed from the intestinal tract, liver rapidly converts fructose and galactose into glucose. Glucose is a primary fuel for the cells. However, most cells need insulin to convert glucose into an energy. Therefore, it is possible to say that insulin lowers blood glucose level. Contratry, glucagon raises blood glucose level by stimulating a breakdown of glycogen. Glycogen is a polymer store of glucose. Pancreas releases glucogon once it senses low blood glucose level.</p>
+        <p>There is an insulin deficit with type 1 and 2 diabetics. For this reason, glucose accumulates in various organs. This damages the organs. Especially, type-1 diabetic has to dose insulin regularly. Insuline dose must correspond with current blood glucose level. An over-dose could kill the patient shortly by lowering blood glucose level too much - hypoglycemic shock.</p>
+        <p>Among other effects, needed amount of glucose depends on diet and physical activity. Therefore, needed amount of insulin varies through the day and the insulin dose has to be adjusted. Otherwise, hyper- or hypoglycemic shock may ensue. These are acute complications (blood glucose level is either too high or too low), which may lead to death shortly.</p>
+        <p>Through the day, the diabetic patient must self-monitor blood glucose level. Patient draws a drop of blood. Then. a glucometer determines blood glucose level of this drop. Common patients draws 2-3 drops a day. Such a low frequency cannot capture all important events.</p>
+        <p>For a frequent monitoring of glucose level, there is a continuous glucose monitoring system (CGMS). By diabetologist's recommendation, diabetic patient wears CGMS about one week. CGMS records glucose level every five minutes. However, it measures glucose level of subcutaneous tissue, not blood glucose level. In the subcutaneous tissue, there is a CGMS sensor installed. The sensor transmitts data to a receiver that actually stores the data. It is possible to export these data from the reciever, to utilize them later. Respective software can store the data as a single file in a computer.</p>
+        <p>CGMS can be paired together with an insulin pump. In such case, the pump doses insulin based on measured glucose level of subcutaneous tissue. For an optimal function, it would be necessary to dose insulin based on blood glucose level. However, determining blood glucose level from CGMS data is not a trivial problem. As our model solves this problem, you can test it with this portal in the practice.</p>
+        <p>Our portal visualizes measured glucose level. Thanks to our model of glucose dynamics, it is also possible to visualize the calculated blood glucose level. If you have CGMS data, you can try it. Feel free to ask your physician or us.</p>
+        <p>Registered user can upload the data, browse and review them as needed once logged-in. If you do not wish to register, it is possible to upload the data anonymously. However, it is not possible to get back to these data once the web page is closed.</p>
     </div>
     <div class="col-12">
         <div class="space-2em"></div>
@@ -34,28 +34,28 @@
 
 <div class="row">
     <div class="col-md-6 col-sm-12 col-xs-12">
-        <h3>{_pages.patient.anonymous.title}</h3>
+        <h3>Anonymous upload</h3>
         
-        <p>{_pages.patient.anonymous.text_1}</p>
-        <p>{_pages.patient.anonymous.text_2}</p>
+        <p>If you want just to try the portal without registering, use the anonymous portal. Just upload the CGMS file and optionally a file with self-measured blood glucose levels - if you have one. You will see the plot automatically, once the calculation finishes.</p>
+        <p>The calculation has only an informative character. It does not substitute physician's treatment or diagnose. By uploading data to this web, you hereby agree with data collection and processing for research.</p>
     </div>
     <div class="col-md-6 col-sm-12 col-xs-12">
-        <p><i>{_pages.patient.anonymous.unavailable_text}</i></p>
+        <p><i>We are sorry, uploading is currently unavailable.</i></p>
     </div>
     <div class="col-12">
         <div class="space-2em"></div>
     </div>
 </div>
-    
+
 <div class="row">
     <div class="col-md-4 col-sm-6 col-xs-12">
         <img class="img-rounded" src="{$baseUrl}/img/measuring.jpg" alt="měřicí zařízení" width="100%">
     </div>
     <div class="col-md-8 col-sm-6 col-xs-12">
-        <h3>{_pages.patient.howto.title}</h3>
+        <h3>How to get measured data</h3>
         
-        <p>{_pages.patient.howto.text_1}</p>
-        <p>{_pages.patient.howto.text_2}</p>
+        <p>Please, refer to manual of your CGMS system on how to download and export data from the CGMS device to a computer. Alternatively, your physician could help with this. Especially, if you wear a borrowed CGMS device.</p>
+        <p>Most likely, the CGMS-exported file would be a spreadsheet or text file. You should be able to open it with any spreadsheet processor. The file should contain a lot of numbers and some date/time entries.</p>
     </div>
     <div class="col-12">
         <div class="space-2em"></div>
@@ -64,9 +64,9 @@
     
 <div class="row">
     <div class="col-md-6 col-sm-12 col-xs-12">
-        <h3>{_pages.patient.interpret.title}</h3>
+        <h3>Interpreting the plot</h3>
         
-        <p>{_pages.patient.interpret.text_1}</p>
+        <p>Once the uploaded data are processed and calculated, you will see a plot. This plot will look similar to that one in the figure at the right. What does the plot show? For example, you can see how your body respond to physicial activity and eaten food.</p>
     </div>
     <div class="col-md-6 col-sm-12 col-xs-12">
         <img class="img-rounded" src="{$baseUrl}/img/visu{if $localeName == 'en'}_en{/if}.png" alt="graf" width="100%">

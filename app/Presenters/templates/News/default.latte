@@ -3,8 +3,8 @@
     <div class="row">
         <div class="col-12">
             <div class="p-5 text-white bg-dark">
-                <h3>{_pages.news.banner.title}</h3>
-                <span class="lead short_text">{_pages.news.banner.text}</span>
+                <h3>News archive</h3>
+                <span class="lead short_text">Here you can view all previously posted news articles.</span>
             </div>
         </div>
     </div>
@@ -22,7 +22,7 @@
 
 <div class="row">
     <div class="col-12">
-        <p class="lead">{_pages.news.newscount, ['newscount' => $news->count()]}</p>
+        <p class="lead">There are currently {$news->count()} news in the archive.</p>
     </div>
 </div>
 

@@ -3,8 +3,8 @@
     <div class="row">
         <div class="col-12">
             <div class="p-5 text-white bg-dark">
-                <h3>{_pages.icarus.banner.title}</h3>
-                <p class="lead">{_pages.icarus.banner.text}</p>
+                <h3>Icarus has diabetes</h3>
+                <p class="lead">An application, which transforms virtual patient model and glycemic control into a game.</p>
             </div>
         </div>
     </div>
@@ -15,11 +15,11 @@
 
 <div class="row">
     <div class="col-12">
-        <h3>{_pages.icarus.about.title}</h3>
+        <h3>Icarus</h3>
         
-        <p>{_pages.icarus.about.text_1}</p>
-        <p>{_pages.icarus.about.text_2}</p>
-        <p>{_pages.icarus.about.text_3}</p>
+        <p>Icarus is a character from the Greek mythology. Apart from other deeds, he is famous for his escape from Crete, where he was imprisonem together with is father Daidalos. Using wings made from bird feathers and wax, they were supposed to travel over the sea from Crete to Athenes. However, they couldn't fly too high, because the Sun's heat would melt the wax. They couldn't fly too low either, for the feathers would absorb sea water and become heavy. In original stories, Íkaros followed his father's advices. Nevertheless, he enjoyed the flying too much, so he's eventually forgotten about the boundaries and he flew too high. The Sun melted his wings, they fell apart and Íkaros drowned in the sea.</p>
+        <p>Let us imagine for a moment, that the Icarus' flight level represents current glycemia level of a virtual patient. Then, we can deduce the analogy of Daidalos' advices about flight level. Icarus shouldn't fly too high, otherwise Sun would melt his wings, and the same applies to the patient - the glycemia shouldn't be too high due to potential organ damage. Also, Icarus shouldn't fly too close to the sea level, so his wings would absorb the water and become heavy - the glycemia of the virtual patient shouldn't be too low due to risks associated with hypoglyceamia. But what affects the flight level of Icarus? Primarily, it's the carbohydrates intake, which usually increases glycemia, but also the production or intake of insulin, which effectively lowers glycaemia. To comply with the analogy, let us invert the coordinate system. If the lower glycaemia corresponds with higher flight level, the effect of basal insulin could be transformed into this analogy as the frequency of wing flapping. So, the higher the frequency is, the higher the flight level is, and the lower the glycaemia of our virtual patient is. Bolus insulin could be then transformed into single, strong wing flap, and therefore fast and one-shot increase in flight level. On the other hand, carbohydrate intake increases the glycaemia. Therefore, we need to lower Icarus flight level closer to the sea level,in our inverted cooordinated system. In higher levels above the sea, there are often very string winds. We use this in our analogy as transformed carbohydrates intake, which effectively lowers the flight level (increases glyceamia of the patient).</p>
+        <p>We successfully defined a part of a game system. The only thing that remains to be defined is a reasonable environment generator and means of evaluation of player's game performance (score). Environment generator is a model, which decides, what happens at what point of a game. It generates problems, which the player is supposed to resolve using appropriate game controls. In our case, the generator controls the time and intensity of atmospheric winds and also the transformation of game environment, so the player needs to pay close attention and adapt the gaming style. The analogy of player score also comes from real-world scenarios - the efficiency of glycemic control is often evaluated as a ratio of measured levels inside certain range, and levels outside that range (also called the "time in range" ratio). The game, however, needs more precise evaluation. Therefore, we count the player score as an inverse difference from target glycaemia.</p>
     </div>
 </div>
 
@@ -28,18 +28,18 @@
         <img class="img-responsible" src="{$baseUrl}/img/icarus/TitleScreen.png" width="100%">
     </div>
     <div class="col-xs-12 col-sm-12 col-md-5">
-        <h3>{_pages.icarus.menu.title}</h3>
+        <h3>Main menu</h3>
         
-        <p>{_pages.icarus.menu.text_1}</p>
+        <p>The main menu offers a number of choices. The first button starts the game. The second button starts a demo-version of game with shorted time period. Results of demo-version will not be included in highscore table. You can also choose to display a brief information about game controls and also to display the highscore table.</p>
     </div>
 </div>
 
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-5">
-        <h3>{_pages.icarus.settings.title}</h3>
+        <h3>Game settings</h3>
         
-        <p>{_pages.icarus.settings.text_1}</p>
-        <p>{_pages.icarus.settings.text_2}</p>
+        <p>Before actual game, you are asked to fill a few fields. Choose your nickname, which would then be displayed in highscore table, your qualification and optionally also the type of diabetes.</p>
+        <p>Then choose the game difficulty. Different difficulty levels causes the target flight level curve to be more or less curved. Your resulting score would then be stored into a highscore table of chosen difficulty.</p>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-7">
         <img class="img-responsible" src="{$baseUrl}/img/icarus/Profile.png" width="100%">
@@ -51,20 +51,20 @@
         <img class="img-responsible" src="{$baseUrl}/img/icarus/Game3.png" width="100%">
     </div>
     <div class="col-xs-12 col-sm-12 col-md-5">
-        <h3>{_pages.icarus.game.title}</h3>
+        <h3>The game</h3>
         
-        <p>{_pages.icarus.game.text_1}</p>
-        <p>{_pages.icarus.game.text_2}</p>
-        <p>{_pages.icarus.game.text_3}</p>
-        <p>{_pages.icarus.game.text_4}</p>
+        <p>You are now playing the game. Icarus needs to stick as close to the target flight level, as possible. The target flight level is depicted by a black curve. The closer the Icarus is, the higher score you get. Your current score and remaining time is depicted in the right upper corner of the screen.</p>
+        <p>The wing flap frequency control resides in right lower corner of the screen. The higher this value is, the faster the flapping will be, and the higher he would fly. The same applies for lower flapping frequencies. The player should be aware of the coordinate system inversion - higher flight levels represent lower glycemia levels (towards hypoglycemia) and vice versa.</p>
+        <p>In the left lower corner of the screen, two rows of buttons are present. The first row represents bolus insulin dosage controls, which could lower the glycaemia and therefore increase the flight level of Icarus. The second row represents additional carbohydrate intake, which increases the glycaemia and therefore lowers the flight level of Icarus.</p>
+        <p>The game also generates the carbohydrate intake as an analogy of regular meals. In this game, these meals are depicted as a strong wind, which is blowing from above, so the flight level could rapidly decrease when encountered.</p>
     </div>
 </div>
 
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-5">
-        <h3>{_pages.icarus.gameover.title}</h3>
+        <h3>Finished game</h3>
         
-        <p>{_pages.icarus.gameover.text_1}</p>
+        <p>After the game is over, you will be redirected to a screen very similar to the one you see in this picture. You can see your resulting score and your rank in the highscore table. You can also choose to display this table.</p>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-7">
         <img class="img-responsible" src="{$baseUrl}/img/icarus/GameOverScene.png" width="100%">
@@ -76,17 +76,17 @@
         <img class="img-responsible" src="{$baseUrl}/img/icarus/Highscores.png" width="100%">
     </div>
     <div class="col-xs-12 col-sm-12 col-md-5">
-        <h3>{_pages.icarus.scoreboard.title}</h3>
+        <h3>Highscore table</h3>
         
-        <p>{_pages.icarus.scoreboard.text_1}</p>
+        <p>The game stores every game outcome into a highscore table. You can see the top 10 game outcomes of each difficulty here.</p>
     </div>
 </div>
 
 <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-5">
-        <h3>{_pages.icarus.controls.title}</h3>
+        <h3>Controls</h3>
         
-        <p>{_pages.icarus.controls.text_1}</p>
+        <p>You can control the game using your PC mouse, but also your keyboard. Bolus insulin could be dosed using the Q, W, E, R and T keys, carbohydrates could be dosed using the A, S, D, F and G keys. The basal insulin rate could be also controlled using your cursor keys.</p>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-7">
         <img class="img-responsible" src="{$baseUrl}/img/icarus/Controls.png" width="100%">
@@ -95,8 +95,8 @@
     
 <div class="row">
     <div class="col-12">
-        <h3>{_pages.icarus.download.title}</h3>
+        <h3>Download</h3>
         
-        <p>{_pages.icarus.download.text_1, [link => $presenter->link('Downloads:')]|noescape}</p>
+        <p>The Icarus has diabetes game is available for download in <a n:href="Downloads:">downloads</a> section.</p>
     </div>
 </div>

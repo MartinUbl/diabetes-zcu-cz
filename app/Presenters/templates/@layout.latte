@@ -26,15 +26,10 @@
     <div class="title-navbar">
         <div class="container">
             <div class="row">
-                <div class="col col-11">
+                <div class="col col-12">
                     <a class="brand-wrap" href="{$baseUrl}">
-                        {_general.header.title}
+                        diabetes.zcu.cz
                     </a>
-                </div>
-                <div class="col col-1">
-{*                    <a n:href="changeLang! lang => 'cs'"><img src="{$baseUrl}/img/lang/cs.png" alt="CS" title="Czech / Čeština" /></a>
-                    <a n:href="changeLang! lang => 'en'"><img src="{$baseUrl}/img/lang/en.png" alt="EN" title="English" /></a>
-*}
                 </div>
             </div>
         </div>
@@ -43,7 +38,6 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark main-navbar">
         
         <div class="container">
-        
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -51,53 +45,40 @@
             <div class="collapse navbar-collapse" id="navbarMain">
                 <ul class="navbar-nav me-auto my-2 my-lg-0">
                     <li class="nav-item{if $presenterName == "homepage"} active{/if}">
-                        <a class="nav-link" n:href="Homepage:">{_general.menu.home|noescape}</a>
+                        <a class="nav-link" n:href="Homepage:">Home</a>
                     </li>
                     <li class="nav-item{if $presenterName == "diabetes"} active{/if}">
-                        <a class="nav-link" n:href="Diabetes:">{_general.menu.diabetes|noescape}</a>
+                        <a class="nav-link" n:href="Diabetes:">Diabetes</a>
                     </li>
                     <li class="nav-item dropdown{if $presenterName == "smartcgms" || $presenterName == "docs"} active{/if}">
                         <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdownScgms" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {_general.menu.smartcgms|noescape}
+                            SmartCGMS
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownScgms">
-                          <a class="dropdown-item" n:href="Smartcgms:">{_general.menu.smartcgms_main|noescape}</a>
-                          <a class="dropdown-item" n:href="Docs:">{_general.menu.smartcgms_docs|noescape}</a>
+                          <a class="dropdown-item" n:href="Smartcgms:">About&nbsp;SmartCGMS</a>
+                          <a class="dropdown-item" n:href="Docs:">Documentation</a>
                         </div>
                     </li>
                     <li class="nav-item{if $presenterName == "icarus"} active{/if}">
-                        <a class="nav-link" n:href="Icarus:">{_general.menu.icarus}</a>
+                        <a class="nav-link" n:href="Icarus:">Icarus</a>
                     </li>
                     <li class="nav-item{if $presenterName == "downloads"} active{/if}">
-                        <a class="nav-link" n:href="Downloads:">{_general.menu.downloads|noescape}</a>
+                        <a class="nav-link" n:href="Downloads:">Downloads</a>
                     </li>
                     <li class="nav-item dropdown{if $presenterName == "about"} active{/if}">
                         <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {_general.menu.about|noescape}
+                            Team
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-{*                          <a class="dropdown-item" n:href="About:">{_general.menu.about_goal}</a>
-*}
-                          <a class="dropdown-item" href="{$presenter->link('About:')}#team">{_general.menu.about_team}</a>
-                          <a class="dropdown-item" href="{$presenter->link('About:')}#publications">{_general.menu.about_papers}</a>
+                          <a class="dropdown-item" href="{$presenter->link('About:')}#team">Team</a>
+                          <a class="dropdown-item" href="{$presenter->link('About:')}#publications">Publications</a>
                         </div>
                     </li>
-{*
-                     <li class="nav-item{if $presenterName == "patient"} active{/if}">
-                        <a class="nav-link" n:href="Patient:">{_general.menu.patient}</a>
-                    </li>
-*}
                     <li class="nav-item{if $presenterName == "profi"} active{/if}">
-                        <a class="nav-link" n:href="Profi:">{_general.menu.profi|noescape}</a>
+                        <a class="nav-link" n:href="Profi:">Get involved</a>
                     </li>
-
-{*
-                    <li class="nav-item{if $presenterName == "media"} active{/if}">
-                        <a class="nav-link" n:href="Media:">{_general.menu.media|noescape}</a>
-                    </li>
-*}
                     <li class="nav-item{if $presenterName == "contact"} active{/if}">
-                        <a class="nav-link" n:href="Contact:">{_general.menu.contact|noescape}</a>
+                        <a class="nav-link" n:href="Contact:">Contact</a>
                     </li>
                 </ul>
                 <span class="navbar-text">
@@ -105,19 +86,19 @@
                     {if $user->isLoggedIn()}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="javascript:void(0);" id="navbarUser" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                {_general.menu.user|noescape}
+                                User
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarUser">
-                              <a class="dropdown-item" n:href="Dashboard:">{_general.menu.usersection|noescape}</a>
+                              <a class="dropdown-item" n:href="Dashboard:">User dashboard</a>
                               {if in_array('admin',$user->getRoles())}
-                                  <a class="dropdown-item" n:href="Admin:">{_general.menu.adminsection|noescape}</a>
+                                  <a class="dropdown-item" n:href="Admin:">Administration</a>
                               {/if}
-                              <a class="dropdown-item" n:href="Logout!">{_general.menu.logout|noescape}</a>
+                              <a class="dropdown-item" n:href="Logout!">Logout</a>
                             </div>
                         </li>
                     {else}
                         <li class="nav-item">
-                            <a class="nav-link" n:href="Login:">{_general.menu.login|noescape}</a>
+                            <a class="nav-link" n:href="Login:">Sign&nbsp;in</a>
                         </li>
                     {/if}
                     </ul>
@@ -125,7 +106,7 @@
             </div>
         </div>
     </nav>
-                                
+               
     {block beforeContent}{/block}
     
     <div class="container container-main">
@@ -136,7 +117,7 @@
     
     <footer>
         <div class="container">
-            <i class="bi bi-c-circle"></i> since 2015 · <a href="http://mi.kiv.zcu.cz/">{_general.footer.medicalinf}</a> · <a href="http://kiv.zcu.cz/">{_general.footer.kiv}</a> · <a href="http://fav.zcu.cz/">{_general.footer.fav}</a> · <a href="http://zcu.cz/">{_general.footer.zcu}</a>
+            <i class="bi bi-c-circle"></i> since 2015 · <a href="http://mi.kiv.zcu.cz/">medical informatics</a> · <a href="http://kiv.zcu.cz/">dcse</a> · <a href="http://fav.zcu.cz/">fav</a> · <a href="http://zcu.cz/">uwb</a>
             <a class="footer-icon-link" href="https://twitter.com/SmartCGMS" title="We are on Twitter"><i class="bi bi-twitter"></i></a>
             <a class="footer-icon-link" href="https://www.facebook.com/Smart-CGMS-102965339194309" title="We are on Facebook"><i class="bi bi-facebook"></i></a>
         </div>
@@ -146,9 +127,9 @@
     
     <script>
 window.cookieconsent_options = {
-    "message": {_general.cookie.message},
-    "dismiss": {_general.cookie.confirm},
-    "learnMore": {_general.cookie.learnmore},
+    "message": "This site uses cookies",
+    "dismiss": "Got it!",
+    "learnMore": "More info",
     "link": null,
     "theme": "dark-bottom"
 };
