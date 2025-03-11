@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SmartCGMS Online simulator</title>
+
+    <script type="text/javascript" src="websim/wasm_scgms.js"></script>
+    <script type="text/javascript" src="js/dep/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" src="js/dep/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="js/dep/uPlot.iife.min.js"></script>
+
+    <script type="text/javascript" src="js/signals.js"></script>
+    <script type="text/javascript" src="js/init.js"></script>
+    <script type="text/javascript" src="js/controls.js"></script>
+
+    <link rel="stylesheet" href="css/dep/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/dep/uPlot.min.css" />
+    <link rel="stylesheet" href="css/main.css" />
+
+    <link rel="icon" type="image/x-icon" href="favicon.png">
+
+    <script src="https://kit.fontawesome.com/8321f6fdd4.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+
+        <!-- PHASE 1 - patient selection -->
+
+        <div class="row" id="phase_1">
+            <div class="col-12 text-center p-0">
+                <h1 class="latter"><div class="iconlogo"></div>SmartCGMS Online Simulator</h1>
+
+                <div class="container-wrapper tpad">
+                    <div class="container">
+                        <div class="alert alert-custom" role="alert">
+                            This is a web-based patient simulator that uses the SmartCGMS framework and Siraela simulator.
+                            <br />
+                            Please, select a patient from the list below to start the simulation.
+                        </div>
+                    </div>
+
+                    <div class="init-centered" id="initial-loader">
+                        <span class="loader"></span>&nbsp; Initializing environment...
+                    </div>
+
+                    <div class="container" id="disclaimer-parent" style="display: none;">
+                        <div class="alert alert-custom-warn" role="alert">
+                            <span id="disclaimer"></span>
+                        </div>
+                    </div>
+
+                    <div class="container" id="patient-list-parent" style="display: none;">
+                        <div class="row" id="patient_list">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PHASE 2 - simulation -->
+
+        <div class="row" id="phase_2" style="display: none;">
+            <div class="col-12 text-center p-0">
+                <h1 class="latter"><div class="iconlogo"></div>SmartCGMS Online Simulator</h1>
+
+                <div class="container-wrapper">
+                    <div class="centered-container p-0">
+                        <div class="row w-100 h-100 p-0">
+                            <div class="col-3 p-0 pt-2 pe-4">
+                                <h3>State</h3>
+
+                                <table class="w-100">
+                                    <tr>
+                                        <td class="t-title w-50">Current time</td>
+                                        <td class="state_value w-50" id="state_current_time">N/A</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="t-title w-50"><div class="color-example color-ig"></div>Current IG</td>
+                                        <td class="state_value w-50"><span id="state_current_ig">N/A</span>&nbsp;<span class="state_units">mmol/L</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="t-title w-50"><div class="color-example color-cho"></div>Last meal CHO</td>
+                                        <td class="state_value w-50"><span id="state_lastmeal_cho">N/A</span>&nbsp;<span class="state_units">g</span></td>
+                                    </tr>
+                                    <tr id="row-meal-proteins">
+                                        <td class="t-title w-50"><div class="color-example color-proteins"></div>Proteins</td>
+                                        <td class="state_value w-50"><span id="state_lastmeal_proteins">N/A</span>&nbsp;<span class="state_units">g</span></td>
+                                    </tr>
+                                    <tr id="row-meal-fats">
+                                        <td class="t-title w-50"><div class="color-example color-fats"></div>Fats</td>
+                                        <td class="state_value w-50"><span id="state_lastmeal_fats">N/A</span>&nbsp;<span class="state_units">g</span></td>
+                                    </tr>
+                                    <tr id="row-heartrate">
+                                        <td class="t-title w-50"><div class="color-example color-hr"></div>Last heartrate</td>
+                                        <td class="state_value w-50"><span id="state_lastheartrate">N/A</span>&nbsp;<span class="state_units">bpm</span></td>
+                                    </tr>
+                                    <tr id="row-insulin-bolus">
+                                        <td class="t-title w-50"><div class="color-example color-bolus"></div>Last insulin bolus</td>
+                                        <td class="state_value w-50"><span id="state_lastbolus">N/A</span>&nbsp;<span class="state_units">U</span></td>
+                                    </tr>
+                                    <tr id="row-insulin-basal">
+                                        <td class="t-title w-50"><div class="color-example color-basal"></div>Current basal rate</td>
+                                        <td class="state_value w-50"><span id="state_lastbasal">N/A</span>&nbsp;<span class="state_units">U/hr</span></td>
+                                    </tr>
+                                </table>
+
+                                <h3>Controls</h3>
+
+                                <div class="btn-group d-flex" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn btn-primary w-100 sc-button" onclick="stepForTime(60);"><i class="fa-regular fa-clock"></i>&nbsp;1 minute</button>
+                                    <button type="button" class="btn btn-primary w-100 sc-button" onclick="stepForTime(60*60);"><i class="fa-regular fa-clock"></i>&nbsp;1 hour</button>
+                                    <button type="button" class="btn btn-primary w-100 sc-button" onclick="stepUntil('meal');"><i class="fa-solid fa-utensils"></i>&nbsp;until meal</button>
+                                </div>
+                                
+                                <div class="row mt-1">
+                                    <div class="col-12">
+                                        Upcoming meal content
+                                    </div>
+                                    <div class="col-4 pe-1 posrel">
+                                        <label for="meal-cho" class="above"><div class="color-example color-cho"></div>CHO <div class="units-input">[g]</div></label>
+                                        <input type="text" id="meal-cho" class="form-control w-100 below meal-input" placeholder="" aria-label="Carbohydrates">
+                                    </div>
+                                    <div class="col-4 ps-1 pe-1 posrel">
+                                        <label for="time-step" class="above"><div class="color-example color-proteins"></div>Proteins <div class="units-input">[g]</div></label>
+                                        <input type="text" id="meal-proteins" class="form-control w-100 below meal-input" placeholder="" aria-label="Proteins">
+                                    </div>
+                                    <div class="col-4 ps-1 posrel">
+                                        <label for="time-step" class="above"><div class="color-example color-fats"></div>Fats <div class="units-input">[g]</div></label>
+                                        <input type="text" id="meal-fats" class="form-control w-100 below meal-input" placeholder="" aria-label="Fats">
+                                    </div>
+                                    <div class="col-12 mt-1">
+                                        <button type="button" class="btn btn-primary w-100" id="meal-save" onclick="saveMeal();" disabled><i class="fa-solid fa-utensils"></i>&nbsp;Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-9 h-100 p-0">
+                                <div class="plot-container p-0 m-0" id="plot">
+                                    <div class="initializing" id="simulation-init">
+                                        <span class="loader"></span>&nbsp; Initializing simulation...
+                                    </div>
+                                    <div id="simloader" class="hidden">
+                                        <div class="simloader"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="row">
+            <div class="col-12 text-center">
+                Copyright &copy; 2025 SmartCGMS development team, <a href="https://diabetes.zcu.cz" title="SmartCGMS" target="_blank">diabetes.zcu.cz</a>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>

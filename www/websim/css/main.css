@@ -1,0 +1,285 @@
+.btn-patient {
+    font-size: 1.5em;
+}
+
+body {
+    background-color: #9cc2fb;
+}
+
+footer {
+    background-color: #1e7de9;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    font-size: 0.7em;
+    color: white;
+}
+
+footer a {
+    color: #cee2ff;
+}
+
+.container-wrapper {
+    width: 100%;
+    background-color: #e3eefd;
+    /*background-color: #cee2ff;*/
+}
+
+h1.latter {
+    font-size: 1.2em;
+    background-color: #1e7de9;
+    margin: 0;
+    vertical-align: middle;
+    line-height: 1;
+    padding: 0.8em;
+}
+
+.iconlogo {
+    width: 32px;
+    height: 32px;
+    margin-right: 0.5em;
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: -0.35em;
+
+    background: url('../favicon.png') no-repeat;
+    background-size: cover;
+}
+
+.centered-container {
+    width: 80vw;
+    aspect-ratio: 16 / 7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+
+    background: #e3eefd;
+    /*border-radius: 16px;*/
+
+    padding: 0.5em;
+}
+
+.plot-container {
+    width: 100%;
+    height: 100%;
+    background-color: #FFFFFF;
+
+    /*border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;*/
+
+    position: relative;
+}
+
+.loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid #FFF;
+    border-bottom-color: #1e7de9;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.initializing {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.simloader {
+    width: 48px;
+    height: 48px;
+    display: inline-block;
+    position: relative;
+    background-color: #FFF;
+    background: radial-gradient(ellipse at center, #1e7de9 0%, #1e7de9 14%, #FFF 15%, #FFF 100%);
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+}
+
+.simloader::after,
+.simloader::before {
+    content: '';  
+    position: absolute;
+    height: 16px;
+    width: 4px;
+    background: #1e7de9;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) rotate(0deg);
+    transform-origin: 25% 0;
+    box-sizing: border-box;
+    animation: srotation 10s linear infinite;
+}
+
+.simloader::before {
+    height: 22px;
+    width: 2px;
+    transform: translateX(-50%) rotate(0deg);
+    animation-duration: 1s;
+} 
+
+@keyframes srotation {
+    0%    { transform: rotate(0deg)}
+    100%  { transform: rotate(360deg)}
+}
+
+.t-title {
+    font-size: 0.8em;
+    font-weight: bold;
+    text-align: right;
+    padding-right: 0.5em;
+}
+
+.state_value {
+    text-align: left;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+
+.state_units {
+    font-size: 0.8em;
+}
+
+#simloader {
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    padding: 1em;
+
+    background: radial-gradient(circle at center, #1e7de9 0%, #1e7de9 25%, #FFFFFF00 65%, #FFFFFF00 100%);
+    z-index: 1000;
+
+    box-sizing: content-box;
+    width: 48px;
+    height: 48px;
+    opacity: 1;
+
+    transition: opacity 0.5s;
+}
+
+.hidden {
+    opacity: 0 !important;
+}
+
+.alert-custom {
+    border: 1px solid #1e7de9;
+    background-color: #e3eefd;
+
+    border-radius: 12px;
+    border-top-left-radius: 0;
+    margin-top: 1em;
+}
+
+.alert-custom-warn {
+    border: 1px solid #f0ad4e;
+    background-color: #fcf8e3;
+
+    border-radius: 12px;
+    border-top-left-radius: 0;
+    margin-top: 1em;
+}
+
+.init-centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4em;
+}
+
+.btn {
+    border-radius: 0;
+}
+
+.btn-primary {
+    background-color: #1e7de9;
+}
+
+.tpad {
+    padding-top: 0.8em;
+}
+
+#patient_list {
+    padding-top: 2em;
+    padding-bottom: 4em;
+}
+
+input.form-control {
+    border-radius: 0 !important;
+}
+
+.posrel {
+    position: relative;
+}
+
+.units-input {
+    display: inline-block;
+    color: #9ca4aa;
+    font-size: 0.8em;
+}
+
+label.above {
+    display: block;
+    border: 1px solid #82bcff;
+    border-bottom: none;
+    background-color: #e3eefd;
+}
+
+input.below {
+    border: 1px solid #82bcff;
+    border-top: none;
+    background-color: #f5f7f9;
+}
+
+.input-error {
+    background-color: #ffb5b5 !important;
+}
+
+.color-example {
+    display: inline-block;
+    width: 0.6em;
+    height: 0.6em;
+    margin-bottom: 0.05em;
+    margin-right: 0.2em;
+    border-radius: 0.3em;
+}
+
+.color-example.color-cho {
+    background-color: rgba(0,127,0,0.8);
+}
+
+.color-example.color-proteins {
+    background-color: rgba(192,192,0.8);
+}
+
+.color-example.color-fats {
+    background-color: rgba(0,0,127,0.8);
+}
+
+.color-example.color-ig {
+    background-color: rgba(0,0,255,1.0);
+}
+
+.color-example.color-hr {
+    background-color: rgba(255,0,0,0.6);
+}
+
+.color-example.color-bolus {
+    background-color: rgba(127,0,192,0.8);
+}
+
+.color-example.color-basal {
+    background-color: rgba(0,127,127,0.8);
+}
